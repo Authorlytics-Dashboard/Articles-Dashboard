@@ -71,15 +71,21 @@ h1 {
     display: inline-block;
     padding: 1.25em 1.25em 1.25em calc(2.5em + 1.5em);
     position: relative;
+    transition: all 0.3s ease-in-out;
 }
 
 .cta:before {
     content: "";
     position: absolute;
-    background: url("https://i.postimg.cc/JzKwwG16/arrow.png") no-repeat;
+    background: url("../Images/arrow.png") no-repeat;
     width: 1.5em;
     height: 1.5em;
     left: 1.25em;
+}
+
+.cta:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 nav {

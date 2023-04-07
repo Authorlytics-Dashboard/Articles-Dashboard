@@ -10,7 +10,7 @@ body {
     font-family: 'Poppins';
 }
 
-.container {
+.container-fluid {
     height: 100vh;
 }
 
@@ -26,7 +26,7 @@ section {
 
 
 .logo {
-    color: var(--primary-color);
+    /* color: var(--primary-color); */
     font-weight: 800;
     text-transform: uppercase;
     font-size: 1.5rem;
@@ -48,7 +48,7 @@ h1 {
     font-size: clamp(2.5rem, -0.875rem + 8.333vw, 4rem);
     font-weight: 800;
     text-transform: uppercase;
-    color: white;
+    /* color: white; */
     line-height: 89%;
 }
 
@@ -62,7 +62,7 @@ h1 {
     font-size: clamp(2rem, -0.875rem + 8.333vw, 3rem);
     font-weight: 300;
     line-height: 111%;
-    color: #847D93;
+    /* color: #847D93; */
     margin-top: 1.1em;
 }
 
@@ -121,7 +121,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background: #413E47;
+    /* background: #413E47; */
 }
 
 .back-btn {
@@ -135,10 +135,10 @@ nav ul li a:hover {
 }
 
 .active  {
-    background: var(--primary-color);
+    /* background: var(--primary-color); */
 }
 .active:hover  {
-    background: #4497FF;
+    /* background: #4497FF; */
 }
 
 
@@ -176,7 +176,7 @@ nav ul li a:hover {
         padding: 1.6em;
     }
 
-    .container {
+    .container-fluid {
         display: flex;
     }
 

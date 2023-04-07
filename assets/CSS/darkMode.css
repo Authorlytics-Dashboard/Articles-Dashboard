@@ -1,3 +1,44 @@
+@import "/assets/CSS/root.css";
+
+.dark-mode{
+    color: white;
+}
+
 .dark-mode section {
     background: #221F26 url("https://i.postimg.cc/L4WJz8L1/background.jpg");
+}
+
+.dark-mode .logo{
+    color: var(--dark-primary-color);
+}
+
+.dark-mode .content p{
+    color: var(--darkText-Color);
+}
+
+.cta{
+    color: white;
+    border: 1px solid #4D4D4D;
+}
+
+.dark-mode .cta:hover,
+.dark-mode .active {
+    background: var(--dark-primary-color);
+}
+
+.dark-mode nav{
+    background: #2C2931;
+}
+
+.dark-mode .cta{
+    color: white;
+    border: 1px solid #4d4d4d;
+}
+
+.dark-mode nav ul li a{
+    color: white;
+}
+
+.dark-mode nav ul li a:hover {
+    background: #413e47;
 }

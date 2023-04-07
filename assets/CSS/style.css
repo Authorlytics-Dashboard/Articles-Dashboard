@@ -77,7 +77,7 @@ h1 {
 .cta:before {
     content: "";
     position: absolute;
-    background: url("https://i.postimg.cc/JzKwwG16/arrow.png") no-repeat;
+    background: url("../Images/arrow.png") no-repeat;
     width: 1.5em;
     height: 1.5em;
     left: 1.25em;

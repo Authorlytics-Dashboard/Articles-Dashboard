@@ -15,7 +15,6 @@
 </head>
 <body>
     <div class="container-fluid m-0 p-0">
-        
         <div class="left-col" >
             <nav style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
                 <img src="https://i.postimg.cc/JzKwwG16/arrow.png" class="back-btn">

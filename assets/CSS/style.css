@@ -26,7 +26,6 @@ section {
 }
 
 .logo {
-    /* color: var(--primary-color); */
     font-weight: 800;
     text-transform: uppercase;
     font-size: 1.5rem;
@@ -61,18 +60,15 @@ h1 {
     font-size: clamp(2rem, -0.875rem + 8.333vw, 3rem);
     font-weight: 300;
     line-height: 111%;
-    /* color: #847d93; */
     margin-top: 1.1em;
 }
 
 .cta {
-    /* color: white; */
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 2.875em;
     display: inline-block;
-    /* border: 1px solid #4d4d4d; */
     padding: 1.25em 1.25em 1.25em calc(2.5em + 1.5em);
     position: relative;
 }
@@ -86,14 +82,9 @@ h1 {
     left: 1.25em;
 }
 
-/* .cta:hover {
-    background: var(--primary-color);
-} */
-
 nav {
     position: fixed;
     z-index: 1;
-    /* background: #2c2931; */
     left: 0;
     top: 0;
     height: 100vh;
@@ -114,14 +105,9 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    /* color: white; */
     display: block;
     padding: 0.875em 5em 0.875em 4em;
 }
-
-/* nav ul li a:hover {
-    background: #413e47;
-} */
 
 .back-btn {
     transform: scaleX(-1);
@@ -132,13 +118,6 @@ nav ul li a {
 .back-btn:hover {
     transform: scaleX(-1) translateX(6px);
 }
-
-/* .active {
-    background: var(--primary-color);
-}
-.active:hover {
-    background: #4497ff;
-} */
 
 /* Responsive */
 @media only screen and (min-width: 700px) {

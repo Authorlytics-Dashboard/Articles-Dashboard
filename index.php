@@ -12,49 +12,44 @@
     <link rel="stylesheet" href="/assets/CSS/style.css">
     <link rel="stylesheet" href="/assets/CSS/darkMode.css">
     <link rel="stylesheet" href="/assets/CSS/lightMode.css">
-
 </head>
 <body>
-<div class="container-fluid m-0 p-0">
-    
-    <div class="left-col" >
-        <nav style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-            <img src="https://i.postimg.cc/JzKwwG16/arrow.png" class="back-btn">
-            <ul>
-                <li><a href="#" class="active d-flex gap-1 "><i class='bx bxs-home my-auto'></i>Home</a></li>
-                <li><a href="#" class ="d-flex gap-1"><i class='bx bxs-group my-auto' ></i>Groups</a></li>
-                <li><a href="#" class="d-flex gap-1"><i class='bx bxs-user my-auto'></i>Users</a></li>
-                <li><a href="#" class="d-flex gap-1"><i class='bx bx-news my-auto'></i>Articles</a></li>
-                <li><a href="#" class="d-flex gap-1"><i class='bx bxs-log-out my-auto'></i>Logout</a></li>
-            </ul>
-            <div class="checkbox-wrapper-5" >
-                <div class="check">
-                    <input type="checkbox" id="check-5">
-                    <label for="check-5"></label>
+    <div class="container-fluid m-0 p-0">
+        <div class="left-col" >
+            <nav style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <img src="https://i.postimg.cc/JzKwwG16/arrow.png" class="back-btn">
+                <ul>
+                    <li><a href="#" class="active d-flex gap-1 "><i class='bx bxs-home my-auto'></i>Home</a></li>
+                    <li><a href="#" class ="d-flex gap-1"><i class='bx bxs-group my-auto' ></i>Groups</a></li>
+                    <li><a href="#" class="d-flex gap-1"><i class='bx bxs-user my-auto'></i>Users</a></li>
+                    <li><a href="#" class="d-flex gap-1"><i class='bx bx-news my-auto'></i>Articles</a></li>
+                    <li><a href="#" class="d-flex gap-1"><i class='bx bxs-log-out my-auto'></i>Logout</a></li>
+                </ul>
+                <div class="checkbox-wrapper-5" >
+                    <div class="check">
+                        <input type="checkbox" id="check-5">
+                        <label for="check-5"></label>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <section>
+            <header>
+                <svg  class="menu-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 5V2H0V5H20ZM20 11V8H0V11H20ZM20 17V14H0V17H20Z" fill="white"/>
+                </svg>
+                <p class="logo">Logo</p>
+            </header>
+            <div class="cv">
+                <div class="content">
+                    <h1>Data Analytics</h1>
+                    <p>Making sense of your traffic.</p>
+                    <a href="#" class="cta">Go to my stats</a>
                 </div>
             </div>
-        </nav>
+        </section>
     </div>
-
-    <section>
-        <header>
-            <svg  class="menu-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M20 5V2H0V5H20ZM20 11V8H0V11H20ZM20 17V14H0V17H20Z" fill="white"/>
-</svg>
-            <p class="logo">Logo</p>
-        </header>
-        <div class="cv">
-            <div class="content">
-                <h1>Data Analytics</h1>
-                <p>Making sense of your traffic.</p>
-
-                <a href="#" class="cta">Go to my stats</a>
-            </div>
-        </div>
-    </section>
-
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-<script src="/assets/JS/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="/assets/JS/script.js"></script>
 </body>
 </html>

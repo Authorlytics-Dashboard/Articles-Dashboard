@@ -6,6 +6,11 @@ let body = document.querySelector("body");
 const savedMode = localStorage.getItem("Mode");
 if(savedMode !== undefined || savedMode !== null){
   darkModeBtn.checked = savedMode === 'light';
+  if(darkModeBtn.checked){
+    body.classList.add('light-mode');
+  }else{
+    body.classList.add('dark-mode');
+  }
 }
 
 

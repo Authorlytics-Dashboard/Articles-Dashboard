@@ -1,8 +1,39 @@
+@import "/assets/CSS/root.css";
 
-.light-mode {
 
-}
 
 .light-mode section {
-    background: #bbbabd url("/assets/Images/pexels-nick-collins-3144220.jpg");
+    background: var(--lightBackground-color) url("/assets/Images/pexels-adrien-olichon-4237148.jpg");
 }
+
+.light-mode nav {
+    background: white;
+    color: black;
+}
+.light-mode nav ul li a  {
+    color: black;
+}
+
+.light-mode h1 {
+    color: var(--lightPrimary-color);
+}
+
+.light-mode .content p,
+.light-mode .logo {
+    color: white;
+}
+
+.light-mode .active, 
+.light-mode .active:hover, 
+.light-mode nav ul li a:hover, 
+.light-mode .cta:hover  {
+    background: var(--lightBackground-color);
+}
+
+.light-mode .active{
+    color: white;
+}
+
+/* .light-mode .logo {
+    color: white;
+} */

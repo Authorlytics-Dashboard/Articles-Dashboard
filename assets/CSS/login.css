@@ -87,6 +87,7 @@
 
 .login .loginInp input{
     background: transparent;
+    color: white;
 }
 
 .login .loginInp input::placeholder{
@@ -104,7 +105,8 @@
     outline: none;
     display: block;
     margin-top: 3%;
-    border: solid 1
+    border: solid 1;
+    color: white;
 }
 
 .login  button:hover {
@@ -114,25 +116,127 @@
 
 /* Dark Mode style */
 .dark-mode{
-    background-color: var(--darkBackground-color);
+    background: #2C2931;
     color: white;
 }
 
 .dark-mode span {
-    color: #413e47;
+    color: var(--darkBackground-color);
 }
 
 .dark-mode  .pinkbox,
 .dark-mode  button{
-    background: #2C2931;
+    background-color: var(--darkBackground-color);
 }
 
-.dark-mode  button{
-    color: white;
+.dark-mode #logoSvg .stroke1,
+.dark-mode #logoSvg .stroke2,
+.dark-mode #logoSvg .stroke3,
+.dark-mode #logoSvg .stroke4{
+    stroke: black;
 }
 
 .dark-mode  .welcome,
 .dark-mode  button:hover {
     background: var(--dark-primary-color);
     color: white;
+}
+
+/* Light mode  */
+.light-mode{
+    background-color: white;
+}
+
+.light-mode  .welcome {
+    background: var(--lightBackgroundTwo-color);
+}
+
+.light-mode  .pinkbox {
+    background: var(--lightBackground-color);
+}
+
+.light-mode p,
+.light-mode .title,
+.light-mode button,
+.light-mode button:hover {
+    color: var(--lightBackground-color);
+}
+
+.light-mode h1,
+.light-mode label,
+.light-mode i {
+    color: var(--white);
+}
+
+.light-mode button{
+    background: var(--white);
+}
+
+.light-mode  button:hover {
+    background: var(--pale);
+}
+
+.light-mode span {
+    color: var(--lightText-color);
+}
+
+/* logo */
+.stroke1 {
+    animation: line1 2s 1 ease-in-out;
+}
+
+.stroke2 {
+    animation: line2 2s 1 ease-in-out;
+}
+
+.stroke3 {
+    animation: line3 2s 1 ease-in-out;
+}
+
+.stroke4 {
+    animation: line4 2s 1 ease-in-out;
+}
+
+@keyframes line1 {
+    0% {
+        stroke-dashoffset: 240;
+        stroke-width: 0;
+    }  
+    50% {
+        stroke-dashoffset: 0;
+        stroke-width: 32;
+    }
+}
+
+@keyframes line2 {
+    0%,50% {
+        stroke-dashoffset: 50;
+        stroke-width: 0;
+    }
+    70% {
+        stroke-dashoffset: 0;
+        stroke-width: 32;
+    }
+}
+
+@keyframes line3 {
+    0%,40% {
+        stroke-dashoffset: 240;
+        stroke-width: 0;
+    }
+    90% {
+        stroke-dashoffset: 0;
+        stroke-width: 32;
+    }
+}
+
+@keyframes line4 {
+    0%,80% {
+        stroke-dashoffset: 50;
+        stroke-width: 0;
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke-width: 32;
+    }
 }

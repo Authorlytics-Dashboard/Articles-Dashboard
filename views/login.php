@@ -28,6 +28,7 @@
 
                             <div class="loginInp form-check form-check-inline mb-4" style="margin-left: 5px;">
                                 <input class="form-check-input" type="checkbox" id="remeberMe" name="rememberMe" value="option1">
+                                
                                 <label class="form-check-label ps-3" for="remeberMe">Remember me</label>
                             </div>
                         </div>

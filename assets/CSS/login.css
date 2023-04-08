@@ -1,0 +1,138 @@
+@import "/assets/CSS/root.css";
+
+.login  .container {
+    margin: auto;
+    width: 650px;
+    height: 550px;
+    position: relative;
+}
+
+.login  .welcome {
+    width: 650px;
+    height: 415px;
+    position: absolute;
+    top: 25%;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.1);
+}
+
+.login .logo{
+    margin-top: 65px;
+}
+
+.login .pinkbox {
+    position: absolute;
+    top: -10%;
+    left: 5%;
+    width: 320px;
+    height: 500px;
+    border-radius: 5px;
+    box-shadow: 2px 0 10px rgba(0,0,0,.1);
+    z-index: 2;
+    padding: 80px 50px;
+}
+
+.login .rightbox {
+    position: absolute;
+    width: 50%;
+}
+
+.login .rightbox {
+    right: -2%;
+}
+
+.login h1 {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    margin-top: 95px;
+    text-transform: uppercase;
+    color: var(--white);
+    font-size: 2em;
+    letter-spacing: 8px;
+}
+
+.login .title {
+    font-family: 'Lora', serif;
+    font-size: 1.8em;
+    line-height: 1.1em;
+    letter-spacing: 3px;
+    text-align: center;
+    font-weight: 300;
+    margin-top: 20%;
+}
+
+.login .desc {
+    margin-top: -8px;
+}
+
+.login .account {
+    margin-top: 45%;
+    font-size: 10px;
+}
+
+.login p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: .7em;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.login  .smaller {
+    width: 90px;
+    height: 100px;
+    top: 48%;
+    left: 38%;
+    opacity: .9;
+}
+
+.login .loginInp input{
+    background: transparent;
+}
+
+.login .loginInp input::placeholder{
+    color: var(--darkText-Color);
+}
+
+.login  button {
+    padding: 12px;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 11px;
+    border-radius: 10px;
+    margin: auto;
+    outline: none;
+    display: block;
+    margin-top: 3%;
+    border: solid 1
+}
+
+.login  button:hover {
+    transition: background-color 1s ease-out;
+}
+
+
+/* Dark Mode style */
+.dark-mode{
+    background-color: var(--darkBackground-color);
+    color: white;
+}
+
+.dark-mode span {
+    color: #413e47;
+}
+
+.dark-mode  .pinkbox,
+.dark-mode  button{
+    background: #2C2931;
+}
+
+.dark-mode  button{
+    color: white;
+}
+
+.dark-mode  .welcome,
+.dark-mode  button:hover {
+    background: var(--dark-primary-color);
+    color: white;
+}

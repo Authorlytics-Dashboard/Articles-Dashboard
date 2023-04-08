@@ -8,8 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="/assets/CSS/style.css">
+    <link rel="stylesheet" href="/assets/CSS/login/lightMode.css">    
+
+
 </head>
-<body class="login">
+<body class="login light-mode">
         <div class="container ">
             <div class="welcome">
                 <div class="pinkbox">
@@ -40,7 +43,20 @@
                     <h2 class="title"><span>BLOOM</span>&<br>BOUQUET</h2>
                     <p class="desc"> pick your perfect <span>bouquet</span></p>
                     <div class="logo d-flex justify-content-center">
-                        <img class="flower" style=" width: 120px; height: 120px;" src="https://preview.ibb.co/jvu2Un/0057c1c1bab51a0.jpg"/>
+                        <svg width="100px" height="100px" viewBox="0 0 220 265">
+                            
+                            <path class="stroke1" fill="none" stroke="#70353e" stroke-width="32" stroke-dasharray="240" stroke-dashoffset="0" stroke-miterlimit="10" d="M50,0v136.9c0,17.7,14.5,32.2,32.2,32.2l52.5,0" 
+                            />
+
+                            <line class="stroke2" fill="none" stroke="#70353e" stroke-width="32" stroke-dasharray="50" stroke-dashoffset="0" stroke-stroke-miterlimit="10" x2="219.8" y2="169.2" x1="169.9" y1="169.2" />
+
+                            <path class="stroke3" fill="none" stroke="#70353e" stroke-width="32" stroke-dasharray="240" stroke-dashoffset="0" stroke-miterlimit="10" d="M169.8,216.1V79.2c0-17.7-14.5-32.2-32.2-32.2
+                            l-52.5,0"/>
+                            
+                            <line class="stroke4" fill="none" stroke="#70353e" stroke-width="32" stroke-dasharray="50" stroke-dashoffset="0" stroke-miterlimit="10" x2="0" y2="46.9" x1="50" y1="46.9"/>
+                            
+                        </svg>
+                        <!-- <img class="flower" style=" width: 120px; height: 120px;" src="https://preview.ibb.co/jvu2Un/0057c1c1bab51a0.jpg"/> -->
                     </div>
                 </div>
             </div>

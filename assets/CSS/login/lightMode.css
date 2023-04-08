@@ -1,0 +1,214 @@
+
+@import "/assets/CSS/root.css";
+
+.light-mode  .welcome {
+    background: var(--lightBackgroundTwo-color);
+}
+
+.light-mode  .pinkbox {
+    background: var(--lightBackground-color);
+}
+
+.light-mode  .title {
+    color: var(--lightBackground-color);
+}
+
+.light-mode p {
+
+    color: var(--lightBackground-color);
+}
+
+.light-mode button:hover {
+    color: var(--lightBackground-color);
+}
+
+
+/* div box styling */
+.light-mode  .container {
+    margin: auto;
+    width: 650px;
+    height: 550px;
+    position: relative;
+}
+
+.light-mode  .welcome {
+    /* background: var(--white); */
+    width: 650px;
+    height: 415px;
+    position: absolute;
+    top: 25%;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.1);
+}
+
+.light-mode  .pinkbox {
+    position: absolute;
+    top: -10%;
+    left: 5%;
+    /* background: var(--pale); */
+    width: 320px;
+    height: 500px;
+    border-radius: 5px;
+    box-shadow: 2px 0 10px rgba(0,0,0,.1);
+    z-index: 2;
+    padding: 80px 50px;
+}
+
+.light-mode .rightbox {
+    position: absolute;
+    width: 50%;
+}
+
+.light-mode   .rightbox {
+    right: -2%;
+}
+
+.light-mode   h1 {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    margin-top: 95px;
+    text-transform: uppercase;
+    color: var(--white);
+    font-size: 2em;
+    letter-spacing: 8px;
+}
+
+.light-mode  .title {
+    font-family: 'Lora', serif;
+    color: var(--lightBackground-color);
+    font-size: 1.8em;
+    line-height: 1.1em;
+    letter-spacing: 3px;
+    text-align: center;
+    font-weight: 300;
+    margin-top: 20%;
+}
+
+.light-mode   .desc {
+    margin-top: -8px;
+}
+
+.light-mode .account {
+    margin-top: 45%;
+    font-size: 10px;
+}
+
+.light-mode p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: .7em;
+    letter-spacing: 2px;
+    /* color: var(--gray); */
+    text-align: center;
+    }
+
+.light-mode span {
+    color: var(--lightText-color);
+}
+
+.light-mode  .smaller {
+    width: 90px;
+    height: 100px;
+    top: 48%;
+    left: 38%;
+    opacity: .9;
+}
+
+.light-mode .loginInp input{
+    background: transparent;
+}
+.light-mode .loginInp input::placeholder{
+    color: var(--white);
+}
+
+.light-mode  button {
+    padding: 12px;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 11px;
+    border-radius: 10px;
+    margin: auto;
+    outline: none;
+    display: block;
+    margin-top: 3%;
+    background: var(--white);
+    color: var(--pink);
+    border: solid 1
+}
+
+.light-mode  button:hover {
+    background: var(--pale);
+    /* color: var(--white); */
+    transition: background-color 1s ease-out;
+}
+
+.light-mode label,
+.light-mode i {
+    color: var(--white);
+}
+
+.light-mode .logo {
+    margin-top: 75px;
+}
+
+/* logo */
+
+.stroke1 {
+  animation: line1 2s 1 ease-in-out;
+}
+
+.stroke2 {
+  animation: line2 2s 1 ease-in-out;
+}
+
+.stroke3 {
+  animation: line3 2s 1 ease-in-out;
+}
+
+.stroke4 {
+  animation: line4 2s 1 ease-in-out;
+}
+  
+@keyframes line1 {
+  0% {
+    stroke-dashoffset: 240;
+    stroke-width: 0;
+  }  
+  50% {
+    stroke-dashoffset: 0;
+    stroke-width: 32;
+  }
+}
+
+@keyframes line2 {
+  0%,50% {
+    stroke-dashoffset: 50;
+    stroke-width: 0;
+  }
+   70% {
+    stroke-dashoffset: 0;
+    stroke-width: 32;
+  }
+}
+
+@keyframes line3 {
+  0%,40% {
+    stroke-dashoffset: 240;
+    stroke-width: 0;
+  }
+  90% {
+    stroke-dashoffset: 0;
+    stroke-width: 32;
+  }
+}
+
+@keyframes line4 {
+  0%,80% {
+    stroke-dashoffset: 50;
+    stroke-width: 0;
+  }
+   100% {
+    stroke-dashoffset: 0;
+    stroke-width: 32;
+  }
+}

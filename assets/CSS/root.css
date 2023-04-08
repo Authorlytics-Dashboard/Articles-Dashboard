@@ -5,7 +5,14 @@
     --darkText-Color: #847d93;
     
     /* Light Mode Variables */
-    --lightBackground-color: #d9d8da;
     --lightBackground-color: #70353e;
+    --lightBackgroundTwo-color: #d9d8da;
     --lightPrimary-color: #7c4441;
+    --lightText-color:#c5a9a9;
+
+    --gray: #8E9AAF;
+    --lavender: #CBC0D3;
+    --pale: #EAC7CC;
+    --white: #f6f6f6;
+
 }

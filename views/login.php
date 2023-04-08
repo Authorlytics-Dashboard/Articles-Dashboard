@@ -18,7 +18,7 @@
 
                         <div class="inputContainer">
                             <div class="loginInp input-group w-100 mb-3">
-                                <input class="form-control rounded-0 border-0 border-bottom" type="email" name="email" id="emailInp" placeholder="Email">
+                                <input class="form-control rounded-0 border-0 border-bottom" type="text" name="userName" id="userNameInp" placeholder="username">
                             </div>
 
                             <div class="loginInp input-group w-100 mb-3">

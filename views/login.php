@@ -11,51 +11,52 @@
 </head>
 <body class="login">
         <div class="container ">
-        <div class="welcome">
-            <div class="pinkbox">
-            <div class="signup nodisplay">
-                <h1>register</h1>
-                <form autocomplete="off">
-                <input type="text" placeholder="username">
-                <input type="email" placeholder="email">
-                <input type="password" placeholder="password">
-                <input type="password" placeholder="confirm password">
-                <button class="button submit">create account </button>
-                </form>
-            </div>
-            <div class="signin">
-                <h1>sign in</h1>
-                <form class="more-padding" autocomplete="off">
-                <input type="text" placeholder="username">
-                <input type="password" placeholder="password">
-                <div class="checkbox">
-                    <input type="checkbox" id="remember" /><label for="remember">remember me</label>
+            <div class="welcome">
+                <div class="pinkbox">
+                    <form class="h-100 d-flex flex-column justify-content-between" autocomplete="off">
+                        <h1 class="m-0">sign in</h1>
+
+                        <div class="inputContainer">
+                            <div class="loginInp input-group w-100 mb-3">
+                                <input class="form-control rounded-0 border-0 border-bottom" type="email" name="email" id="emailInp" placeholder="Email">
+                            </div>
+
+                            <div class="loginInp input-group w-100 mb-3">
+                                <input class="form-control rounded-0 border-0 border-bottom" type="password" name="password" id="passwordInp" placeholder="Password"></input>
+                                <i class='bx bxs-show fs-5 position-absolute top-50 start-100 translate-middle pe-4' style="z-index:1000; cursor: pointer;" id="togglePassword"></i>
+                            </div>
+
+                            <div class="loginInp form-check form-check-inline mb-4" style="margin-left: 5px;">
+                                <input class="form-check-input" type="checkbox" id="remeberMe" name="rememberMe" value="option1">
+                                <label class="form-check-label ps-3" for="remeberMe">Remember me</label>
+                            </div>
+                        </div>
+
+                        <button class="button submit m-0">login</button>
+                    </form>
                 </div>
 
-                <button class="button submit">login</button>
-                </form>
+                <div class="rightbox">
+                    <h2 class="title"><span>BLOOM</span>&<br>BOUQUET</h2>
+                    <p class="desc"> pick your perfect <span>bouquet</span></p>
+                    <div class="logo d-flex justify-content-center">
+                        <img class="flower" style=" width: 120px; height: 120px;" src="https://preview.ibb.co/jvu2Un/0057c1c1bab51a0.jpg"/>
+                    </div>
+                </div>
             </div>
-            </div>
-            <div class="leftbox">
-            <h2 class="title"><span>BLOOM</span>&<br>BOUQUET</h2>
-            <p class="desc">pick your perfect <span>bouquet</span></p>
-            <img class="flower smaller" src="https://image.ibb.co/d5X6pn/1357d638624297b.jpg" alt="1357d638624297b" border="0">
-            <p class="account">have an account?</p>
-            <button class="button" id="signin">login</button>
-            </div>
-            <div class="rightbox">
-            <h2 class="title"><span>BLOOM</span>&<br>BOUQUET</h2>
-            <p class="desc"> pick your perfect <span>bouquet</span></p>
-            <img class="flower" src="https://preview.ibb.co/jvu2Un/0057c1c1bab51a0.jpg"/>
-            <p class="account">don't have an account?</p>
-            <button class="button" id="signup">sign up</button>
-            </div>
-        </div>
-        </div>
-
         </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <!-- <script src="/assets/JS/script.js"></script> -->
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#passwordInp');
+
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('bxs-show');
+            this.classList.toggle('bxs-hide');
+        });
+    </script>
 </body>
 </html>

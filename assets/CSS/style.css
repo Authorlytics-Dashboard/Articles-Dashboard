@@ -283,28 +283,28 @@ nav ul li a {
 
 /* login page */
 
-    :root {
+:root {
     --gray: #8E9AAF;
     --lavender: #CBC0D3;
     --pale: #EAC7CC;
     --white: #f6f6f6;
-    }
+}
 
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora');
 
-    body {
-    background: var(--lavender);
-    }
+body {
+background: var(--lavender);
+}
 
-    /* div box styling */
-  .login  .container {
+/* div box styling */
+.login  .container {
     margin: auto;
     width: 650px;
     height: 550px;
     position: relative;
-    }
+}
 
-  .login  .welcome {
+.login  .welcome {
     background: var(--white);
     width: 650px;
     height: 415px;
@@ -312,9 +312,9 @@ nav ul li a {
     top: 25%;
     border-radius: 5px;
     box-shadow: 5px 5px 5px rgba(0,0,0,.1);
-    }
+}
 
-  .login  .pinkbox {
+.login  .pinkbox {
     position: absolute;
     top: -10%;
     left: 5%;
@@ -323,30 +323,20 @@ nav ul li a {
     height: 500px;
     border-radius: 5px;
     box-shadow: 2px 0 10px rgba(0,0,0,.1);
-    transition: all .5s ease-in-out;
     z-index: 2;
-    }
+    padding: 80px 50px;
+}
 
-  .login  .nodisplay {
-    display:none;
-    transition: all .5s ease;
-    }
-
- .login   .leftbox, .rightbox {
+.login .rightbox {
     position: absolute;
     width: 50%;
-    transition: 1s all ease;
-    }
+}
 
- .login   .leftbox {
-    left: -2%;
-    }
- .login   .rightbox {
+.login   .rightbox {
     right: -2%;
-    }
+}
 
-    /* font & button styling */
- .login   h1 {
+.login   h1 {
     font-family: 'Open Sans', sans-serif;
     text-align: center;
     margin-top: 95px;
@@ -354,9 +344,9 @@ nav ul li a {
     color: var(--white);
     font-size: 2em;
     letter-spacing: 8px;
-    }
+}
 
-  .login  .title {
+.login  .title {
     font-family: 'Lora', serif;
     color: var(--gray);
     font-size: 1.8em;
@@ -365,15 +355,18 @@ nav ul li a {
     text-align: center;
     font-weight: 300;
     margin-top: 20%;
-    }
- .login   .desc {
+}
+
+.login   .desc {
     margin-top: -8px;
-    }
- .login   .account {
+}
+
+.login .account {
     margin-top: 45%;
     font-size: 10px;
-    }
- .login   p {
+}
+
+.login p {
     font-family: 'Open Sans', sans-serif;
     font-size: .7em;
     letter-spacing: 2px;
@@ -381,28 +374,23 @@ nav ul li a {
     text-align: center;
     }
 
- .login   span {
+.login span {
     color: var(--pale);
-    }
+}
 
-  .login  .flower {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    top: 46%;
-    left: 29%;
-    opacity: .7;
-    }
-
-  .login  .smaller {
+.login  .smaller {
     width: 90px;
     height: 100px;
     top: 48%;
     left: 38%;
     opacity: .9;
-    }
+}
 
-  .login  button {
+.login .loginInp input{
+    background: transparent;
+}
+
+.login  button {
     padding: 12px;
     font-family: 'Open Sans', sans-serif;
     text-transform: uppercase;
@@ -412,16 +400,14 @@ nav ul li a {
     margin: auto;
     outline: none;
     display: block;
-    }
-  .login  button:hover {
-    background: var(--pale);
-    color: var(--white);
-    transition: background-color 1s ease-out;
-    }
-
- .login   .button {
     margin-top: 3%;
     background: var(--white);
     color: var(--pink);
     border: solid 1
-    }
+}
+
+.login  button:hover {
+    background: var(--pale);
+    color: var(--white);
+    transition: background-color 1s ease-out;
+}

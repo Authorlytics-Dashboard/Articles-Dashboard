@@ -5,7 +5,7 @@
 }
 
 .dark-mode section {
-    background: #221F26 url("../Images/DarkModeBackground.jpg");
+    background: var(--darkBackground-color) url("../Images/DarkModeBackground.jpg");
 }
 
 .dark-mode .logo{

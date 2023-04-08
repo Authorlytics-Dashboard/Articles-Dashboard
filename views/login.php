@@ -7,12 +7,9 @@
     <title>login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="/assets/CSS/style.css">
-    <link rel="stylesheet" href="/assets/CSS/login/lightMode.css">    
-
-
+    <link rel="stylesheet" href="/assets/CSS/login.css">
 </head>
-<body class="login light-mode">
+<body class="login">
         <div class="container ">
             <div class="welcome">
                 <div class="pinkbox">
@@ -43,7 +40,7 @@
                     <h2 class="title"><span>BLOOM</span>&<br>BOUQUET</h2>
                     <p class="desc"> pick your perfect <span>bouquet</span></p>
                     <div class="logo d-flex justify-content-center">
-                        <svg width="100px" height="100px" viewBox="0 0 220 265">
+                        <svg width="100px" height="100px" viewBox="0 0 220 265" id="logoSvg">
                             
                             <path class="stroke1" fill="none" stroke="#70353e" stroke-width="32" stroke-dasharray="240" stroke-dashoffset="0" stroke-miterlimit="10" d="M50,0v136.9c0,17.7,14.5,32.2,32.2,32.2l52.5,0" 
                             />
@@ -56,7 +53,7 @@
                             <line class="stroke4" fill="none" stroke="#70353e" stroke-width="32" stroke-dasharray="50" stroke-dashoffset="0" stroke-miterlimit="10" x2="0" y2="46.9" x1="50" y1="46.9"/>
                             
                         </svg>
-                        <!-- <img class="flower" style=" width: 120px; height: 120px;" src="https://preview.ibb.co/jvu2Un/0057c1c1bab51a0.jpg"/> -->
+                    
                     </div>
                 </div>
             </div>
@@ -73,6 +70,16 @@
             this.classList.toggle('bxs-show');
             this.classList.toggle('bxs-hide');
         });
+
+        let body = document.querySelector("body");
+        const savedMode = localStorage.getItem("Mode");
+        if(savedMode !== undefined || savedMode !== null){
+            if(savedMode == "light"){
+                body.classList.add('light-mode');
+            }else{
+                body.classList.add('dark-mode');
+            }
+        }
     </script>
 </body>
 </html>

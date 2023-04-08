@@ -109,6 +109,11 @@
     color: white;
 }
 
+.login input:focus{
+    -webkit-box-shadow: none;
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
 .login  button:hover {
     transition: background-color 1s ease-out;
 }

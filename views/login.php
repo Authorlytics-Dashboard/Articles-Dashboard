@@ -26,14 +26,16 @@
                                 <i class='bx bxs-show fs-5 position-absolute top-50 start-100 translate-middle pe-4' style="z-index:1000; cursor: pointer;" id="togglePassword"></i>
                             </div>
 
-                            <div class="loginInp form-check form-check-inline mb-4" style="margin-left: 5px;">
-                                <input class="form-check-input" type="checkbox" id="remeberMe" name="rememberMe" value="option1">
-                                
-                                <label class="form-check-label ps-3" for="remeberMe">Remember me</label>
+                            <div class="form-check form-check-inline mb-4">
+                                <input class="form-check-input" type="checkbox" id="remeberMe" name="rememberMe" style="background-color: transparent;" >
+                                <label class="form-check-label ps-2 cursor-pointer" for="remeberMe">Remember me</label>
                             </div>
                         </div>
 
-                        <button class="button submit m-0">login</button>
+                        <div class="btns text-center">
+                            <button class="button submit w-100 mb-2">login</button>
+                            <a href="#" class="forgetPass text-decoration-none text-white" style="font-size: 15px;">Forgot your password?</a>
+                        </div>
                     </form>
                 </div>
 

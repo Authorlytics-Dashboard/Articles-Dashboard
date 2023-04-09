@@ -28,7 +28,7 @@
 
                             <div class="form-check form-check-inline mb-4">
                                 <input class="form-check-input" type="checkbox" id="remeberMe" name="rememberMe" style="background-color: transparent;" >
-                                <label class="form-check-label ps-2 cursor-pointer" for="remeberMe">Remember me</label>
+                                <label class="form-check-label ps-2" style="cursor: pointer;" for="remeberMe">Remember me</label>
                             </div>
                         </div>
 

@@ -1,4 +1,5 @@
 @import "/assets/CSS/root.css";
+@import "/assets/CSS/logo.css";
 
 .login  .container {
     margin: auto;
@@ -11,7 +12,7 @@
     width: 650px;
     height: 415px;
     position: absolute;
-    top: 25%;
+    top: 20%;
     border-radius: 5px;
     box-shadow: 5px 5px 5px rgba(0,0,0,.1);
 }
@@ -184,68 +185,3 @@
 .light-mode span {
     color: var(--lightText-color);
 }
-
-/* logo */
-.stroke1 {
-    animation: line1 2s 1 ease-in-out;
-}
-
-.stroke2 {
-    animation: line2 2s 1 ease-in-out;
-}
-
-.stroke3 {
-    animation: line3 2s 1 ease-in-out;
-}
-
-.stroke4 {
-    animation: line4 2s 1 ease-in-out;
-}
-
-@keyframes line1 {
-    0% {
-        stroke-dashoffset: 240;
-        stroke-width: 0;
-    }  
-    50% {
-        stroke-dashoffset: 0;
-        stroke-width: 32;
-    }
-}
-
-@keyframes line2 {
-    0%,50% {
-        stroke-dashoffset: 50;
-        stroke-width: 0;
-    }
-    70% {
-        stroke-dashoffset: 0;
-        stroke-width: 32;
-    }
-}
-
-@keyframes line3 {
-    0%,40% {
-        stroke-dashoffset: 240;
-        stroke-width: 0;
-    }
-    90% {
-        stroke-dashoffset: 0;
-        stroke-width: 32;
-    }
-}
-
-@keyframes line4 {
-    0%,80% {
-        stroke-dashoffset: 50;
-        stroke-width: 0;
-    }
-    100% {
-        stroke-dashoffset: 0;
-        stroke-width: 32;
-    }
-}
-
-
-/* remember me check */
-

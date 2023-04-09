@@ -110,7 +110,7 @@
 }
 
 .login input:focus{
-    -webkit-box-shadow: none;
+    box-shadow: none;
     outline: -webkit-focus-ring-color auto 0px;
 }
 

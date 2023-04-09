@@ -111,7 +111,7 @@
 }
 
 .login input:focus{
-    -webkit-box-shadow: none;
+    box-shadow: none;
     outline: -webkit-focus-ring-color auto 0px;
 }
 
@@ -184,4 +184,8 @@
 
 .light-mode span {
     color: var(--lightText-color);
+}
+
+.light-mode .loginInp input::placeholder{
+    color: white;
 }

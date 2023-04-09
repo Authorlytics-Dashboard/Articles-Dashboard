@@ -185,3 +185,7 @@
 .light-mode span {
     color: var(--lightText-color);
 }
+
+.light-mode .loginInp input::placeholder{
+    color: white;
+}

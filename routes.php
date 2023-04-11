@@ -6,7 +6,7 @@
         include_once("./views/dashboard/home.php");
     }else{
         if($uri[2] == "groups") {
-            include_once("./views/dashboard/group.php");
+            include_once("./views/dashboard/groups/group.php");
         }elseif($uri[2] == "users") {
             
         }elseif($uri[2] == "articles") {

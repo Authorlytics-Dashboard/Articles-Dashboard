@@ -22,10 +22,10 @@
             <nav style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
                 <img src="https://i.postimg.cc/JzKwwG16/arrow.png" class="back-btn">
                 <ul>
-                    <li><a href="dashboard/home" class="active d-flex gap-1 "><i class='bx bxs-home my-auto'></i>Home</a></li>
-                    <li><a href="dashboard/groups" class="d-flex gap-1"><i class='bx bxs-group my-auto'></i>Groups</a></li>
-                    <li><a href="dashboard/users" class="d-flex gap-1"><i class='bx bxs-user my-auto'></i>Users</a></li>
-                    <li><a href="dashboard/articles" class="d-flex gap-1"><i class='bx bx-news my-auto'></i>Articles</a></li>
+                    <li><a href="home" class="active d-flex gap-1 "><i class='bx bxs-home my-auto'></i>Home</a></li>
+                    <li><a href="index/groups" class="d-flex gap-1"><i class='bx bxs-group my-auto'></i>Groups</a></li>
+                    <li><a href="index/users" class="d-flex gap-1"><i class='bx bxs-user my-auto'></i>Users</a></li>
+                    <li><a href="index/articles" class="d-flex gap-1"><i class='bx bx-news my-auto'></i>Articles</a></li>
                     <li><a href="#" class="d-flex gap-1"><i class='bx bxs-log-out my-auto'></i>Logout</a></li>
                 </ul>
                 <div class="checkbox-wrapper-5">

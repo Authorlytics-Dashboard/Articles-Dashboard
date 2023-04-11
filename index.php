@@ -37,6 +37,9 @@
             </nav>
         </div>
         <?php 
+            // require ('Classes/Group.php');
+            // $group = new Group();
+            
             if (isset($_GET['page'])) {
                 $page = $_GET['page'];
             } else {

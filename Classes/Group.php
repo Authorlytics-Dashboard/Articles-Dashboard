@@ -33,6 +33,29 @@ class Group extends MYSQLHandler {
             return false;
         }
     }
-
+    public function update($edited_values, $id)
+    {
+        $this->connect();
+        $table = $this->table;
+        $primary_key = $this->primary_key;
+        $sql = "update  `" . $table . "` set  ";
+        foreach ($edited_values as $key => $value) {
+            if ($key != $primary_key) {
+                if (!is_numeric($value))
+                    $sql .= " `$key` = '$value'  ,";
+                else
+                    $sql .= " `$key` = $value ,";
+            }
+        }
+        $sql .= "where `" . $primary_key . "` = $id";
+        $sql = str_replace(",where", "where", $sql);
+        if (mysqli_query($this->_dbHandler, $sql)) {
+            $this->disconnect();
+            return true;
+        } else {
+            $this->disconnect();
+            return false;
+        }
+    }
 }
 ?>

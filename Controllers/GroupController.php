@@ -1,6 +1,15 @@
 <?php
 
 class GroupController implements CrudInterface {
+    private $_dbHandler;
+
+    public function __construct(){
+        // connecting to DB 
+        
+        $MYSQL = new MYSQLHandler();
+        $this->_dbHandler = $MYSQL->getConnection();
+    }
+
     public function create($data){
         // if(isset($_POST['action']) && $_POST['action'] == 'Create') {
         //     $name = $_POST['name'];

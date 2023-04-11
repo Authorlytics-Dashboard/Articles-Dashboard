@@ -4,7 +4,8 @@ class GroupController implements CrudInterface {
     private $_dbHandler;
 
     public function __construct(){
-        $this->_dbHandler = new MYSQLHandler();
+        $MYSQL = new MYSQLHandler();
+        $this->_dbHandler = $MYSQL->getConnection();
     }
 
     public function create($data){

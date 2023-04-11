@@ -49,7 +49,7 @@
                     include_once("./views/dashboard/home.php");
                     break;
                 case 'groups':
-                    include_once("group.php");
+                    include_once("./views/dashboard/group.php");
                     break;
                 // Add cases for other views
             }        

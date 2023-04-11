@@ -37,22 +37,22 @@
             </nav>
         </div>
         <?php 
-    if (isset($_GET['page'])) {
-        $page = $_GET['page'];
-    } else {
-        $page = 'home';
-    }
+            if (isset($_GET['page'])) {
+                $page = $_GET['page'];
+            } else {
+                $page = 'home';
+            }
 
-    switch ($page) {
-        
-         case 'home':
-            include_once("./views/dashboard/home.php");
-            break;
-       case 'groups':
-            include_once("group.php");
-            break;
-        // Add cases for other views
-}        
+            switch ($page) {
+                
+                case 'home':
+                    include_once("./views/dashboard/home.php");
+                    break;
+                case 'groups':
+                    include_once("group.php");
+                    break;
+                // Add cases for other views
+            }        
         ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

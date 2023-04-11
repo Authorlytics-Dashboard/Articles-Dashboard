@@ -1,6 +1,12 @@
 <?php
 
 class GroupController implements CrudInterface {
+    private $_dbHandler;
+
+    public function __construct(){
+        $this->_dbHandler = new MYSQLHandler();
+    }
+
     public function create($data){
 
     }

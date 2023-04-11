@@ -1,0 +1,7 @@
+<?php
+    define("_HOST_","localhost");
+    define("_USER_","DB_User");
+    define("_PASSWORD_", "BD_password");
+    define("_DB_NAME_", "DB_name");
+    define("_DRIVER_", "mysql");
+?>

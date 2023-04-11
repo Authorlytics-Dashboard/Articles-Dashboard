@@ -22,10 +22,10 @@
             <nav style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
                 <img src="https://i.postimg.cc/JzKwwG16/arrow.png" class="back-btn">
                 <ul>
-                    <li><a href="#" class="active d-flex gap-1 "><i class='bx bxs-home my-auto'></i>Home</a></li>
-                    <li><a href="group.php" class="d-flex gap-1"><i class='bx bxs-group my-auto'></i>Groups</a></li>
-                    <li><a href="#" class="d-flex gap-1"><i class='bx bxs-user my-auto'></i>Users</a></li>
-                    <li><a href="#" class="d-flex gap-1"><i class='bx bx-news my-auto'></i>Articles</a></li>
+                    <li><a href="home" class="active d-flex gap-1 "><i class='bx bxs-home my-auto'></i>Home</a></li>
+                    <li><a href="index/groups" class="d-flex gap-1"><i class='bx bxs-group my-auto'></i>Groups</a></li>
+                    <li><a href="index/users" class="d-flex gap-1"><i class='bx bxs-user my-auto'></i>Users</a></li>
+                    <li><a href="index/articles" class="d-flex gap-1"><i class='bx bx-news my-auto'></i>Articles</a></li>
                     <li><a href="#" class="d-flex gap-1"><i class='bx bxs-log-out my-auto'></i>Logout</a></li>
                 </ul>
                 <div class="checkbox-wrapper-5">
@@ -37,22 +37,7 @@
             </nav>
         </div>
         <?php 
-            if (isset($_GET['page'])) {
-                $page = $_GET['page'];
-            } else {
-                $page = 'home';
-            }
-
-            switch ($page) {
-                
-                case 'home':
-                    include_once("./views/dashboard/home.php");
-                    break;
-                case 'groups':
-                    include_once("./views/dashboard/group.php");
-                    break;
-                // Add cases for other views
-            }        
+            require_once('routes.php');
         ?>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

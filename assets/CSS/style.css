@@ -147,15 +147,13 @@ nav ul li a {
         border-top-left-radius: 13px;
         border-bottom-left-radius: 13px;
         height: 100%;
+        padding: 4em 0;
+        /* padding-top: 4em; */
     }
 
     .menu-btn,
     .back-btn {
         display: none;
-    }
-
-    ul {
-        margin-top: 4em;
     }
 
     header {

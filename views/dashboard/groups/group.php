@@ -24,3 +24,24 @@
 
     </div>
 </section>
+<?php
+    require_once('../Classes/Group.php');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
+    $group = new Group();
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $avatar = $_FILES['avatar']['name'];
+    $data = [
+        'name' => $name,
+        'description' => $description,
+        'avatar' => $avatar
+    ];
+    $result = $group->create($data);
+
+    if ($result) {
+        header('Location: /home');
+    } else {
+        echo "Failed to create group.";
+    }
+    }
+?>

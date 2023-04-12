@@ -1,4 +1,8 @@
 <section>
+
+<form action="CreateGroup" method="post">
+<button type="submit" class="btn btn-success mb-5 mt-3">Add New Group</button>
+</form>
 <table class="table text-center">
   <thead>
     <tr>
@@ -20,7 +24,13 @@
 
     <tr>
       <th scope="row"><?php echo $group["gid"] ?></th>
-      <td><?php echo $group["avatar"] ?></td>
+      <td>
+        <?php if ($group["avatar"]) { ?>
+          <img src='assets/Images/<?php echo $group['avatar'] ?>' class='rounded-circle img-thumbnail' alt='Avatar' style='width:30px; height:30px;'>
+        <?php } else { ?>
+          <p>No Avatar</p>
+        <?php } ?>
+      </td>
       <td><?php echo $group["gname"] ?></td>
       <td><?php echo $group["description"] ?></td>
       <td>

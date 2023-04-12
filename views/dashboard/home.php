@@ -22,7 +22,7 @@
         <div class="content">
             <h1>Data Analytics</h1>
             <p>Making sense of your traffic.</p>
-            <a href="#" class="cta">Go to my stats</a>
+            <a href="#" class="cta">View Articles</a>
         </div>
     </div>
 </section>

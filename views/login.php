@@ -40,8 +40,8 @@
                 </div>
 
                 <div class="rightbox">
-                    <h2 class="title"><span>AUTHOR</span>-<br>LYTICS</h2>
-                    <p class="desc"> Streamline your <span> writing process</span></p>
+                    <h2 class="title"><span>BLOOM</span>&<br>BOUQUET</h2>
+                    <p class="desc"> pick your perfect <span>bouquet</span></p>
                     <div class="logo d-flex justify-content-center">
                         <svg width="100px" height="100px" viewBox="0 0 220 265" id="logoSvg">
                             

@@ -1,5 +1,5 @@
 <section>
-<table class="table">
+<table class="table text-center">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -23,9 +23,11 @@
       <td><?php echo $group["avatar"] ?></td>
       <td><?php echo $group["gname"] ?></td>
       <td><?php echo $group["description"] ?></td>
-      <td><button class="btn"> Delete</button></td>
-      <td><button class="btn"> Edit</button></td>
-      <td><button class="btn"> Show</button></td>
+      <td>
+            <button class="btn btn-danger"><i class='bx bx-trash' ></i></button>
+            <button class="btn btn-primary"><i class='bx bxs-edit'></i></button>
+            <button class="btn btn-dark"><i class='bx bx-show-alt' style="color: #fff;"></i></button>
+     </td>
     </tr>
     <?php }?>
   </tbody>

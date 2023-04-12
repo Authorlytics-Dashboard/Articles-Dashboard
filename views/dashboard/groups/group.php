@@ -1,4 +1,4 @@
-<section>
+<section class="group">
     <div class="container py-4 border my-5 mx-auto">
         <form method="post" action="index.php" class="w-75 mx-auto">
             <div class=" mb-3">

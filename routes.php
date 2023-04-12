@@ -13,6 +13,11 @@
         $group = new Group();
         $group ->edit();
     }
+    elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "delete" && isset($uri[3])) {
+        $groupId = $_GET['id'];
+        $group = new Group();
+        $group ->delete($groupId);
+    }
     elseif($uri[1] == "groups") {
         include_once("./views/dashboard/groups/index.php");
     }elseif($uri[1] == "CreateGroup") {

@@ -27,9 +27,11 @@ class Group extends MYSQLHandler {
         $this->debug($sql);
         if (mysqli_query($this->_dbHandler, $sql)) {
             $this->disconnect();
+            header('location:/groups');
             return true;
         } else {
             $this->disconnect();
+            header('location:/groups');
             return false;
         }
     }
@@ -117,7 +119,7 @@ class Group extends MYSQLHandler {
     $result = $group->create($data);
 
     if ($result) {
-        header('Location: /home');
+        header('Location: /groups');
     } else {
         echo "Failed to create group.";
     }

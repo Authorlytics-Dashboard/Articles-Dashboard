@@ -16,7 +16,7 @@
       <?php 
       require_once('Classes/Group.php');
       $groups=new Group();
-      $allGroups=$groups->get_data();
+      $allGroups=$groups->getData();
 
       foreach ($allGroups as $group)
       {?>
@@ -30,14 +30,6 @@
             <p>No Avatar</p>
           <?php } ?>
         </td>
-        <td><?php echo $group["gname"] ?></td>
-        <td><?php echo $group["description"] ?></td>
-        <td>
-              <a href="/groups/delete/?id=<?php echo $group["gid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
-              <a href="/groups/edit/?id=<?php echo $group["gid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-              <button class="btn btn-dark"><i class='bx bx-show-alt' style="color: #fff;"></i></button>
-      </td>
-<<<<<<< HEAD
       <td><?php echo $group["gname"] ?></td>
       <td><?php echo $group["description"] ?></td>
       <td>
@@ -49,10 +41,4 @@
     <?php }?>
   </tbody>
 </table>
-=======
-      </tr>
-      <?php }?>
-    </tbody>
-  </table>
->>>>>>> 3293f207ecc44b98949f626926aa56015c775bdd
 </section>

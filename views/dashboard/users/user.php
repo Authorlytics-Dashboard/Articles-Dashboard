@@ -1,3 +1,3 @@
-<section class="user">
+<section class="userSection">
 
 </section>

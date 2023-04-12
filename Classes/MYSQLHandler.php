@@ -28,7 +28,7 @@ class MYSQLHandler{
             mysqli_close($this->_dbHandler);
     }
 
-        public function get_results($sql) {
+    public function get_results($sql) {
         $this->debug($sql);
         $_handler_results = mysqli_query($this->_dbHandler, $sql);
         $_arr_results = array();
@@ -45,9 +45,8 @@ class MYSQLHandler{
         }
     }
 
- 
     protected function debug($sql) {
-        if (__Debug__Mode__ === 1)
+        if (_Debug_Mode_ === 1)
             return "<h5>Sent Query: </h5>" . $sql . "<br/> <br/>";
     }
 }

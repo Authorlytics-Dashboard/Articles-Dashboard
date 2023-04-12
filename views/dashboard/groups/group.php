@@ -26,7 +26,7 @@
 
             <div class="mb-3 text-center mt-5">
                 <input type="submit" class="btn btn-primary me-1 rounded-1" name="action" value="Create">
-                <a href="index.php" class="btn btn-danger">cancel</a>
+                <a href="/home" class="btn btn-danger">cancel</a>
             </div>
         </form>
 

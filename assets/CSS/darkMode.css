@@ -9,11 +9,11 @@
 /* ---------------------------------------------------------------------------------------------------------- */
 /* Nav Dark mode */
 .dark-mode section {
-    background: var(--darkBackground-color) url("../Images/DarkModeBackground.jpg");
+    background: black url("../Images/DarkModeBackground.jpg");
 }
 
 .dark-mode nav{
-    background: #2C2931;
+    background: #171617;
 }
 
 .dark-mode nav ul li a{

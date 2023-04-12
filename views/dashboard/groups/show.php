@@ -1,4 +1,4 @@
-<?php     require_once('Classes/Group.php'); 
+<?php     
     $groupId = $_GET['id'];
     // get data of group by its id and show it in fields 
     $group = new Group();

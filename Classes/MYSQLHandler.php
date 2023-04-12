@@ -56,7 +56,7 @@ class MYSQLHandler
 
     protected function debug($sql)
     {
-        if (__Debug__Mode__ === 1) {
+        if (_Debug_Mode_ === 1) {
             return "<h5>Sent Query: </h5>" . $sql . "<br/> <br/>";
         }
     }

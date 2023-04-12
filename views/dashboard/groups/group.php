@@ -1,6 +1,6 @@
 <section class="groupSection">
     <div class="container py-4 border my-5 mx-auto">
-        <form method="post" action="./classes/Group.php" class="w-75 mx-auto" enctype="multipart/form-data">
+        <form method="post" action="" class="w-75 mx-auto" enctype="multipart/form-data">
             <div class=" mb-3">
                 <label for="name" class="form-label">Group Name</label>
                 <input type="text" class="form-control" name="name" id="name">
@@ -24,3 +24,24 @@
 
     </div>
 </section>
+<?php
+require_once('Classes/Group.php');
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
+$group = new Group();
+$name = $_POST['name'];
+$description = $_POST['description'];
+$avatar = $_FILES['avatar']['name'];
+$data = [
+'name' => $name,
+'description' => $description,
+'avatar' => $avatar
+];
+$result = $group->create($data);
+
+if ($result) {
+header('Location: /groups');
+} else {
+echo "Failed to create group.";
+}
+}
+?>

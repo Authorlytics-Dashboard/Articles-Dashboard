@@ -1,5 +1,5 @@
 <?php 
-require_once('./config.php');
+require_once('../config.php');
 
 class MYSQLHandler{
     protected $_dbHandler;
@@ -51,4 +51,4 @@ class MYSQLHandler{
     }
 }
 
-?> 
+?>

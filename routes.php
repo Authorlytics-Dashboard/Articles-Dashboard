@@ -18,6 +18,10 @@
         $group = new Group();
         $group ->delete($groupId);
     }
+    elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "show" && isset($uri[3])) {
+        include_once('./views/dashboard/groups/show.php');
+        $groupId = $_GET['id'];
+    }
     elseif($uri[1] == "groups") {
         include_once("./views/dashboard/groups/index.php");
     }elseif($uri[1] == "CreateGroup") {

@@ -20,8 +20,8 @@
     
     <div class="cv">
         <div class="content">
-            <h1>Data Analytics</h1>
-            <p>Making sense of your traffic.</p>
+            <h1>Authorlytics</h1>
+            <p>Streamline your writing process.</p>
             <a href="#" class="cta">Go to my stats</a>
         </div>
     </div>

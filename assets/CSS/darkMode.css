@@ -42,3 +42,6 @@
 .dark-mode nav ul li a:hover {
     background: #413e47;
 }
+.dark-mode table{
+    color:#fff;
+}

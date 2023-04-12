@@ -12,7 +12,9 @@
         include_once("./views/dashboard/groups/update.php");
     }
     elseif($uri[1] == "groups") {
-        include_once("./views/dashboard/groups/groups.php");
+        include_once("./views/dashboard/groups/index.php");
+    }elseif($uri[1] == "CreateGroup") {
+        include_once("./views/dashboard/groups/group.php");
     }elseif($uri[1] == "users") {
         include_once("./views/dashboard/users/user.php");
     }elseif($uri[1] == "articles") {

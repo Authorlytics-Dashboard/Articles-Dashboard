@@ -1,38 +1,19 @@
 @import "/assets/CSS/root.css";
 
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Dashboard Dark mode */
 .dark-mode{
     color: white;
 }
 
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Nav Dark mode */
 .dark-mode section {
     background: var(--darkBackground-color) url("../Images/DarkModeBackground.jpg");
 }
 
-.dark-mode .logo{
-    color: var(--dark-primary-color);
-}
-
-.dark-mode .content p{
-    color: var(--darkText-Color);
-}
-
-.cta{
-    color: white;
-    border: 1px solid #4D4D4D;
-}
-
-.dark-mode .cta:hover,
-.dark-mode .active {
-    background: var(--dark-primary-color);
-}
-
 .dark-mode nav{
     background: #2C2931;
-}
-
-.dark-mode .cta{
-    color: white;
-    border: 1px solid #4d4d4d;
 }
 
 .dark-mode nav ul li a{
@@ -42,6 +23,22 @@
 .dark-mode nav ul li a:hover {
     background: #413e47;
 }
+
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Home Dark mode */
+.dark-mode .homeSection .logo{
+    color: var(--dark-primary-color);
+}
+
+.dark-mode .homeSection .content p{
+    color: var(--darkText-Color);
+}
+
+.dark-mode .homeSection .cta:hover,
+.dark-mode .active {
+    background: var(--dark-primary-color);
+}
+
 .dark-mode table{
     color:#fff;
 }

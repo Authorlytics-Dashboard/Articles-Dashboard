@@ -2,6 +2,8 @@
 @import "/assets/CSS/root.css";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora');
 
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Dashboard */
 *,
 *:before,
 *:after {
@@ -18,78 +20,8 @@ body {
     height: 100vh;
 }
 
-section {
-    background-size: cover;
-    background-blend-mode: screen;
-    background-position: -100px;
-    height: 100%;
-    padding: 2em;
-    border-radius: 13px;
-}
-
-.logo {
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 1.5rem;
-    letter-spacing: -0.1em;
-    text-align: center;
-    width: 100%;
-    margin: 0;
-}
-
-header {
-    display: flex;
-}
-
-.menu-btn {
-    cursor: pointer;
-}
-
-h1 {
-    font-size: clamp(2.5rem, -0.875rem + 8.333vw, 4rem);
-    font-weight: 800;
-    text-transform: uppercase;
-    line-height: 89%;
-}
-
-.cv {
-    display: grid;
-    place-items: center;
-    height: 80%;
-}
-
-.content p {
-    font-size: clamp(2rem, -0.875rem + 8.333vw, 3rem);
-    font-weight: 300;
-    line-height: 111%;
-    margin-top: 1.1em;
-}
-
-.cta {
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-top: 2.875em;
-    display: inline-block;
-    padding: 1.25em 1.25em 1.25em calc(2.5em + 1.5em);
-    position: relative;
-    transition: all 0.3s ease-in-out;
-}
-
-.cta:before {
-    content: "";
-    position: absolute;
-    background: url("../Images/arrow.png") no-repeat;
-    width: 1.5em;
-    height: 1.5em;
-    left: 1.25em;
-}
-
-.cta:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-}
-
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Nav */
 nav {
     position: fixed;
     z-index: 1;
@@ -117,73 +49,27 @@ nav ul li a {
     padding: 0.875em 5em 0.875em 4em;
 }
 
+section {
+    background-size: cover;
+    background-blend-mode: screen;
+    background-position: -100px;
+    height: 100%;
+    padding: 2em;
+    border-radius: 13px;
+}
+
 .back-btn {
     transform: scaleX(-1);
     padding: 3em 4em 2em;
     cursor: pointer;
     transition: transform 0.3s;
 }
+
 .back-btn:hover {
     transform: scaleX(-1) translateX(6px);
 }
 
-/* Responsive */
-@media only screen and (min-width: 700px) {
-    .left-col {
-        display: flex;
-    }
-
-    .content p {
-        width: 70%;
-    }
-}
-
-/* Responsive */
-@media only screen and (min-width: 1000px) {
-    nav {
-        position: unset;
-        transform: translateX(0) !important;
-        border-radius: unset;
-        border-top-left-radius: 13px;
-        border-bottom-left-radius: 13px;
-        height: 100%;
-        padding: 4em 0;
-        /* padding-top: 4em; */
-    }
-
-    .menu-btn,
-    .back-btn {
-        display: none;
-    }
-
-    header {
-        padding: 1.6em;
-    }
-
-    .container-fluid {
-        display: flex;
-    }
-
-    .logo {
-        text-align: left;
-    }
-
-    section {
-        border-radius: unset;
-        border-top-right-radius: 13px;
-        border-bottom-right-radius: 13px;
-        width: 100%;
-        background-size: cover;
-        background-position: 0;
-        background-attachment: unset;
-    }
-
-    .content {
-        justify-self: left;
-        margin-left: 4em;
-    }
-}
-
+/* ---------------------------------------------------------------------------------------------------------- */
 /* Darkmode toggle */
 .checkbox-wrapper-5 .check {
     --size: 40px;
@@ -278,4 +164,128 @@ nav ul li a {
     left: calc(1.6 * var(--size));
     font-size: calc(0.6 * var(--size));
     line-height: 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Home Section */
+.homeSection .logo {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    letter-spacing: -0.1em;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}
+
+.homeSection header {
+    display: flex;
+}
+
+.homeSection .menu-btn {
+    cursor: pointer;
+}
+
+.homeSection h1 {
+    font-size: clamp(2.5rem, -0.875rem + 8.333vw, 4rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 89%;
+}
+
+.homeSection .cv {
+    display: grid;
+    place-items: center;
+    height: 80%;
+}
+
+.homeSection .content p {
+    font-size: clamp(2rem, -0.875rem + 8.333vw, 3rem);
+    font-weight: 300;
+    line-height: 111%;
+    margin-top: 1.1em;
+}
+
+.homeSection .cta {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 2.875em;
+    display: inline-block;
+    padding: 1.25em 1.25em 1.25em calc(2.5em + 1.5em);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    color: white;
+    border: 1px solid #4D4D4D;
+}
+
+.homeSection .cta:before {
+    content: "";
+    position: absolute;
+    background: url("../Images/arrow.png") no-repeat;
+    width: 1.5em;
+    height: 1.5em;
+    left: 1.25em;
+}
+
+.homeSection .cta:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Responsive */
+@media only screen and (min-width: 700px) {
+    .left-col {
+        display: flex;
+    }
+
+    .content p {
+        width: 70%;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    nav {
+        position: unset;
+        transform: translateX(0) !important;
+        border-radius: unset;
+        border-top-left-radius: 13px;
+        border-bottom-left-radius: 13px;
+        height: 100%;
+        padding: 4em 0;
+        /* padding-top: 4em; */
+    }
+
+    .menu-btn,
+    .back-btn {
+        display: none;
+    }
+
+    header {
+        padding: 1.6em;
+    }
+
+    .container-fluid {
+        display: flex;
+    }
+
+    .logo {
+        text-align: left;
+    }
+
+    section {
+        border-radius: unset;
+        border-top-right-radius: 13px;
+        border-bottom-right-radius: 13px;
+        width: 100%;
+        background-size: cover;
+        background-position: 0;
+        background-attachment: unset;
+    }
+
+    .content {
+        justify-self: left;
+        margin-left: 4em;
+    }
 }

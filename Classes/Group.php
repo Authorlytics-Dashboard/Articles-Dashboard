@@ -27,9 +27,11 @@ class Group extends MYSQLHandler {
         $this->debug($sql);
         if (mysqli_query($this->_dbHandler, $sql)) {
             $this->disconnect();
+            header('location:/groups');
             return true;
         } else {
             $this->disconnect();
+            header('location:/groups');
             return false;
         }
     }
@@ -100,24 +102,5 @@ class Group extends MYSQLHandler {
     }
 }
 
-    // require_once('Group.php');
-    // if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-    // $group = new Group();
-    // $name = $_POST['name'];
-    // $description = $_POST['description'];
-    // $avatar = $_FILES['avatar']['name'];
-    // $data = [
-    //     'name' => $name,
-    //     'description' => $description,
-    //     'avatar' => $avatar
-    // ];
-    // $result = $group->create($data);
-
-    // if ($result) {
-    //     header('Location: /groups');
-    // } else {
-    //     echo "Failed to create group.";
-    // }
-    // }
 
 ?>

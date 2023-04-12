@@ -25,7 +25,7 @@
       <td><?php echo $group["description"] ?></td>
       <td>
             <button class="btn btn-danger"><i class='bx bx-trash' ></i></button>
-            <button class="btn btn-primary"><i class='bx bxs-edit'></i></button>
+            <a href="/groups/edit/?id=<?php echo $group["gid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
             <button class="btn btn-dark"><i class='bx bx-show-alt' style="color: #fff;"></i></button>
      </td>
     </tr>

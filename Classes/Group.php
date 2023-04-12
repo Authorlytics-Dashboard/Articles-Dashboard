@@ -35,32 +35,32 @@ class Group extends MYSQLHandler {
     }
     public function update($edited_values, $id)
     {
-    $this->connect();
-    $table = $this->table;
-    $primary_key = $this->primary_key;
-    $sql = "UPDATE `" . $table . "` SET ";
-
-    foreach ($edited_values as $key => $value) {
-        if ($key != $primary_key) {
-            if (!is_numeric($value)) {
-                $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
-            } else {
-                $sql .= " `$key` = $value ,";
+        $this->connect();
+        $table = $this->table;
+        $primary_key = $this->primary_key;
+        $sql = "UPDATE `" . $table . "` SET ";
+        
+        foreach ($edited_values as $key => $value) {
+            if ($key != $primary_key) {
+                if (!is_numeric($value)) {
+                    $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
+                } else {
+                    $sql .= " `$key` = $value ,";
+                }
             }
         }
+    
+        $sql = rtrim($sql, ',');
+        $sql .= " WHERE `" . $primary_key . "` = " . intval($id);
+    
+        if (mysqli_query($this->_dbHandler, $sql)) {
+            $this->disconnect();
+            return true;
+        } else {
+            $this->disconnect();
+            return false;
+        }
     }
-
-    $sql = rtrim($sql, ',');
-    $sql .= " WHERE `" . $primary_key . "` = " . intval($id);
-
-    if (mysqli_query($this->_dbHandler, $sql)) {
-        $this->disconnect();
-        return true;
-    } else {
-        $this->disconnect();
-        return false;
-    }
-}
 
     public function create($data){
         $this->connect();

@@ -22,10 +22,10 @@
             <nav style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
                 <img src="https://i.postimg.cc/JzKwwG16/arrow.png" class="back-btn">
                 <ul>
-                    <li><a href="/home" class="active d-flex gap-1 "><i class='bx bxs-home my-auto'></i>Home</a></li>
-                    <li><a href="/groups" class="d-flex gap-1"><i class='bx bxs-group my-auto'></i>Groups</a></li>
-                    <li><a href="/users" class="d-flex gap-1"><i class='bx bxs-user my-auto'></i>Users</a></li>
-                    <li><a href="/articles" class="d-flex gap-1"><i class='bx bx-news my-auto'></i>Articles</a></li>
+                    <li><a href="/home" class="d-flex gap-1 home"><i class='bx bxs-home my-auto'></i>Home</a></li>
+                    <li><a href="/groups" class="d-flex gap-1 groups"><i class='bx bxs-group my-auto'></i>Groups</a></li>
+                    <li><a href="/users" class="d-flex gap-1 users"><i class='bx bxs-user my-auto'></i>Users</a></li>
+                    <li><a href="/articles" class="d-flex gap-1 articles"><i class='bx bx-news my-auto'></i>Articles</a></li>
                     <li><a href="/logout" class="d-flex gap-1"><i class='bx bxs-log-out my-auto'></i>Logout</a></li>
                 </ul>
                 <div class="checkbox-wrapper-5">

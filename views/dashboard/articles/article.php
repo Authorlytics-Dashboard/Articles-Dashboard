@@ -1,3 +1,3 @@
-<section class="articale">
+<section class="articaleSection">
 
 </section>

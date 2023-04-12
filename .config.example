@@ -4,4 +4,5 @@
     define("_PASSWORD_", "BD_password");
     define("_DB_NAME_", "DB_name");
     define("_DRIVER_", "mysql");
+    define("_Debug_Mode_", 1);
 ?>

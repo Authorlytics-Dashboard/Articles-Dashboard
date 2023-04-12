@@ -58,6 +58,6 @@ class MYSQLHandler
             return "<h5>Sent Query: </h5>" . $sql . "<br/> <br/>";
         }
     }
-}
+
 
 ?>

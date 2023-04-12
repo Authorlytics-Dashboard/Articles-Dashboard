@@ -35,31 +35,29 @@ class MYSQLHandler
         }
     }
 
-        public function get_results($sql)
-        {
-            $this->debug($sql);
-            $_handler_results = mysqli_query($this->_dbHandler, $sql);
-            $_arr_results = array();
+        public function get_results($sql) {
+        $this->debug($sql);
+        $_handler_results = mysqli_query($this->_dbHandler, $sql);
+        $_arr_results = array();
 
-            if ($_handler_results) {
-                while ($row = mysqli_fetch_array($_handler_results, MYSQLI_ASSOC)) {
-                    $_arr_results[] = array_change_key_case($row);
-                }
-                // $this->disconnect();
-                return $_arr_results;
-            } else {
-                // $this->disconnect();
-                return false;
+        if ($_handler_results) {
+            while ($row = mysqli_fetch_array($_handler_results, MYSQLI_ASSOC)) {
+                $_arr_results[] = array_change_key_case($row);
             }
+            // $this->disconnect();
+            return $_arr_results;
+        } else {
+            // $this->disconnect();
+            return false;
         }
+    }
 
-
-    protected function debug($sql)
-    {
-        if (__Debug__Mode__ === 1) {
+ 
+    protected function debug($sql) {
+        if (__Debug__Mode__ === 1)
             return "<h5>Sent Query: </h5>" . $sql . "<br/> <br/>";
         }
     }
 }
 
-?> 
+?>

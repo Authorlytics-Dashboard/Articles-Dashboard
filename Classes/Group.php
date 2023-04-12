@@ -35,31 +35,72 @@ class Group extends MYSQLHandler {
     }
     public function update($edited_values, $id)
     {
-        $this->connect();
-        $table = $this->table;
-        $primary_key = $this->primary_key;
-        $sql = "UPDATE `" . $table . "` SET ";
-    
-        foreach ($edited_values as $key => $value) {
-            if ($key != $primary_key) {
-                if (!is_numeric($value)) {
-                    $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
-                } else {
-                    $sql .= " `$key` = $value ,";
-                }
+    $this->connect();
+    $table = $this->table;
+    $primary_key = $this->primary_key;
+    $sql = "UPDATE `" . $table . "` SET ";
+
+    foreach ($edited_values as $key => $value) {
+        if ($key != $primary_key) {
+            if (!is_numeric($value)) {
+                $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
+            } else {
+                $sql .= " `$key` = $value ,";
             }
         }
+    }
+
+    $sql = rtrim($sql, ',');
+    $sql .= " WHERE `" . $primary_key . "` = " . intval($id);
+
+    if (mysqli_query($this->_dbHandler, $sql)) {
+        $this->disconnect();
+        return true;
+    } else {
+        $this->disconnect();
+        return false;
+    }
+}
+
+    public function create($data){
+        $this->connect();
+        $table = 'groups';
+        $gname = $data['name'];
+        $description = $data['description'];
         
-        $sql = rtrim($sql, ',');
-        $sql .= " WHERE `" . $primary_key . "` = " . intval($id);
+        $avatar = $data['avatar'];
+        $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
+        move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+        $avatar = basename($_FILES["avatar"]["name"]);
     
+        $sql = "insert into `$table` (gname, description, avatar) values ('$gname', '$description', '$avatar')";
         if (mysqli_query($this->_dbHandler, $sql)) {
+            $id = mysqli_insert_id($this->_dbHandler);
             $this->disconnect();
-            return true;
+            return $id;
         } else {
             $this->disconnect();
             return false;
         }
     }
 }
+    require_once('Group.php');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
+    $group = new Group();
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $avatar = $_FILES['avatar']['name'];
+    $data = [
+        'name' => $name,
+        'description' => $description,
+        'avatar' => $avatar
+    ];
+    $result = $group->create($data);
+
+    if ($result) {
+        header('Location: /home');
+    } else {
+        echo "Failed to create group.";
+    }
+    }
 ?>

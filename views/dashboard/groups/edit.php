@@ -17,12 +17,10 @@
                 <label for="description" class="form-label">Description</label>
                 <input type="text" class="form-control" name="description" id="description">
             </div>
-
             <div class="mb-3">
                 <label for="avatar" class="form-label">Avatar</label>
                 <input type="file" class="form-control" name="avatar" id="avatar">
             </div>
-
             <div class="mb-3 text-center mt-5">
                 <input type="submit" class="btn btn-primary me-1 rounded-1" name="update">
                 <a href="index.php" class="btn btn-danger">cancel</a>

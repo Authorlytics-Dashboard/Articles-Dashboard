@@ -27,9 +27,11 @@ class Group extends MYSQLHandler {
         $this->debug($sql);
         if (mysqli_query($this->_dbHandler, $sql)) {
             $this->disconnect();
+            header('location:/groups');
             return true;
         } else {
             $this->disconnect();
+            header('location:/groups');
             return false;
         }
     }
@@ -83,11 +85,9 @@ class Group extends MYSQLHandler {
         }
     }
     public function edit(){
-            print_r($_POST);
             $avatar = $_FILES['avatar']['name'];
-            print_r($avatar);
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
-            move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+            move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
             $id = $_GET['id'];
             $edited_values = array(
@@ -100,8 +100,6 @@ class Group extends MYSQLHandler {
             header('location:/groups');
         
     }
-
-  
 }
     require_once('Group.php');
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
@@ -117,7 +115,7 @@ class Group extends MYSQLHandler {
     $result = $group->create($data);
 
     if ($result) {
-        header('Location: /home');
+        header('Location: /groups');
     } else {
         echo "Failed to create group.";
     }

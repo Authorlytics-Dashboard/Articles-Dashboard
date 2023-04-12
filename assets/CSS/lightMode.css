@@ -36,3 +36,9 @@
 .light-mode .homeSection .logo {
     color: white;
 }
+
+.light-mode table{
+    color:#212121;
+    background-color: rgba(255, 255, 255, 0.397);
+    border-radius: 20px;
+}

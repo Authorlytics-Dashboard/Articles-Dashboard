@@ -31,6 +31,7 @@ nav {
     max-width: 300px;
     transform: translateX(-100%);
     transition: transform 0.3s;
+
 }
 
 nav ul {
@@ -253,8 +254,7 @@ section {
         border-top-left-radius: 13px;
         border-bottom-left-radius: 13px;
         height: 100%;
-        padding: 4em 0;
-        /* padding-top: 4em; */
+        padding-top: 4em;
     }
 
     .menu-btn,

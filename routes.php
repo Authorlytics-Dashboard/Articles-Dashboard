@@ -1,3 +1,4 @@
+<?php     require_once('Classes/Group.php'); ?>
 <?php
     $uri = explode('/', $_SERVER['REQUEST_URI']);
     // var_dump($uri);
@@ -9,7 +10,8 @@
     }
     elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "update" && isset($uri[3])) {
         $groupId = $_GET['id'];
-        include_once("./views/dashboard/groups/update.php");
+        $group = new Group();
+        $group ->edit();
     }
     elseif($uri[1] == "groups") {
         include_once("./views/dashboard/groups/index.php");

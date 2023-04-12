@@ -4,7 +4,7 @@ require_once('MYSQLHandler.php');
 class Group extends MYSQLHandler {
     private $table = 'groups';
     private $primary_key = 'gid';
-    public function get_data($fields = array(), $start = 0) {
+    public function getData($fields = array(), $start = 0) {
         $this->connect();
         if (empty($fields)) {
             $sql = "select * from `$this->table`";
@@ -18,10 +18,19 @@ class Group extends MYSQLHandler {
         }
         return $this->get_results($sql);
     }
+    public function showGroupByID($id) {
+
+        $primary_key = $this->primary_key;
+
+        $table = $this->table;
+        $sql = "select * from `$table` where `$primary_key` = '$id' ";
+
+        return $this->get_results($sql);
+    }
 
     public function delete($id) {
         $this->connect();
-        $table = 'groups';
+        $table = $this->table;
         $primary_key = $this->primary_key;
         $sql = "delete  from `" . $table . "` where `" . $primary_key . "` = $id";
         $this->debug($sql);

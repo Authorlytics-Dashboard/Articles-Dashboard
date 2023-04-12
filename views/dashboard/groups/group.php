@@ -25,7 +25,6 @@
     </div>
 </section>
 <?php
-require_once('Classes/Group.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
 $group = new Group();
 $name = $_POST['name'];

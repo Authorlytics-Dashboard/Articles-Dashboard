@@ -5,7 +5,7 @@
   <table class="table text-center">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">ID</th>
         <th scope="col">Avatar</th>
         <th scope="col">Name</th>
         <th scope="col">Description</th>
@@ -14,7 +14,6 @@
     </thead>
     <tbody>
       <?php 
-      require_once('Classes/Group.php');
       $groups=new Group();
       $allGroups=$groups->getData();
 

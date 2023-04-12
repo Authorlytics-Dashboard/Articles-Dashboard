@@ -1,6 +1,5 @@
 <?php
-// require_once('./config.php');
-require(__DIR__ .'/../config.php');
+
 
 class MYSQLHandler
 {

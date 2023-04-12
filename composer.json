@@ -1,0 +1,16 @@
+{
+    "name": "php/adminpanel",
+    "description": "php project",
+    "license": "MIT",
+    "require": {
+        "endroid/qr-code": "*"
+    },
+    "autoload": {
+        "classmap": [
+        "Classes"
+        ],
+        "files": [
+        "config.php"
+        ]
+    }
+}

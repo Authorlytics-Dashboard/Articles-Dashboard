@@ -39,27 +39,30 @@ class User extends MYSQLHandler {
     }
 
     public function delete($id) {
-        try {
-        $this->connect();
-        $table = $this->table;
-        $primary_key = $this->primary_key;
-        $sql = "delete  from `" . $table . "` where `" . $primary_key . "` = $id";
-        $this->debug($sql);
-        if (mysqli_query($this->_dbHandler, $sql)) {
-            $this->disconnect();
+        try{
+            $this->connect();
+            $timestamp = date('Y-m-d H:i:s');
+            $data = $this->showUserByID($id)[0];
+            $data['deleted_at'] = $timestamp;
+            $this->update($data,$id);
             header('location:/users');
-            return true;
-        } else {
-            $this->disconnect();
-            header('location:/users');
-            return false;
-        }
-        } catch(Exception $e) {
+        }catch(Exception $e) {
         new Log($this->log_file, $e->getMessage());
         return false;
-        }   
+     }
     }
-
+    public function restore($id) {
+        try{
+            $this->connect();
+            $data = $this->showUserByID($id)[0];
+            $data['deleted_at'] = null;
+            $this->update($data,$id);
+            header('location:/users');
+        }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
+    }
     public function create($data){
         try {    
             $this->connect();
@@ -126,7 +129,10 @@ class User extends MYSQLHandler {
 
             foreach ($edited_values as $key => $value) {
                 if ($key != $primary_key) {
-                    if (!is_numeric($value)) {
+                    if (is_null($value) && $key == 'deleted_at') {
+                        $sql .= " `$key` = NULL,";
+                    }
+                    elseif (!is_numeric($value)) {
                         $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
                     } else {
                         $sql .= " `$key` = $value ,";

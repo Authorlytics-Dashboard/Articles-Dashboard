@@ -65,8 +65,14 @@
                 <td><?php echo $user["email"] ?></td>
                 <td><?php echo $user["mobile"] ?></td>
                 <td>
-                    <a href="/users/delete/?id=<?php echo $user["uid"] ; ?>" class="btn btn-danger"><i
-                            class='bx bx-trash'></i></a>
+                    <?php
+                        if ($user["deleted_at"] == null) { ?>
+                        <a href="/users/delete/?id=<?php echo $user["uid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
+                        <?php } 
+                        else { ?>
+                        <a href="/users/restore/?id=<?php echo $user["uid"] ; ?>" class="btn btn-success" ><i class='bx bx-recycle'></i></a>
+                        <?php }
+                    ?>    
                     <a href="/users/edit/?id=<?php echo $user["uid"] ; ?>" class="btn btn-primary"><i
                             class='bx bxs-edit'></i></a>
                     <a href="/users/show/?id=<?php echo $user["uid"] ; ?>" class="btn btn-dark"><i

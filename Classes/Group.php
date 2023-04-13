@@ -4,7 +4,9 @@ require_once('MYSQLHandler.php');
 class Group extends MYSQLHandler {
     private $table = 'groups';
     private $primary_key = 'gid';
+    private $log_file="GroupsErrors.log";
     public function getData($fields = array(), $start = 0) {
+    try {
         $this->connect();
         if (empty($fields)) {
             $sql = "select * from `$this->table`";
@@ -17,34 +19,47 @@ class Group extends MYSQLHandler {
             $sql = str_replace(", from", "from", $sql);
         }
         return $this->get_results($sql);
+    }catch (Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
     }
     public function showGroupByID($id) {
-
+    try {
         $primary_key = $this->primary_key;
-
         $table = $this->table;
         $sql = "select * from `$table` where `$primary_key` = '$id' ";
 
         return $this->get_results($sql);
+     }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
     }
 
     public function delete($id) {
-        $this->connect();
-        $table = $this->table;
-        $primary_key = $this->primary_key;
-        $sql = "delete  from `" . $table . "` where `" . $primary_key . "` = $id";
-        $this->debug($sql);
-        if (mysqli_query($this->_dbHandler, $sql)) {
-            $this->disconnect();
-            header('location:/groups');
-            return true;
-        } else {
-            $this->disconnect();
-            header('location:/groups');
-            return false;
-        }
+    try {
+    $this->connect();
+    $table = $this->table;
+    $primary_key = $this->primary_key;
+    $sql = "delete  from `" . $table . "` where `" . $primary_key . "` = $id";
+    $this->debug($sql);
+    if (mysqli_query($this->_dbHandler, $sql)) {
+        $this->disconnect();
+        header('location:/groups');
+        return true;
+    } else {
+        $this->disconnect();
+        header('location:/groups');
+        return false;
+    }
+    } catch(Exception $e) {
+    new Log($this->log_file, $e->getMessage());
+    return false;
+    }   
     }
     public function create($data){
+    try {    
         $this->connect();
         $table = 'groups';
         $gname = $data['name'];
@@ -64,9 +79,14 @@ class Group extends MYSQLHandler {
             $this->disconnect();
             return false;
         }
+    }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
     }
     public function update($edited_values, $id)
     {
+        try{
         $this->connect();
         $table = $this->table;
         $primary_key = $this->primary_key;
@@ -92,8 +112,13 @@ class Group extends MYSQLHandler {
             $this->disconnect();
             return false;
         }
+    } catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
     }
     public function edit(){
+        try{
             $avatar = $_FILES['avatar']['name'];
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
@@ -106,7 +131,10 @@ class Group extends MYSQLHandler {
             );
             $update_group = $this->update($edited_values , $id);
             header('location:/groups');
-        
+        } catch(Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+         } 
     }
     public function search(...$searchColumns)
     {

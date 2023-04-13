@@ -64,7 +64,7 @@ class Article extends MYSQLHandler {
     }
 
     public function create($data){
-        try {    
+        try {
             $this->connect();
             $photo = $data['photo'];
 
@@ -93,9 +93,10 @@ class Article extends MYSQLHandler {
             $body = $data['body'];
             $photo = $data['photo'];
             $post_date = $data['post_date'];
+            $uid = $data['uid'];
             $table = 'articles';
 
-            $sql = "insert into `$table` (title, body, photo, post_date) values ('$title', '$body', '$photo', $post_date)";
+            $sql = "insert into `$table` (title, body, photo, post_date, uid) values ('$title', '$body', '$photo', '$post_date','$uid')";
             if (mysqli_query($this->_dbHandler, $sql)) {
                 $id = mysqli_insert_id($this->_dbHandler);
                 $this->disconnect();

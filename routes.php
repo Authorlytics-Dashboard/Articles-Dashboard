@@ -1,6 +1,4 @@
 <?php
-require_once('Classes/Group.php'); 
-require_once('Classes/User.php');
     $uri = explode('/', $_SERVER['REQUEST_URI']);
     if($uri[1] == "home") {
         include_once("./views/dashboard/home.php");

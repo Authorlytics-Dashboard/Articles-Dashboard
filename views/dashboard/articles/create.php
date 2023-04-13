@@ -22,12 +22,17 @@
             </div>
 
             <div class="mb-3">
-                <?php 
-                    // $user = new User();
-
-                ?>
                 <label for="uid" class="form-label">user id</label>
-                <input type="number" class="form-control" name="uid" id="uid">
+                <select name="uid" class="form-control" id="uid">
+                <?php
+                    $users = new User();
+                    $users = $users->getData();
+                    foreach ($users as $user){
+                ?>
+                    <option value="<?= $user['uid']?>"><?= $user['uname']?></option>
+                <?php
+                    }
+                ?>
             </div>
 
             <div class="mb-3 text-center mt-5">

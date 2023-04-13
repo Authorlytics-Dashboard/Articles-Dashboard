@@ -14,12 +14,12 @@
                 <select class="form-control" name="group_id" id="group_id">
                     <?php
                     ob_start();
-                $group = new Group();
-                $groups = $group->getGroups();
-                foreach ($groups as $g) {
-                     $gid = $g['gid'];
-                     $gname = $g['gname'];
-                     echo "<option value=\"$gid\">$gname</option>";}?>
+                    $group = new Group();
+                    $groups = $group->getGroups();
+                    foreach ($groups as $g) {
+                        $gid = $g['gid'];
+                        $gname = $g['gname'];
+                        echo "<option value=\"$gid\">$gname</option>";}?>
                 </select>
             </div>
 

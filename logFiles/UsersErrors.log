@@ -1,0 +1,10 @@
+2023-04-13 19:35:47-Unknown column 'gname' in 'field list'
+2023-04-13 19:36:08-Unknown column 'gname' in 'field list'
+2023-04-13 19:45:51-Unknown column 'username' in 'field list'
+2023-04-13 19:51:48-Unknown column 'username' in 'field list'
+2023-04-13 20:27:46-Cannot add or update a child row: a foreign key constraint fails (`admin-panel`.`user`, CONSTRAINT `foreign key` FOREIGN KEY (`gid`) REFERENCES `groups` (`gid`))
+2023-04-13 20:57:45-Cannot add or update a child row: a foreign key constraint fails (`admin-panel`.`user`, CONSTRAINT `foreign key` FOREIGN KEY (`gid`) REFERENCES `groups` (`gid`))
+2023-04-13 20:57:57-Cannot add or update a child row: a foreign key constraint fails (`admin-panel`.`user`, CONSTRAINT `foreign key` FOREIGN KEY (`gid`) REFERENCES `groups` (`gid`))
+2023-04-13 21:28:59-Unknown column 'username' in 'field list'
+2023-04-13 21:36:01-Unknown column 'username' in 'field list'
+2023-04-13 21:42:19-Unknown column 'username' in 'field list'

@@ -1,3 +1,11 @@
+<?php 
+    $db = new Group();
+    $current_index = isset($_GET["page"]) && is_numeric($_GET["page"])? (int)$_GET["page"]: 0;
+    $rowCount = $db->getCount('groups');
+    $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
+    $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
+?>  
+
 <section class="groupSection">
   <form method="get" action="/groups/">
     <div class="input-group mb-3">
@@ -13,13 +21,14 @@
 <?php 
 $groups=new Group();
 if(isset($_GET['query'])) {
-  $searchedGroups = $groups->search(array("column" => "gname", "value" => $_GET['query']),
+  $items = $groups->search(array("column" => "gname", "value" => $_GET['query']),
   array("column" => "description", "value" => $_GET['query']));
-} else {
-  $searchedGroups = $groups->getData();
+} else{
+  $items = $db->get_all_records_paginated(array(), $current_index);
 }
 
-if (count($searchedGroups) > 0) {
+
+if (count($items) > 0) {
 ?>
   <table class="table text-center">
     <thead>
@@ -33,7 +42,7 @@ if (count($searchedGroups) > 0) {
     </thead>
     <tbody>
       <?php 
-      foreach ($searchedGroups as $group)
+      foreach ($items as $group)
       {?>
         <tr>
           <th scope="row"><?php echo $group["gid"] ?></th>
@@ -60,6 +69,14 @@ if (count($searchedGroups) > 0) {
   echo "No results found.";
 }
 ?>
+        <div class="d-flex justify-content-center gap-2" >
+            <button class="btn btn-dark">
+                <a href="<?php echo "/groups/"."?page=".$previous_index; ?>" class="text-light"> << Previous</a>
+            </button>
+            <button class=" btn btn-dark" >        
+                <a href="<?php echo "/groups/"."?page=".$next_index; ?>" class="text-light">Next >></a>
+            </button>
+        </div>
 </section>
 <?php
 if(isset($_POST['query'])){

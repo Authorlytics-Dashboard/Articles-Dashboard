@@ -16,7 +16,9 @@ class Group extends MYSQLHandler {
             }
             $sql .= "from  `$this->table` ";
             $sql = str_replace(", from", "from", $sql);
+            
         }
+        // $sql .= "limit $start," . 5;
         return $this->get_results($sql);
     }catch (Exception $e) {
         new Log($this->log_file, $e->getMessage());
@@ -189,6 +191,29 @@ class Group extends MYSQLHandler {
         }
         return $this->get_results($sql);
     }
+    public function getCount ($table){
+            $sql = "select * from `$table` ";
+            $_handler_results = mysqli_query($this->_dbHandler, $sql);
+            $rowcount=mysqli_num_rows($_handler_results);
+            return $rowcount;
+    }
+
+    public function get_all_records_paginated($fields = array(), $start = 0){
+            $table = $this->table;
+            if(empty($fields)){
+                $sql = "select * from `$table` ";
+            } else {
+                $sql = "select ";
+                foreach($fields as $f){
+                    $sql .= " `$f`, ";
+                }
+                $sql .= "from `$table` ";
+                $sql = str_replace(", from", "from", $sql );
+            }
+
+            $sql .= "limit $start," . 5;
+            return $this->get_results($sql);
+        }
 }
 
 ?>

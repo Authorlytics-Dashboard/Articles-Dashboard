@@ -25,6 +25,29 @@ class Group extends MYSQLHandler {
         return false;
      }
     }
+    public function getGroups()
+    {
+        try {
+            $this->connect();
+            $sql = "SELECT gname, gid FROM `$this->table`";
+            $result = $this->_dbHandler->query($sql);
+            $this->disconnect();
+            if ($result->num_rows > 0) {
+                $groups = array();
+                while ($row = $result->fetch_assoc()) {
+                    $groups[] = $row;
+                }
+                return $groups;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+    }
+
+    
     public function showGroupByID($id) {
     try {
         $primary_key = $this->primary_key;

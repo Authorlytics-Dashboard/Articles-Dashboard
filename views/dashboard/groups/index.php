@@ -7,14 +7,14 @@
 ?>  
 
 <section class="groupSection">
-<form method="get" action="/groups/">
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Search" name="query" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="submit">Search</button>
+  <form method="get" action="/groups/">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search" name="query" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
   <form action="CreateGroup" method="post">
     <button type="submit" class="btn btn-success mb-5 mt-3">Add New Group</button>
   </form>

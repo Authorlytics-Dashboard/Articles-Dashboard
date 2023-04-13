@@ -1,3 +1,26 @@
+<?php
+if(!empty($_SESSION["id"])){
+  header("Location: index.php");
+}
+$login = new Login();
+if(isset($_POST["login"])){
+  $result = $login->login(urldecode($_POST["email"]), $_POST["password"]);
+  if($result == 1){
+    $_SESSION["login"] = true;
+    $_SESSION["id"] = $login->idUser();
+    require_once("./views/dashboard.php");
+  }
+  elseif($result == 10){
+    echo
+    "<script> alert('Wrong Password'); </script>";
+  }
+  elseif($result == 100){
+    echo
+    "<script> alert('User Not Registered'); </script>";
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +36,12 @@
         <div class="container ">
             <div class="welcome">
                 <div class="pinkbox">
-                    <form class="h-100 d-flex flex-column justify-content-between" autocomplete="off">
+                    <form class="h-100 d-flex flex-column justify-content-between" autocomplete="off" method="post">
                         <h1 class="m-0">sign in</h1>
 
                         <div class="inputContainer">
                             <div class="loginInp input-group w-100 mb-3">
-                                <input class="form-control rounded-0 border-0 border-bottom" type="text" name="userName" id="userNameInp" placeholder="username">
+                                <input class="form-control rounded-0 border-0 border-bottom" type="text" name="email" id="userNameInp" placeholder="user email">
                             </div>
 
                             <div class="loginInp input-group w-100 mb-3">
@@ -33,7 +56,7 @@
                         </div>
 
                         <div class="btns text-center">
-                            <button class="button submit w-100 mb-2">login</button>
+                            <button class="button submit w-100 mb-2" name="login" type="submit">login</button>
                             <a href="#" class="forgetPass text-decoration-none text-white" style="font-size: 15px;">Forgot your password?</a>
                         </div>
                     </form>

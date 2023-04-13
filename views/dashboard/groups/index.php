@@ -31,8 +31,8 @@ if(isset($_GET['query'])) {
 }
 
 
-if (count($items) > 0) {
-?>
+    if (count($items) > 0) {
+  ?>
   <table class="table text-center">
     <thead>
       <tr>
@@ -45,8 +45,8 @@ if (count($items) > 0) {
     </thead>
     <tbody>
       <?php 
-      foreach ($items as $group)
-      {?>
+        foreach ($items as $group){
+      ?>
         <tr>
           <th scope="row"><?php echo $group["gid"] ?></th>
           <td>
@@ -67,11 +67,11 @@ if (count($items) > 0) {
       <?php }?>
     </tbody>
   </table>
-<?php
-} else {
-  echo "No results found.";
-}
-?>
+  <?php
+  } else {
+    echo "No results found.";
+  }
+  ?>
         <div class="d-flex justify-content-center gap-2" >
             <button class="btn btn-dark">
                 <a href="<?php echo "/groups/"."?page=".$previous_index; ?>" class="text-light"> << Previous</a>
@@ -82,11 +82,9 @@ if (count($items) > 0) {
         </div>
 </section>
 <?php
-if(isset($_POST['query'])){
-  $name = $_POST['query'];
-  $obj = new Group();
-  $d=  $obj->search('gname' , $name);
-  var_dump($d);
-}
-
+  if(isset($_POST['query'])){
+    $name = $_POST['query'];
+    $obj = new Group();
+    $d=  $obj->search('gname' , $name);
+  }
 ?>

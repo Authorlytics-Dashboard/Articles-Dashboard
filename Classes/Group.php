@@ -62,25 +62,18 @@ class Group extends MYSQLHandler {
     }
 
     public function delete($id) {
-        try {
+        try{
             $this->connect();
             $table = $this->table;
             $primary_key = $this->primary_key;
-            $sql = "delete  from `" . $table . "` where `" . $primary_key . "` = $id";
-            $this->debug($sql);
-            if (mysqli_query($this->_dbHandler, $sql)) {
-                $this->disconnect();
-                header('location:/groups');
-                return true;
-            } else {
-                $this->disconnect();
-                header('location:/groups');
-                return false;
-            }
-        } catch(Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
+            $timestamp = date('Y-m-d H:i:s');
+            $data = $this->showGroupByID($id)[0];
+            $data['deleted_at'] = $timestamp;
+            $this->update($data,$id);
+        }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
     }
 
     public function create($data){

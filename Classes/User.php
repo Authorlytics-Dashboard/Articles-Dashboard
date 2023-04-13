@@ -1,7 +1,7 @@
 <?php
 
 class User extends MYSQLHandler {
-    private $table = 'user';
+    private $table = 'users';
     private $primary_key = 'uid';
     private $log_file="UsersErrors.log";
 
@@ -97,7 +97,7 @@ class User extends MYSQLHandler {
             $groupID = $data['groupID'];
             $mobile = $data['mobile'];
             $password = $data['password'];
-            $table = 'user';
+            $table = 'users';
             $sql = "insert into `$table` (uname, gid, email, password, mobile , avatar) values ('$username', '$groupID', '$email','$password', '$mobile', '$avatar')";
             if (mysqli_query($this->_dbHandler, $sql)) {
                 $id = mysqli_insert_id($this->_dbHandler);

@@ -7,6 +7,7 @@
 ?>  
 
 <section class="groupSection">
+  <div class="d-flex justify-content-between" >
   <form method="get" action="/groups/">
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Search" name="query" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
@@ -18,14 +19,17 @@
   <form action="CreateGroup" method="post">
     <button type="submit" class="btn btn-success mb-5 mt-3">Add New Group</button>
   </form>
-  <?php 
-    $groups=new Group();
-    if(isset($_GET['query'])) {
-      $items = $groups->search(array("column" => "gname", "value" => $_GET['query']),
-      array("column" => "description", "value" => $_GET['query']));
-    } else{
-      $items = $db->get_all_records_paginated(array(), $current_index);
-    }
+  </div>
+ 
+<?php 
+$groups=new Group();
+if(isset($_GET['query'])) {
+  $items = $groups->search(array("column" => "gname", "value" => $_GET['query']),
+  array("column" => "description", "value" => $_GET['query']));
+} else{
+  $items = $db->get_all_records_paginated(array(), $current_index);
+}
+
 
     if (count($items) > 0) {
   ?>

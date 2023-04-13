@@ -4,8 +4,8 @@
         <button type="submit" class="btn btn-success mb-5 mt-3">Add New User</button>
     </form>
     <?php 
-  $users=new User();
-  $allUsers = $users->getData();?>
+        $users=new User();
+        $allUsers = $users->getData();?>
     <table class="table text-center">
         <thead>
             <tr>
@@ -19,8 +19,8 @@
         </thead>
         <tbody>
             <?php 
-      foreach ($allUsers as $user)
-      {?>
+                foreach ($allUsers as $user)
+            {?>
             <tr>
                 <th scope="row"><?php echo $user["uid"] ?></th>
                 <td>

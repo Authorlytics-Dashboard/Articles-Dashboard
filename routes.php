@@ -1,8 +1,5 @@
 <?php
-require_once('Classes/Group.php'); 
-require_once('Classes/User.php');
     $uri = explode('/', $_SERVER['REQUEST_URI']);
-    // var_dump($uri);
     if($uri[1] == "home") {
         include_once("./views/dashboard/home.php");
     }elseif ($uri[1] == "groups" && isset($uri[2]) && $uri[2] == "edit" && isset($uri[3])) {
@@ -21,9 +18,17 @@ require_once('Classes/User.php');
     }
     elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "show" && isset($uri[3])) {
         include_once('./views/dashboard/groups/show.php');
-        $groupId = $_GET['id'];
-    
-
+    }
+    elseif ($uri[1] == "articles" && isset($uri[2]) &&  $uri[2] == "create") {
+        include_once('./views/dashboard/articles/create.php');
+    }
+    elseif ($uri[1] == "articles" && isset($uri[2]) &&  $uri[2] == "show" && isset($uri[3])) {
+        include_once('./views/dashboard/articles/show.php');
+    }
+    elseif ($uri[1] == "articles" && isset($uri[2]) &&  $uri[2] == "delete" && isset($uri[3])) {
+        $articleId = $_GET['id'];
+        $article = new Article();
+        $article ->delete($articleId);
     }elseif ($uri[1] == "users" && isset($uri[2]) && $uri[2] == "edit" && isset($uri[3])) {
         $userId = $_GET['id'];
         include_once("./views/dashboard/users/edit.php");
@@ -53,7 +58,7 @@ require_once('Classes/User.php');
     elseif($uri[1] == "CreateUser") {
         include_once("./views/dashboard/users/user.php");
     }elseif($uri[1] == "articles") {
-        include_once("./views/dashboard/articles/article.php");
+        include_once("./views/dashboard/articles/index.php");
     }elseif($uri[1] == "logout") {
 
     }

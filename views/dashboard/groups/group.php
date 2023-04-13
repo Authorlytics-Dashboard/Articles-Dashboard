@@ -18,7 +18,7 @@
 
             <div class="mb-3 text-center mt-5">
                 <input type="submit" class="btn btn-primary me-1 rounded-1" name="action" value="Create">
-                <a href="/home" class="btn btn-danger">cancel</a>
+                <a href="/groups" class="btn btn-danger">cancel</a>
             </div>
         </form>
 

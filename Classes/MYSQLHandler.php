@@ -1,35 +1,29 @@
 <?php
-require_once('Log.php');
 
 class MYSQLHandler
 {
     protected $_dbHandler;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->connect();
     }
 
-    public function connect()
-    {
+    public function connect(){
         try {
             $handler = mysqli_connect(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
             if($handler) {
                 $this->_dbHandler = $handler;
             }
         } catch(Exception $e) {
-            new Log('error.log', $e->getMessage());
             die("Could not connect to db, please come back later.");
         }
     }
 
-    public function getConnection()
-    {
+    public function getConnection(){
         return $this->_dbHandler;
     }
 
-    public function disconnect()
-    {
+    public function disconnect(){
         if ($this->_dbHandler) {
             mysqli_close($this->_dbHandler);
         }
@@ -53,9 +47,7 @@ class MYSQLHandler
             }
         }
 
-
-    protected function debug($sql)
-    {
+    protected function debug($sql){
         if (_Debug_Mode_ === 1) {
             return "<h5>Sent Query: </h5>" . $sql . "<br/> <br/>";
         }

@@ -112,6 +112,45 @@ class Article extends MYSQLHandler {
             return false;
         }
     }
+
+    public function search(...$searchColumns){
+        $table = $this->table;
+        $sql = "SELECT * FROM `$table` WHERE ";
+        $params = array();
+    
+        foreach ($searchColumns as $index => $searchColumn) {
+            $params[] = "%" . $searchColumn["value"] . "%";
+            $sql .= "`" . $searchColumn["column"] . "` LIKE '%" . $searchColumn["value"] . "%'";
+            if ($index < count($searchColumns) - 1) {
+                $sql .= " OR ";
+            }
+        }
+        return $this->get_results($sql);
+    }
+
+    public function getCount ($table){
+        $sql = "select * from `$table` ";
+        $_handler_results = mysqli_query($this->_dbHandler, $sql);
+        $rowcount=mysqli_num_rows($_handler_results);
+        return $rowcount;
+    }
+
+    public function get_all_records_paginated($fields = array(), $start = 0){
+        $table = $this->table;
+        if(empty($fields)){
+            $sql = "select * from `$table` ";
+        } else {
+            $sql = "select ";
+            foreach($fields as $f){
+                $sql .= " `$f`, ";
+            }
+            $sql .= "from `$table` ";
+            $sql = str_replace(", from", "from", $sql );
+        }
+
+        $sql .= "limit $start," . 5;
+        return $this->get_results($sql);
+    }
 }
 
 

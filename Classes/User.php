@@ -179,7 +179,7 @@ class User extends MYSQLHandler {
     
         foreach ($searchColumns as $index => $searchColumn) {
             $params[] = "%" . $searchColumn["value"] . "%";
-            $sql .= "`" . $searchColumn["column"] . "` LIKE '%" . $searchColumn["value"] . "%'";
+            $sql .= "`" . $searchColumn["column"] . "` LIKE '" . $searchColumn["value"] . "%'";
             if ($index < count($searchColumns) - 1) {
                 $sql .= " OR ";
             }

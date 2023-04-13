@@ -186,6 +186,18 @@ class User extends MYSQLHandler {
         }
         return $this->get_results($sql);
     }
+    public function filterUsersByGroup($groupName){
+        try{
+
+            $sql = "SELECT * FROM user INNER JOIN groups ON user.gid = groups.gid WHERE groups.gname = $groupName";
+            return $this->get_results($sql);
+        }
+        catch(Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+        
+    }
 }
 
 

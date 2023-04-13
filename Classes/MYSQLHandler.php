@@ -1,5 +1,5 @@
 <?php
-
+require_once('Log.php');
 
 class MYSQLHandler
 {
@@ -18,6 +18,7 @@ class MYSQLHandler
                 $this->_dbHandler = $handler;
             }
         } catch(Exception $e) {
+            new Log('error.log', $e->getMessage());
             die("Could not connect to db, please come back later.");
         }
     }

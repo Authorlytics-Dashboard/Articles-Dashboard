@@ -52,7 +52,7 @@ class Group extends MYSQLHandler {
         
         $avatar = $data['avatar'];
         $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
-        move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+        move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
         $avatar = basename($_FILES["avatar"]["name"]);
     
         $sql = "insert into `$table` (gname, description, avatar) values ('$gname', '$description', '$avatar')";
@@ -104,10 +104,15 @@ class Group extends MYSQLHandler {
                 'description' => $_POST['description'],
                 'avatar' => $avatar,
             );
-            $group = new Group();
-            $update_group = $group->update($edited_values , $id);
+            $update_group = $this->update($edited_values , $id);
             header('location:/groups');
         
+    }
+    public function search($column, $column_value)
+    {
+        $table = $this->table;
+        $sql = "select * from `$table` where `$column` like  '%" . $column_value . "%' ";
+        return $this->get_results($sql);
     }
 }
 

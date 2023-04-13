@@ -179,12 +179,24 @@ class User extends MYSQLHandler {
     
         foreach ($searchColumns as $index => $searchColumn) {
             $params[] = "%" . $searchColumn["value"] . "%";
-            $sql .= "`" . $searchColumn["column"] . "` LIKE '%" . $searchColumn["value"] . "%'";
+            $sql .= "`" . $searchColumn["column"] . "` LIKE '" . $searchColumn["value"] . "%'";
             if ($index < count($searchColumns) - 1) {
                 $sql .= " OR ";
             }
         }
         return $this->get_results($sql);
+    }
+    public function filterUsersByGroup($groupName){
+        try{
+
+            $sql = "SELECT * FROM user INNER JOIN groups ON user.gid = groups.gid WHERE groups.gname = $groupName";
+            return $this->get_results($sql);
+        }
+        catch(Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+        
     }
 }
 

@@ -15,3 +15,6 @@
 2023-04-14 00:21:03-Table 'admin-panel.user' doesn't exist
 2023-04-14 00:22:10-Table 'admin-panel.user' doesn't exist
 2023-04-14 00:22:43-Table 'admin-panel.user' doesn't exist
+2023-04-13 23:42:16-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+2023-04-13 23:43:42-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+2023-04-13 23:53:33-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1

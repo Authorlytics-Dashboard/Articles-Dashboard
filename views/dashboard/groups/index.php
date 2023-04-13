@@ -7,6 +7,7 @@
 ?>  
 
 <section class="groupSection">
+  <div class="d-flex justify-content-between" >
   <form method="get" action="/groups/">
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Search" name="query" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
@@ -18,6 +19,8 @@
   <form action="CreateGroup" method="post">
     <button type="submit" class="btn btn-success mb-5 mt-3">Add New Group</button>
   </form>
+  </div>
+ 
 <?php 
 $groups=new Group();
 if(isset($_GET['query'])) {
@@ -28,8 +31,8 @@ if(isset($_GET['query'])) {
 }
 
 
-if (count($items) > 0) {
-?>
+    if (count($items) > 0) {
+  ?>
   <table class="table text-center">
     <thead>
       <tr>
@@ -42,8 +45,8 @@ if (count($items) > 0) {
     </thead>
     <tbody>
       <?php 
-      foreach ($items as $group)
-      {?>
+        foreach ($items as $group){
+      ?>
         <tr>
           <th scope="row"><?php echo $group["gid"] ?></th>
           <td>
@@ -64,11 +67,11 @@ if (count($items) > 0) {
       <?php }?>
     </tbody>
   </table>
-<?php
-} else {
-  echo "No results found.";
-}
-?>
+  <?php
+  } else {
+    echo "No results found.";
+  }
+  ?>
         <div class="d-flex justify-content-center gap-2" >
             <button class="btn btn-dark">
                 <a href="<?php echo "/groups/"."?page=".$previous_index; ?>" class="text-light"> << Previous</a>
@@ -79,11 +82,9 @@ if (count($items) > 0) {
         </div>
 </section>
 <?php
-if(isset($_POST['query'])){
-  $name = $_POST['query'];
-  $obj = new Group();
-  $d=  $obj->search('gname' , $name);
-  var_dump($d);
-}
-
+  if(isset($_POST['query'])){
+    $name = $_POST['query'];
+    $obj = new Group();
+    $d=  $obj->search('gname' , $name);
+  }
 ?>

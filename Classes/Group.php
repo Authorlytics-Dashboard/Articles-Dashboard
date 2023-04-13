@@ -136,10 +136,19 @@ class Group extends MYSQLHandler {
             return false;
          } 
     }
-    public function search($column, $column_value)
+    public function search(...$searchColumns)
     {
         $table = $this->table;
-        $sql = "select * from `$table` where `$column` like  '%" . $column_value . "%' ";
+        $sql = "SELECT * FROM `$table` WHERE ";
+        $params = array();
+    
+        foreach ($searchColumns as $index => $searchColumn) {
+            $params[] = "%" . $searchColumn["value"] . "%";
+            $sql .= "`" . $searchColumn["column"] . "` LIKE '%" . $searchColumn["value"] . "%'";
+            if ($index < count($searchColumns) - 1) {
+                $sql .= " OR ";
+            }
+        }
         return $this->get_results($sql);
     }
 }

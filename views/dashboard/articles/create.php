@@ -22,6 +22,10 @@
             </div>
 
             <div class="mb-3">
+                <?php 
+                    // $user = new User();
+
+                ?>
                 <label for="uid" class="form-label">user id</label>
                 <input type="number" class="form-control" name="uid" id="uid">
             </div>

@@ -18,13 +18,17 @@
     }
     elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "show" && isset($uri[3])) {
         include_once('./views/dashboard/groups/show.php');
-        $groupId = $_GET['id'];
     }
     elseif ($uri[1] == "articles" && isset($uri[2]) &&  $uri[2] == "create") {
         include_once('./views/dashboard/articles/create.php');
     }
     elseif ($uri[1] == "articles" && isset($uri[2]) &&  $uri[2] == "show" && isset($uri[3])) {
         include_once('./views/dashboard/articles/show.php');
+    }
+    elseif ($uri[1] == "articles" && isset($uri[2]) &&  $uri[2] == "delete" && isset($uri[3])) {
+        $articleId = $_GET['id'];
+        $article = new Article();
+        $article ->delete($articleId);
     }
     elseif($uri[1] == "groups") {
         include_once("./views/dashboard/groups/index.php");

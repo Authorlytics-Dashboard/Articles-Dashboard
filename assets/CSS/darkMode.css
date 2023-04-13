@@ -26,7 +26,10 @@
 
 /* ---------------------------------------------------------------------------------------------------------- */
 /* Home Dark mode */
-.dark-mode .homeSection .logo{
+.dark-mode #logoSvg .stroke1,
+.dark-mode #logoSvg .stroke2,
+.dark-mode #logoSvg .stroke3,
+.dark-mode #logoSvg .stroke4{
     color: var(--dark-primary-color);
 }
 

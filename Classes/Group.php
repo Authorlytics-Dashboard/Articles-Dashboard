@@ -1,5 +1,4 @@
 <?php
-require_once('MYSQLHandler.php');
 
 class Group extends MYSQLHandler {
     private $table = 'groups';

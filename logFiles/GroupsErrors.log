@@ -29,3 +29,13 @@
 2023-04-13 17:52:24-Undeclared variable: Array
 2023-04-13 17:54:16-Cannot add or update a child row: a foreign key constraint fails (`admin-panel`.`user`, CONSTRAINT `foreign key` FOREIGN KEY (`gid`) REFERENCES `groups` (`gid`))
 2023-04-13 19:35:56-Cannot delete or update a parent row: a foreign key constraint fails (`admin-panel`.`user`, CONSTRAINT `foreign key` FOREIGN KEY (`gid`) REFERENCES `groups` (`gid`))
+2023-04-14 00:31:21-Unknown column 'id' in 'where clause'
+2023-04-14 00:31:37-Unknown column 'id' in 'where clause'
+2023-04-14 00:31:40-Unknown column 'id' in 'where clause'
+2023-04-14 00:31:52-Unknown column 'id' in 'where clause'
+2023-04-14 00:34:16-Unknown column 'id' in 'where clause'
+2023-04-14 00:34:36-Unknown column 'id' in 'where clause'
+2023-04-14 00:35:06-Unknown column '2' in 'where clause'
+2023-04-14 00:35:11-Unknown column '1' in 'where clause'
+2023-04-14 00:38:23-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '00:38:23 WHERE gid =  1' at line 1
+2023-04-14 01:00:01-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `gid` = 1' at line 1

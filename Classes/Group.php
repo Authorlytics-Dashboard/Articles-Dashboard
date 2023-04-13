@@ -168,5 +168,4 @@ class Group extends MYSQLHandler {
     }
 }
 
-
 ?>

@@ -68,7 +68,7 @@ class User extends MYSQLHandler {
             $avatar = $data['avatar'];
             $groupID = $data['groupID'];
             $mobile = $data['mobile'];
-            $password = $data['password'];
+            $password = password_hash($data['password'], PASSWORD_DEFAULT);
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
@@ -161,7 +161,7 @@ class User extends MYSQLHandler {
                 'uname' => $_POST['name'],
                 'email' => $_POST['email'],
                 'mobile' => $_POST['mobile'],
-                'password' => $_POST['password'],
+                'password' => password_hash( $_POST['password'], PASSWORD_DEFAULT),
                 'avatar' => $avatar
             );
             $update_group = $this->update($edited_values , $id);

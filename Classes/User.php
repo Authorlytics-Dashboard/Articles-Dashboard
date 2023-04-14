@@ -240,6 +240,14 @@ class User extends MYSQLHandler {
         $sql .= "limit $start," . 5;
         return $this->get_results($sql);
     }
+
+    public function logout() {
+        $_SESSION = array(); // reset session array
+        session_destroy(); 
+        setcookie("remember_token", "", time() - 3600);  // destroy session     
+        header('Location: /login');
+        exit;
+    }
 }
 
 ?>

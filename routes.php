@@ -76,7 +76,11 @@
     }elseif($uri[1] == "articles") {
         include_once("./views/dashboard/articles/index.php");
     }elseif($uri[1] == "logout") {
-
+        $user = new User();
+        $user->logout();
+    }
+    elseif($uri[1] == "login") {
+        include_once("./views/login.php"); 
     }
 elseif($uri[1] == "charts") {
     include_once("./views/dashboard/charts/index.php");

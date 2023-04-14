@@ -6,6 +6,7 @@
     $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
    
 ?>
+
 <section class="userSection">
     <div class="d-flex justify-content-between">
         <form method="get" action="/users/">
@@ -21,7 +22,7 @@
             <button type="submit" class="btn btn-success mb-5 mt-3">Add New User</button>
         </form>
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" style="background-color:#221f26;">
+            <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#221f26;">
               Filter By Group
             </button>
             <ul class="dropdown-menu">
@@ -29,7 +30,6 @@
               ob_start();
               $group = new Group();
               $groups = $group->getGroups();
-              var_dump($groups);
               foreach ($groups as $g) {
                   $gid = $g['gid'];
                   $gname = $g['gname'];
@@ -41,26 +41,16 @@
         </div>
     </div>
 
-    <?php 
-        $users=new User();
-        if(isset( $_GET['group_name'])){
-            if($_GET['group_name'] =="all"){
-                $allUsers = $users->getData();
-            }
-            else{
-                $allUsers = $users->filterUsersByGroup($_GET['group_name']);
-            }
-        }
-        else{
-            $allUsers = $users->getData();
-        }       
-        ?>
+   
 
     <?php 
     $users=new User();
     if(isset($_GET['query'])) {
          $items = $users->search(array("column" => "uname", "value" => $_GET['query']));
-    } else{
+    }else if (isset( $_GET['group_name']) && $_GET['group_name'] != 'all'){
+        $items = $users->filterUsersByGroup($_GET['group_name']);
+    }
+     else{
          $items = $db->get_all_records_paginated(array(), $current_index);
     }
 
@@ -130,10 +120,4 @@
   }
   ?>
 </section>
-<?php
-  if(isset($_POST['query'])){
-    $name = $_POST['query'];
-    $obj = new User();
-    $d=  $obj->search('uname' , $name);
-  }
-?>
+

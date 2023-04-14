@@ -1,35 +1,48 @@
 <?php 
 class Login extends MYSQLHandler{
   public $id;
+  private $log_file="loginError.log";
   public function login($email, $password){
-
-    $result = mysqli_query($this->_dbHandler, "SELECT * FROM users WHERE email = '$email'");
-    $row = mysqli_fetch_assoc($result);
-
-    if(mysqli_num_rows($result) > 0){
-        $isPasswordCorrect = password_verify($password, $row["password"]);
+    if(empty($email) || empty($password)){
+      return "Please enter both email and password";
+    }
+    $user = $this->getUserByEmail($email);
+    if($user){
+      $isPasswordCorrect =$this->authenticateUser($password, $user);
       if($isPasswordCorrect){
-        $this->id = $row["uid"];
-        if($password == $row["password"]) {
-          $this->id = $row["uid"];
-          if($_POST['remember_me']) {
-            $this->setUserCookie();
-          }
+        $this->id = $user["uid"];
+        if(isset($_POST['remember_me'])) {
+        $this->setUserCookie();
         }
-        return 1;
-        // Login successful
+        return 1;          // Login successful
       }
       else{
-        return 10;
-        // Wrong password
+           return 10;          //Wrong password
       }
     }
     else{
-      return 100;
-      // User not registered
+      return 100;      // User not registered
     }
-  }
+}
 
+  private function getUserByEmail($email){
+   try{
+    $stmt = $this->_dbHandler->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc(); 
+    return ($result->num_rows > 0) ? $row : null;
+  }
+  catch (Exception $e) {
+    new Log($this->log_file, $e->getMessage());
+     return false;
+  }
+  }
+  
+  private function authenticateUser($password, $user){
+    return password_verify($password, $user["password"]);
+  }
   public function idUser(){
     return $this->id;
   }

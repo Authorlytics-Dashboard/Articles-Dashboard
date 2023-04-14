@@ -47,10 +47,11 @@ class User extends MYSQLHandler {
             $this->update($data,$id);
             header('location:/users');
         }catch(Exception $e) {
-        new Log($this->log_file, $e->getMessage());
-        return false;
-     }
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
     }
+
     public function restore($id) {
         try{
             $this->connect();
@@ -59,10 +60,11 @@ class User extends MYSQLHandler {
             $this->update($data,$id);
             header('location:/users');
         }catch(Exception $e) {
-        new Log($this->log_file, $e->getMessage());
-        return false;
-     }
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
     }
+    
     public function create($data){
         try {    
             $this->connect();
@@ -229,6 +231,5 @@ class User extends MYSQLHandler {
         return $this->get_results($sql);
     }
 }
-
 
 ?>

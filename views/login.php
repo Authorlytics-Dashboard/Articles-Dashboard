@@ -1,5 +1,19 @@
-<?php
+<?php 
 session_start();
+if (isset($_COOKIE["remember_token"])) {
+    $m = new MYSQLHandler();
+    $stmt = $m->_dbHandler->prepare("SELECT * FROM remember_tokens WHERE token = ?");
+    $stmt->bind_param("s", $_COOKIE["remember_token"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $token = $result->fetch_assoc();
+    if ($token && time() < strtotime($token["expire"])) {
+        $user_id = $token["user_id"];
+        $_SESSION["id"] = $user_id ;
+    }
+}
+?>
+<?php
 if(!empty($_SESSION["id"])){
     require_once("./views/dashboard.php");
 }
@@ -52,8 +66,8 @@ if(isset($_POST["login"])){
                             </div>
 
                             <div class="form-check form-check-inline mb-4">
-                                <input class="form-check-input" type="checkbox" id="remeberMe" name="rememberMe" style="background-color: transparent;" >
-                                <label class="form-check-label ps-2" style="cursor: pointer;" for="remeberMe">Remember me</label>
+                                <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" style="background-color: transparent;" >
+                                <label class="form-check-label ps-2" style="cursor: pointer;" for="remember_me">Remember me</label>
                             </div>
                         </div>
 

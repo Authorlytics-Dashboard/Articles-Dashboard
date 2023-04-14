@@ -100,8 +100,9 @@ class User extends MYSQLHandler {
             $groupID = $data['groupID'];
             $mobile = $data['mobile'];
             $password = $data['password'];
+            $subscriptionDate = date('Y-m-d H:i:s'); 
             $table = 'users';
-            $sql = "insert into `$table` (uname, gid, email, password, mobile , avatar) values ('$username', '$groupID', '$email','$password', '$mobile', '$avatar')";
+            $sql = "insert into `$table` (uname, gid, email, password, mobile , avatar, subscription_date) values ('$username', '$groupID', '$email','$password', '$mobile', '$avatar', '$subscriptionDate')";
             if (mysqli_query($this->_dbHandler, $sql)) {
                 $id = mysqli_insert_id($this->_dbHandler);
                 $this->disconnect();

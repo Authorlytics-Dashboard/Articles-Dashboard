@@ -62,9 +62,8 @@
                 <td>
                     <?php 
                         $user = new User();
-                        $id = $item['uid'];
-                        $user->showUserByID($id);
-                        var_dump( $user[0]);
+                        $createdBy = $user->showUserByID($item['uid']);
+                        echo $createdBy[0]['uname'];
                     ?>
                 </td>
                 <td>

@@ -19,6 +19,27 @@ if(isset($_POST["login"])){
    if($result == 1){
     $_SESSION["login"] = true;
     $_SESSION["id"] = $login->idUser();
+    $lastVisit = $login->getLastVisit($_POST["email"]);
+    if($lastVisit){
+        echo "
+        <div class='modal fade show in' tabindex='-1' id='welcome'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                    <div class='modal-body'style='color:black'>
+                    Hello and welcome back! We hope you've been well since your last visit on<span style='color:red'> $lastVisit</span>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+        ";
+    }
+    else{
+        echo "Welcome! This is your first visit.";
+    }
+    $login->setLastVisit();
     require_once("./views/dashboard.php");
   }
   elseif($result == 10){
@@ -99,8 +120,13 @@ if(isset($_POST["login"])){
                 </div>
             </div>
         </div>
-
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $("#welcome").modal('show');
+        });
+    </script>
     <script>
         const togglePassword = document.querySelector('#togglePassword');
         const password = document.querySelector('#passwordInp');

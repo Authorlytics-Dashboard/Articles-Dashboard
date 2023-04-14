@@ -77,7 +77,8 @@ CREATE TABLE `users` (
   `mobile` varchar(30) NOT NULL,
   `avatar` text DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `subscription_date` timestamp NULL DEFAULT NULL
+  `subscription_date` timestamp NULL DEFAULT NULL,
+  `last_visit` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

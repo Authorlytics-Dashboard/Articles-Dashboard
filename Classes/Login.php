@@ -69,4 +69,18 @@ class Login extends MYSQLHandler{
     $token = $result->fetch_assoc();
     return $token ; 
   }
+
+  public  function getLastVisit($email){
+    $user = $this->getUserByEmail($email);
+    if($user){
+      return $user["last_visit"];
+    }
+  }
+  public  function setLastVisit(){
+    $userId = $this->id;
+    $currentDate = date("Y-m-d H:i:s");
+    $stmt = $this->_dbHandler->prepare("UPDATE users SET last_visit = ? WHERE uid = ?");
+    $stmt->bind_param("ss", $currentDate, $userId);
+    $stmt->execute();
+  }
 }

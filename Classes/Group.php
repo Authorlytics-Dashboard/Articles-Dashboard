@@ -1,5 +1,7 @@
 <?php
 
+use DASPRiD\Enum\NullValue;
+
 class Group extends MYSQLHandler {
     private $table = 'groups';
     private $primary_key = 'gid';
@@ -19,7 +21,6 @@ class Group extends MYSQLHandler {
                 $sql = str_replace(", from", "from", $sql);
                 
             }
-            // $sql .= "limit $start," . 5;
             return $this->get_results($sql);
         }catch (Exception $e) {
             new Log($this->log_file, $e->getMessage());
@@ -62,25 +63,29 @@ class Group extends MYSQLHandler {
     }
 
     public function delete($id) {
-        try {
+        try{
             $this->connect();
-            $table = $this->table;
-            $primary_key = $this->primary_key;
-            $sql = "delete  from `" . $table . "` where `" . $primary_key . "` = $id";
-            $this->debug($sql);
-            if (mysqli_query($this->_dbHandler, $sql)) {
-                $this->disconnect();
-                header('location:/groups');
-                return true;
-            } else {
-                $this->disconnect();
-                header('location:/groups');
-                return false;
-            }
-        } catch(Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
+            $timestamp = date('Y-m-d H:i:s');
+            $data = $this->showGroupByID($id)[0];
+            $data['deleted_at'] = $timestamp;
+            $this->update($data,$id);
+            header('location:/groups');
+        }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
+    }
+    public function restore($id) {
+        try{
+            $this->connect();
+            $data = $this->showGroupByID($id)[0];
+            $data['deleted_at'] = null;
+            $this->update($data,$id);
+            header('location:/groups');
+        }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
     }
 
     public function create($data){
@@ -136,7 +141,10 @@ class Group extends MYSQLHandler {
 
             foreach ($edited_values as $key => $value) {
                 if ($key != $primary_key) {
-                    if (!is_numeric($value)) {
+                    if (is_null($value) && $key == 'deleted_at') {
+                        $sql .= " `$key` = NULL,";
+                    }
+                    elseif (!is_numeric($value)) {
                         $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
                     } else {
                         $sql .= " `$key` = $value ,";
@@ -187,7 +195,7 @@ class Group extends MYSQLHandler {
     
         foreach ($searchColumns as $index => $searchColumn) {
             $params[] = "%" . $searchColumn["value"] . "%";
-            $sql .= "`" . $searchColumn["column"] . "` LIKE '%" . $searchColumn["value"] . "%'";
+            $sql .= "`" . $searchColumn["column"] . "` LIKE '" . $searchColumn["value"] . "%'";
             if ($index < count($searchColumns) - 1) {
                 $sql .= " OR ";
             }

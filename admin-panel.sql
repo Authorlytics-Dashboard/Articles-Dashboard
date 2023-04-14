@@ -33,8 +33,9 @@ CREATE TABLE `articles` (
   `body` text NOT NULL,
   `photo` varchar(512) NOT NULL,
   `post_date` date NOT NULL DEFAULT current_timestamp(),
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `uid` int(11) NOT NULL
+  -- `is_deleted` tinyint(1) DEFAULT NULL,
+  `uid` int(11) NOT NULL,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -47,7 +48,8 @@ CREATE TABLE `groups` (
   `gname` varchar(30) NOT NULL,
   `gid` int(11) NOT NULL,
   `description` text NOT NULL,
-  `avatar` text DEFAULT NULL
+  `avatar` text DEFAULT NULL,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -63,7 +65,8 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `password` varchar(25) NOT NULL,
   `mobile` varchar(30) NOT NULL,
-  `avatar` text DEFAULT NULL
+  `avatar` text DEFAULT NULL,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -133,3 +136,12 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE remember_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL,
+    expire DATETIME NOT NULL,
+    user_id INT NOT NULL,
+    CONSTRAINT fk_user_id
+        FOREIGN KEY (user_id)
+            REFERENCES users (uid) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

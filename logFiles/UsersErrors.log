@@ -8,3 +8,17 @@
 2023-04-13 21:28:59-Unknown column 'username' in 'field list'
 2023-04-13 21:36:01-Unknown column 'username' in 'field list'
 2023-04-13 21:42:19-Unknown column 'username' in 'field list'
+2023-04-14 00:19:40-Table 'admin-panel.user' doesn't exist
+2023-04-14 00:20:33-Table 'admin-panel.user' doesn't exist
+2023-04-14 00:20:53-Table 'admin-panel.user' doesn't exist
+2023-04-14 00:21:00-Table 'admin-panel.user' doesn't exist
+2023-04-14 00:21:03-Table 'admin-panel.user' doesn't exist
+2023-04-14 00:22:10-Table 'admin-panel.user' doesn't exist
+2023-04-14 00:22:43-Table 'admin-panel.user' doesn't exist
+2023-04-13 23:42:16-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+2023-04-13 23:43:42-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+2023-04-13 23:53:33-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+2023-04-14 01:46:01-Table 'admin-panel.user' doesn't exist
+2023-04-14 01:46:03-Table 'admin-panel.user' doesn't exist
+2023-04-14 01:46:05-Table 'admin-panel.user' doesn't exist
+2023-04-14 01:46:07-Table 'admin-panel.user' doesn't exist

@@ -7,6 +7,7 @@
 ?>  
 
 <section class="groupSection">
+  <div class="d-flex justify-content-between" >
   <form method="get" action="/groups/">
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Search" name="query" value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
@@ -18,14 +19,17 @@
   <form action="CreateGroup" method="post">
     <button type="submit" class="btn btn-success mb-5 mt-3">Add New Group</button>
   </form>
-  <?php 
-    $groups=new Group();
-    if(isset($_GET['query'])) {
-      $items = $groups->search(array("column" => "gname", "value" => $_GET['query']),
-      array("column" => "description", "value" => $_GET['query']));
-    } else{
-      $items = $db->get_all_records_paginated(array(), $current_index);
-    }
+  </div>
+ 
+<?php 
+$groups=new Group();
+if(isset($_GET['query'])) {
+  $items = $groups->search(array("column" => "gname", "value" => $_GET['query']),
+  array("column" => "description", "value" => $_GET['query']));
+} else{
+  $items = $db->get_all_records_paginated(array(), $current_index);
+}
+
 
     if (count($items) > 0) {
   ?>
@@ -55,8 +59,14 @@
           <td><?php echo $group["gname"] ?></td>
           <td><?php echo $group["description"] ?></td>
           <td>
-            <a href="/groups/delete/?id=<?php echo $group["gid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
-            <a href="/groups/edit/?id=<?php echo $group["gid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+            <?php
+            if ($group["deleted_at"] == null) { ?>
+              <a href="/groups/delete/?id=<?php echo $group["gid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
+            <?php } else { ?>
+              <a href="/groups/restore/?id=<?php echo $group["gid"] ; ?>" class="btn btn-success" ><i class='bx bx-recycle'></i></a>
+            <?php }
+            ?>
+              <a href="/groups/edit/?id=<?php echo $group["gid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
             <a href="/groups/show/?id=<?php echo $group["gid"] ; ?>" class="btn btn-dark"><i class='bx bx-show-alt' style="color: #fff;"></i></a>
           </td>
         </tr>

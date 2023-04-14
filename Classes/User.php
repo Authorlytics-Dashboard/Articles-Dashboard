@@ -1,7 +1,7 @@
 <?php
 
 class User extends MYSQLHandler {
-    private $table = 'user';
+    private $table = 'users';
     private $primary_key = 'uid';
     private $log_file="UsersErrors.log";
 
@@ -39,27 +39,30 @@ class User extends MYSQLHandler {
     }
 
     public function delete($id) {
-        try {
-        $this->connect();
-        $table = $this->table;
-        $primary_key = $this->primary_key;
-        $sql = "delete  from `" . $table . "` where `" . $primary_key . "` = $id";
-        $this->debug($sql);
-        if (mysqli_query($this->_dbHandler, $sql)) {
-            $this->disconnect();
+        try{
+            $this->connect();
+            $timestamp = date('Y-m-d H:i:s');
+            $data = $this->showUserByID($id)[0];
+            $data['deleted_at'] = $timestamp;
+            $this->update($data,$id);
             header('location:/users');
-            return true;
-        } else {
-            $this->disconnect();
-            header('location:/users');
-            return false;
-        }
-        } catch(Exception $e) {
+        }catch(Exception $e) {
         new Log($this->log_file, $e->getMessage());
         return false;
-        }   
+     }
     }
-
+    public function restore($id) {
+        try{
+            $this->connect();
+            $data = $this->showUserByID($id)[0];
+            $data['deleted_at'] = null;
+            $this->update($data,$id);
+            header('location:/users');
+        }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
+    }
     public function create($data){
         try {    
             $this->connect();
@@ -68,7 +71,7 @@ class User extends MYSQLHandler {
             $avatar = $data['avatar'];
             $groupID = $data['groupID'];
             $mobile = $data['mobile'];
-            $password = $data['password'];
+            $password = password_hash($data['password'], PASSWORD_DEFAULT);
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
@@ -97,7 +100,7 @@ class User extends MYSQLHandler {
             $groupID = $data['groupID'];
             $mobile = $data['mobile'];
             $password = $data['password'];
-            $table = 'user';
+            $table = 'users';
             $sql = "insert into `$table` (uname, gid, email, password, mobile , avatar) values ('$username', '$groupID', '$email','$password', '$mobile', '$avatar')";
             if (mysqli_query($this->_dbHandler, $sql)) {
                 $id = mysqli_insert_id($this->_dbHandler);
@@ -126,7 +129,10 @@ class User extends MYSQLHandler {
 
             foreach ($edited_values as $key => $value) {
                 if ($key != $primary_key) {
-                    if (!is_numeric($value)) {
+                    if (is_null($value) && $key == 'deleted_at') {
+                        $sql .= " `$key` = NULL,";
+                    }
+                    elseif (!is_numeric($value)) {
                         $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
                     } else {
                         $sql .= " `$key` = $value ,";
@@ -161,7 +167,7 @@ class User extends MYSQLHandler {
                 'uname' => $_POST['name'],
                 'email' => $_POST['email'],
                 'mobile' => $_POST['mobile'],
-                'password' => $_POST['password'],
+                'password' => password_hash( $_POST['password'], PASSWORD_DEFAULT),
                 'avatar' => $avatar
             );
             $update_group = $this->update($edited_values , $id);
@@ -179,12 +185,24 @@ class User extends MYSQLHandler {
     
         foreach ($searchColumns as $index => $searchColumn) {
             $params[] = "%" . $searchColumn["value"] . "%";
-            $sql .= "`" . $searchColumn["column"] . "` LIKE '%" . $searchColumn["value"] . "%'";
+            $sql .= "`" . $searchColumn["column"] . "` LIKE '" . $searchColumn["value"] . "%'";
             if ($index < count($searchColumns) - 1) {
                 $sql .= " OR ";
             }
         }
         return $this->get_results($sql);
+    }
+    public function filterUsersByGroup($groupName){
+        try{
+
+            $sql = "SELECT * FROM user INNER JOIN groups ON user.gid = groups.gid WHERE groups.gname = $groupName";
+            return $this->get_results($sql);
+        }
+        catch(Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+        
     }
 }
 

@@ -1,3 +1,42 @@
+<?php 
+session_start();
+if (isset($_COOKIE["remember_token"])) {
+    $m = new MYSQLHandler();
+    $stmt = $m->_dbHandler->prepare("SELECT * FROM remember_tokens WHERE token = ?");
+    $stmt->bind_param("s", $_COOKIE["remember_token"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $token = $result->fetch_assoc();
+    if ($token && time() < strtotime($token["expire"])) {
+        $user_id = $token["user_id"];
+        $_SESSION["id"] = $user_id ;
+    }
+}
+?>
+<?php
+if(!empty($_SESSION["id"])){
+    require_once("./views/dashboard.php");
+}
+$login = new Login();
+
+if(isset($_POST["login"])){
+  $result = $login->login(urldecode($_POST["email"]), $_POST["password"]);
+  if($result == 1){
+    $_SESSION["login"] = true;
+    $_SESSION["id"] = $login->idUser();
+    require_once("./views/dashboard.php");
+  }
+  elseif($result == 10){
+    echo
+    "<script> alert('Wrong Password'); </script>";
+  }
+  elseif($result == 100){
+    echo
+    "<script> alert('User Not Registered'); </script>";
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +52,12 @@
         <div class="container ">
             <div class="welcome">
                 <div class="pinkbox">
-                    <form class="h-100 d-flex flex-column justify-content-between" autocomplete="off">
+                    <form class="h-100 d-flex flex-column justify-content-between" autocomplete="off" method="post">
                         <h1 class="m-0">sign in</h1>
 
                         <div class="inputContainer">
                             <div class="loginInp input-group w-100 mb-3">
-                                <input class="form-control rounded-0 border-0 border-bottom" type="text" name="userName" id="userNameInp" placeholder="username">
+                                <input class="form-control rounded-0 border-0 border-bottom" type="text" name="email" id="userNameInp" placeholder="user email">
                             </div>
 
                             <div class="loginInp input-group w-100 mb-3">
@@ -27,13 +66,13 @@
                             </div>
 
                             <div class="form-check form-check-inline mb-4">
-                                <input class="form-check-input" type="checkbox" id="remeberMe" name="rememberMe" style="background-color: transparent;" >
-                                <label class="form-check-label ps-2" style="cursor: pointer;" for="remeberMe">Remember me</label>
+                                <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me" style="background-color: transparent;" >
+                                <label class="form-check-label ps-2" style="cursor: pointer;" for="remember_me">Remember me</label>
                             </div>
                         </div>
 
                         <div class="btns text-center">
-                            <button class="button submit w-100 mb-2">login</button>
+                            <button class="button submit w-100 mb-2" name="login" type="submit">login</button>
                             <a href="#" class="forgetPass text-decoration-none text-white" style="font-size: 15px;">Forgot your password?</a>
                         </div>
                     </form>

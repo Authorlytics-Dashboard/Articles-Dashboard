@@ -7,7 +7,8 @@ class Login extends MYSQLHandler{
     $row = mysqli_fetch_assoc($result);
 
     if(mysqli_num_rows($result) > 0){
-      if($password == $row["password"]){
+        $isPasswordCorrect = password_verify($password, $row["password"]);
+      if($isPasswordCorrect){
         $this->id = $row["uid"];
         if($password == $row["password"]) {
           $this->id = $row["uid"];

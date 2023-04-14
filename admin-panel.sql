@@ -102,26 +102,6 @@ ALTER TABLE `remember_tokens`
   ADD KEY `fk_user_id` (`user_id`);
 
 --
--- Indexes for table `articles`
---
-ALTER TABLE `articles`
-  ADD PRIMARY KEY (`aid`),
-  ADD KEY `foriegn key` (`uid`);
-
---
--- Indexes for table `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`gid`);
-
---
--- Indexes for table `remember_tokens`
---
-ALTER TABLE `remember_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_user_id` (`user_id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`

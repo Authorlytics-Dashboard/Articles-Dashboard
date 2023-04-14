@@ -47,10 +47,3 @@
     background-color: rgba(0, 0, 0, 0.699);
     border-radius: 20px;
 }
-.dark-mode .chart{
-    color:#fff;
-    background-color: rgba(23, 22, 23, 0.92);
-    border-radius: 5px;
-    width: 50%;
-    margin: 0 auto;
-}

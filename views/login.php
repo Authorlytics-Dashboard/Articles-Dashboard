@@ -14,7 +14,6 @@ if (isset($_COOKIE["remember_token"])) {
 }
 ?>
 <?php
-session_start();
 if(!empty($_SESSION["id"])){
     require_once("./views/dashboard.php");
 }

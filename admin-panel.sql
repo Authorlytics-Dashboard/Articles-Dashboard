@@ -33,8 +33,9 @@ CREATE TABLE `articles` (
   `body` text NOT NULL,
   `photo` varchar(512) NOT NULL,
   `post_date` date NOT NULL DEFAULT current_timestamp(),
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `uid` int(11) NOT NULL
+  -- `is_deleted` tinyint(1) DEFAULT NULL,
+  `uid` int(11) NOT NULL,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -47,23 +48,25 @@ CREATE TABLE `groups` (
   `gname` varchar(30) NOT NULL,
   `gid` int(11) NOT NULL,
   `description` text NOT NULL,
-  `avatar` text DEFAULT NULL
+  `avatar` text DEFAULT NULL,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `uid` int(11) NOT NULL,
   `uname` varchar(30) NOT NULL,
   `gid` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(25) NOT NULL,
   `mobile` varchar(30) NOT NULL,
-  `avatar` text DEFAULT NULL
+  `avatar` text DEFAULT NULL,
+  `deleted_at` TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -84,9 +87,9 @@ ALTER TABLE `groups`
   ADD PRIMARY KEY (`gid`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`uid`),
   ADD KEY `foreign key` (`gid`);
 
@@ -107,9 +110,9 @@ ALTER TABLE `groups`
   MODIFY `gid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -120,16 +123,25 @@ ALTER TABLE `user`
 -- Constraints for table `articles`
 --
 ALTER TABLE `articles`
-  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`),
-  ADD CONSTRAINT `foriegn key` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`);
+  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`),
+  ADD CONSTRAINT `foriegn key` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`);
 
 --
--- Constraints for table `user`
+-- Constraints for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD CONSTRAINT `foreign key` FOREIGN KEY (`gid`) REFERENCES `groups` (`gid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE remember_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL,
+    expire DATETIME NOT NULL,
+    user_id INT NOT NULL,
+    CONSTRAINT fk_user_id
+        FOREIGN KEY (user_id)
+            REFERENCES users (uid) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

@@ -18,30 +18,20 @@
 
             <div class="mb-3 text-center mt-5">
                 <input type="submit" class="btn btn-primary me-1 rounded-1" name="action" value="Create">
-                <a href="/home" class="btn btn-danger">cancel</a>
+                <a href="/groups" class="btn btn-danger">cancel</a>
             </div>
         </form>
 
     </div>
 </section>
 <?php
-require_once('Classes/Group.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
 $group = new Group();
-$name = $_POST['name'];
-$description = $_POST['description'];
-$avatar = $_FILES['avatar']['name'];
 $data = [
-'name' => $name,
-'description' => $description,
-'avatar' => $avatar
+'name' => $_POST['name'],
+'description' => $_POST['description'],
+'avatar' => $_FILES['avatar']['name']
 ];
-$result = $group->create($data);
-
-if ($result) {
-header('Location: /groups');
-} else {
-echo "Failed to create group.";
-}
+$group->create($data);
 }
 ?>

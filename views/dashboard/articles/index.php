@@ -68,7 +68,14 @@
                     ?>
                 </td>
                 <td>
-                    <a href="/articles/delete/?id=<?php echo $item["aid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
+                    <?php
+                        if ($item["deleted_at"] == null) { ?>
+                        <a href="/articles/delete/?id=<?php echo $item["aid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
+                        <?php } 
+                        else { ?>
+                        <a href="/articles/restore/?id=<?php echo $item["aid"] ; ?>" class="btn btn-success" ><i class='bx bx-recycle'></i></a>
+                        <?php }
+                    ?>                    
                     <!-- <a href="/articles/edit/?id=<?php echo $item["aid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a> -->
                     <a href="/articles/show/?id=<?php echo $item["aid"] ; ?>" class="btn btn-dark"><i class='bx bx-show-alt' style="color: #fff;"></i></a>
                 </td>

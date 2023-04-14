@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2023 at 10:22 PM
+-- Generation Time: Apr 14, 2023 at 12:59 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -24,37 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `articles`
---
-
-CREATE TABLE `articles` (
-  `aid` int(11) NOT NULL,
-  `title` varchar(20) NOT NULL,
-  `body` text NOT NULL,
-  `photo` varchar(512) NOT NULL,
-  `post_date` date NOT NULL DEFAULT current_timestamp(),
-  -- `is_deleted` tinyint(1) DEFAULT NULL,
-  `uid` int(11) NOT NULL,
-  `deleted_at` TIMESTAMP NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `groups`
---
-
-CREATE TABLE `groups` (
-  `gname` varchar(30) NOT NULL,
-  `gid` int(11) NOT NULL,
-  `description` text NOT NULL,
-  `avatar` text DEFAULT NULL,
-  `deleted_at` TIMESTAMP NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -66,25 +35,26 @@ CREATE TABLE `users` (
   `password` varchar(25) NOT NULL,
   `mobile` varchar(30) NOT NULL,
   `avatar` text DEFAULT NULL,
-  `deleted_at` TIMESTAMP NULL DEFAULT NULL
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `subscription_date` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`uid`, `uname`, `gid`, `email`, `password`, `mobile`, `avatar`, `deleted_at`, `subscription_date`) VALUES
+(2, 'radwa', 1, 'radwa@gmail.com', '$2y$10$PnBoboVoAsYyepVz2H', '01281950623', 'js.PNG', NULL, NULL),
+(3, 'rima', 1, 'rima@gmail.com', '$2y$10$Z4tFqco1pHYFNTq/hQ', '01281950623', 'medicine.PNG', NULL, NULL),
+(4, 'jaja', 1, 'radwanabil67@yahoo.com', '$2y$10$tdU9bU0jQv4L9Wogsa', '01289080180', '', NULL, NULL),
+(5, 'blabla', 1, 'r@yahoo.com', '$2y$10$IDuKngY9arLhewWhGX', '232123', '', NULL, NULL),
+(6, 'holaoao', 1, 'radwanabil67@yahoo.com', '$2y$10$mlXhr5.n3Ig4AJHkEc', '11122324', '', NULL, NULL),
+(7, 'hdskjsh', 1, 'radwaismail444@gmail.com', '$2y$10$P19hMiTQNH3WhyRv6J', '123232', '', NULL, NULL),
+(8, 'admin', 1, 'r@yahoo.com', '$2y$10$HUCH8KtNUFskOR/iDu', '01281950623', '', NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `articles`
---
-ALTER TABLE `articles`
-  ADD PRIMARY KEY (`aid`),
-  ADD KEY `foriegn key` (`uid`);
-
---
--- Indexes for table `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`gid`);
 
 --
 -- Indexes for table `users`
@@ -98,33 +68,14 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `articles`
---
-ALTER TABLE `articles`
-  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `groups`
---
-ALTER TABLE `groups`
-  MODIFY `gid` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `articles`
---
-ALTER TABLE `articles`
-  ADD CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`),
-  ADD CONSTRAINT `foriegn key` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`);
 
 --
 -- Constraints for table `users`
@@ -136,12 +87,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-CREATE TABLE remember_tokens (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    token VARCHAR(255) NOT NULL,
-    expire DATETIME NOT NULL,
-    user_id INT NOT NULL,
-    CONSTRAINT fk_user_id
-        FOREIGN KEY (user_id)
-            REFERENCES users (uid) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

@@ -14,29 +14,30 @@ if (isset($_COOKIE["remember_token"])) {
 }
 ?>
 <?php
-if(!empty($_SESSION["id"])){
-    require_once("./views/dashboard.php");
-}
-$login = new Login();
+ $login = new Login();
+$login->checkLoggedIn();
 
 if(isset($_POST["login"])){
+ 
   $result = $login->login(urldecode($_POST["email"]), $_POST["password"]);
-  if($result == 1){
+
+   if($result == 1){
     $_SESSION["login"] = true;
     $_SESSION["id"] = $login->idUser();
     require_once("./views/dashboard.php");
   }
   elseif($result == 10){
-    echo
-    "<script> alert('Wrong Password'); </script>";
+    http_response_code(401); // Unauthorized
+    $errorMessage = "";
+      $errorMessage = "Wrong password";
   }
-  elseif($result == 100){
-    echo
-    "<script> alert('User Not Registered'); </script>";
+      elseif($result == 100){
+      $errorMessage = "User not registered";
+    }
   }
-}
-?>
 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +50,9 @@ if(isset($_POST["login"])){
     <link rel="stylesheet" href="/assets/CSS/login.css">
 </head>
 <body class="login">
+<?php if(isset($errorMessage)): ?>
+  <div class="error-message"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></div>
+<?php endif; ?>
         <div class="container ">
             <div class="welcome">
                 <div class="pinkbox">

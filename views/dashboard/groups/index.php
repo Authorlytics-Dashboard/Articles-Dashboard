@@ -59,8 +59,14 @@ if(isset($_GET['query'])) {
           <td><?php echo $group["gname"] ?></td>
           <td><?php echo $group["description"] ?></td>
           <td>
-            <a href="/groups/delete/?id=<?php echo $group["gid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
-            <a href="/groups/edit/?id=<?php echo $group["gid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+            <?php
+            if ($group["deleted_at"] == null) { ?>
+              <a href="/groups/delete/?id=<?php echo $group["gid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
+            <?php } else { ?>
+              <a href="/groups/restore/?id=<?php echo $group["gid"] ; ?>" class="btn btn-success" ><i class='bx bx-recycle'></i></a>
+            <?php }
+            ?>
+              <a href="/groups/edit/?id=<?php echo $group["gid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
             <a href="/groups/show/?id=<?php echo $group["gid"] ; ?>" class="btn btn-dark"><i class='bx bx-show-alt' style="color: #fff;"></i></a>
           </td>
         </tr>

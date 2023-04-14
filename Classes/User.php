@@ -199,7 +199,7 @@ class User extends MYSQLHandler {
     public function filterUsersByGroup($groupName){
         try{
 
-            $sql = "SELECT * FROM user INNER JOIN groups ON user.gid = groups.gid WHERE groups.gname = $groupName";
+            $sql = "SELECT * FROM users INNER JOIN groups ON users.gid = groups.gid WHERE groups.gname = $groupName";
             return $this->get_results($sql);
         }
         catch(Exception $e) {

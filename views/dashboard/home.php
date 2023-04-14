@@ -22,7 +22,7 @@
         <div class="content">
             <h1>Authorlytics</h1>
             <p>Streamline your writing process.</p>
-            <a href="#" class="cta">Go to my stats</a>
+            <a href="/articles" class="cta">View Articles</a>
         </div>
     </div>
 </section>

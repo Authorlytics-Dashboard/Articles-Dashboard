@@ -1,12 +1,8 @@
 <?php 
 session_start();
+$login = new Login();
 if (isset($_COOKIE["remember_token"])) {
-    $m = new MYSQLHandler();
-    $stmt = $m->_dbHandler->prepare("SELECT * FROM remember_tokens WHERE token = ?");
-    $stmt->bind_param("s", $_COOKIE["remember_token"]);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $token = $result->fetch_assoc();
+    $token = $login -> getUserToken();
     if ($token && time() < strtotime($token["expire"])) {
         $user_id = $token["user_id"];
         $_SESSION["id"] = $user_id ;
@@ -14,7 +10,6 @@ if (isset($_COOKIE["remember_token"])) {
 }
 ?>
 <?php
- $login = new Login();
 $login->checkLoggedIn();
 
 if(isset($_POST["login"])){

@@ -60,4 +60,13 @@ class Login extends MYSQLHandler{
     $stmt->execute();
     setcookie("remember_token", $token, time() + 86400 * 30, "/");
   }
+
+  public function getUserToken(){
+    $stmt = $this->_dbHandler->prepare("SELECT * FROM remember_tokens WHERE token = ?");
+    $stmt->bind_param("s", $_COOKIE["remember_token"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $token = $result->fetch_assoc();
+    return $token ; 
+  }
 }

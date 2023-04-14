@@ -53,7 +53,5 @@ class MYSQLHandler
         }
     }
 
-    
-
 }
 ?>

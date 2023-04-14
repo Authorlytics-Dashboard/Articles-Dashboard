@@ -46,7 +46,11 @@ class Login extends MYSQLHandler{
   public function idUser(){
     return $this->id;
   }
-
+  public function checkLoggedIn() {
+    if(!empty($_SESSION["id"])){
+      require_once("./views/dashboard.php");
+    }
+  }
   public function setUserCookie(){
     $token = bin2hex(random_bytes(16)); 
     $expire = date('Y-m-d H:i:s', time() + 86400 * 30); 

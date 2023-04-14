@@ -21,21 +21,22 @@
             <button type="submit" class="btn btn-success mb-5 mt-3">Add New User</button>
         </form>
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false" style="background-color:#221f26;">
-                Filter By Group
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" style="background-color:#221f26;">
+              Filter By Group
             </button>
             <ul class="dropdown-menu">
-                <?php
-    ob_start();
-    $group = new Group();
-    $groups = $group->getGroups();
-    foreach ($groups as $g) {
-        $gid = $g['gid'];
-        $gname = $g['gname'];
-        echo "<li><a class=dropdown-item href=/users/?group_name=\"$gname\">$gname</a></li>";}
-        echo "<li><a class=dropdown-item href=/users/?group_name=all>ALL</a></li>"
-        ?>
+              <?php
+              ob_start();
+              $group = new Group();
+              $groups = $group->getGroups();
+              var_dump($groups);
+              foreach ($groups as $g) {
+                  $gid = $g['gid'];
+                  $gname = $g['gname'];
+                  echo "<li><a class='dropdown-item' href='/users/?group_name=$gname'>$gname</a></li>";
+              }
+              echo "<li><a class='dropdown-item' href='/users/?group_name=all'>ALL</a></li>";
+              ?>
             </ul>
         </div>
     </div>

@@ -51,6 +51,7 @@ class User extends MYSQLHandler {
             return false;
         }
     }
+
     public function restore($id) {
         try{
             $this->connect();
@@ -63,6 +64,7 @@ class User extends MYSQLHandler {
             return false;
         }
     }
+    
     public function create($data){
         try {    
             $this->connect();

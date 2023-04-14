@@ -195,6 +195,7 @@ class User extends MYSQLHandler {
         }
         return $this->get_results($sql);
     }
+
     public function filterUsersByGroup($groupName){
         try{
 
@@ -207,6 +208,7 @@ class User extends MYSQLHandler {
         }
         
     }
+    
     public function getCount ($table){
         $sql = "select * from `$table` ";
         $_handler_results = mysqli_query($this->_dbHandler, $sql);

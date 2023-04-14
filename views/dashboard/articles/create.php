@@ -25,11 +25,11 @@
                 <label for="uid" class="form-label">user id</label>
                 <select name="uid" class="form-control" id="uid">
                     <?php
-                ob_start();
-                    $users = new User();
-                    $users = $users->getData();
-                    foreach ($users as $user){
-                ?>
+                        ob_start();
+                        $users = new User();
+                        $users = $users->getData();
+                        foreach ($users as $user){
+                    ?>
                     <option value="<?= $user['uid']?>"><?= $user['uname']?></option>
                     <?php
                     }

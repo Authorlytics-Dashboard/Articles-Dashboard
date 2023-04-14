@@ -52,15 +52,6 @@ CREATE TABLE `groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `groups`
---
-
-INSERT INTO `groups` (`gname`, `gid`, `description`, `avatar`, `deleted_at`) VALUES
-('editor', 1, 'can edit', 'medicine.PNG', NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `remember_tokens`
 --
 

@@ -3,11 +3,12 @@ class Login extends MYSQLHandler{
   public $id;
   public function login($email, $password){
 
-    $result = mysqli_query($this->_dbHandler, "SELECT * FROM user WHERE email = '$email'");
+    $result = mysqli_query($this->_dbHandler, "SELECT * FROM users WHERE email = '$email'");
     $row = mysqli_fetch_assoc($result);
 
     if(mysqli_num_rows($result) > 0){
-      if($password == $row["password"]){
+        $isPasswordCorrect = password_verify($password, $row["password"]);
+      if($isPasswordCorrect){
         $this->id = $row["uid"];
         return 1;
         // Login successful

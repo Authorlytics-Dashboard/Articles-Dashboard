@@ -31,7 +31,7 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password" id="password"
-                    value="<?php echo $userInfo["password"];?>">
+                  >
             </div>
             <div class="mb-3">
                 <label for="avatar" class="form-label">Avatar</label>

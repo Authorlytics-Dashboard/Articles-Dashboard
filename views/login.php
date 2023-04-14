@@ -1,8 +1,10 @@
 <?php
+session_start();
 if(!empty($_SESSION["id"])){
-  header("Location: index.php");
+    require_once("./views/dashboard.php");
 }
 $login = new Login();
+
 if(isset($_POST["login"])){
   $result = $login->login(urldecode($_POST["email"]), $_POST["password"]);
   if($result == 1){

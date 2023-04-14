@@ -143,6 +143,7 @@ class Article extends MYSQLHandler {
                 return $id;
             } else {
                 $this->disconnect();
+                ob_flush();
                 header('location:/articles');
                 return false;
             }

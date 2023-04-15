@@ -48,7 +48,9 @@
         elseif($result == 100){
         $errorMessage = "User not registered";
         }
-    }elseif(isset($_POST["resetPassword"]))
+    }elseif(isset($_POST["forgetPass"])){
+        header("Location: /views/resetPassword.php");
+    }
 
 ?>
 

@@ -3,7 +3,7 @@
     $login = new Login();
     $userEmail = "";
     $error = "";
-    $flag = 0;
+    $flag = 2;
 
     if(isset($_POST["sendAnOTP"])){
         $userEmail = urldecode($_POST["email"]);
@@ -39,6 +39,8 @@
             if(! $confirmPass){
                 $error = "Password doesnot match.";
                 $flag = 2;
+            }else{
+                header("Location: /index.php");
             }
         }
     }

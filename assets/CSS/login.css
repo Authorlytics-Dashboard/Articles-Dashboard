@@ -107,6 +107,10 @@
     color: white;
 }
 
+.login .forgetPass{
+    background-color: transparent;
+}
+
 .login input:focus{
     box-shadow: none;
     outline: -webkit-focus-ring-color auto 0px;

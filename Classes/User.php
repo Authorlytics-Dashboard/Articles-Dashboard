@@ -233,5 +233,4 @@ class User extends MYSQLHandler {
         return $this->get_results($sql);
     }
 }
-
 ?>

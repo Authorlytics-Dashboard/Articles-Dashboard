@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4699aa189a1becd167dc49ba93cd6f0b",
+    "content-hash": "32ac3d4b0cdfaca0034182cb0db71650",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -184,6 +184,55 @@
                 }
             ],
             "time": "2023-03-30T18:46:02+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "7.2.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:twilio/twilio-php.git",
+                "reference": "11271c602398f7678dc465dcab97601e6e866819"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/11271c602398f7678dc465dcab97601e6e866819",
+                "reference": "11271c602398f7678dc465dcab97601e6e866819",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "phpunit/phpunit": ">=7.0 < 10"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "https://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "time": "2023-04-05T22:21:08+00:00"
         }
     ],
     "packages-dev": [],

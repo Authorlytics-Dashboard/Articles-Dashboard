@@ -1,43 +1,58 @@
 <?php 
     session_start();
+    $login = new Login();
     if (isset($_COOKIE["remember_token"])) {
-        $m = new MYSQLHandler();
-        $stmt = $m->_dbHandler->prepare("SELECT * FROM remember_tokens WHERE token = ?");
-        $stmt->bind_param("s", $_COOKIE["remember_token"]);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $token = $result->fetch_assoc();
+        $token = $login -> getUserToken();
         if ($token && time() < strtotime($token["expire"])) {
             $user_id = $token["user_id"];
             $_SESSION["id"] = $user_id ;
         }
     }
-    
-    if(!empty($_SESSION["id"])){
-        require_once("./views/dashboard.php");
-    }
 
-    $login = new Login();
+    $login->checkLoggedIn();
 
     if(isset($_POST["login"])){
         $result = $login->login(urldecode($_POST["email"]), $_POST["password"]);
+
         if($result == 1){
             $_SESSION["login"] = true;
             $_SESSION["id"] = $login->idUser();
+            $lastVisit = $login->getLastVisit($_POST["email"]);
+            if($lastVisit){
+                echo "
+                <div class='modal fade show in' tabindex='-1' id='welcome'>
+                        <div class='modal-dialog'>
+                            <div class='modal-content'>
+                            <div class='modal-body'style='color:black'>
+                            Hello and welcome back! We hope you've been well since your last visit on<span style='color:red'> $lastVisit</span>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                ";
+            }
+            else{
+                echo "Welcome! This is your first visit.";
+            }
+            $login->setLastVisit();
             require_once("./views/dashboard.php");
-        }elseif($result == 10){
-            echo
-            "<script> alert('Wrong Password'); </script>";
-        }elseif($result == 100){
-            echo
-            "<script> alert('User Not Registered'); </script>";
         }
+        elseif($result == 10){
+            http_response_code(401); // Unauthorized
+            $errorMessage = "";
+            $errorMessage = "Wrong password";
+        }
+        elseif($result == 100){
+        $errorMessage = "User not registered";
+        }
+    }elseif(isset($_POST["resetPassword"]))
 
-    }elseif(isset($_POST["forgetPass"])){
-        header('Location: views/resetPassword.php');
-    }
 ?>
-    
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +66,10 @@
 </head>
 
 <body class="login">
+    <?php if(isset($errorMessage)): ?>
+    <div class="error-message"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?></div>
+    <?php endif; ?>
+
     <div class="container ">
         <div class="welcome">
             <div class="pinkbox">
@@ -94,12 +113,18 @@
                     </svg>                    
                 </div>
             </div>
-            
+        
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    
     <script>
+        $(document).ready(function(){
+            $("#welcome").modal('show');
+        });
+        
         const togglePassword = document.querySelector('#togglePassword');
         const password = document.querySelector('#passwordInp');
 

@@ -199,8 +199,16 @@ class User extends MYSQLHandler {
     public function filterUsersByGroup($groupName){
         try{
 
-            $sql = "SELECT * FROM user INNER JOIN groups ON user.gid = groups.gid WHERE groups.gname = $groupName";
-            return $this->get_results($sql);
+            $stmt = $this->_dbHandler->prepare("SELECT * FROM users INNER JOIN groups ON users.gid = groups.gid WHERE groups.gname = ?");
+            $stmt->bind_param("s", $groupName);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $users = array();
+            while ($user = mysqli_fetch_assoc($result)) {
+                $users[] = $user;
+            }
+        
+            return $users;
         }
         catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
@@ -231,6 +239,14 @@ class User extends MYSQLHandler {
 
         $sql .= "limit $start," . 5;
         return $this->get_results($sql);
+    }
+
+    public function logout() {
+        $_SESSION = array(); // reset session array
+        session_destroy(); 
+        setcookie("remember_token", "", time() - 3600);  // destroy session     
+        header('Location: /login');
+        exit;
     }
 }
 ?>

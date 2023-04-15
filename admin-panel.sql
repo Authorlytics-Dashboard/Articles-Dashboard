@@ -77,7 +77,8 @@ CREATE TABLE `users` (
   `mobile` varchar(30) NOT NULL,
   `avatar` text DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `subscription_date` timestamp NULL DEFAULT NULL
+  `subscription_date` timestamp NULL DEFAULT NULL,
+  `last_visit` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -163,3 +164,10 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `groups` (`gname`, `gid`, `description`) VALUES ('Admin', 1, 'Administrators');
+INSERT INTO `groups` (`gname`, `gid`, `description`) VALUES ('Editors', 2, 'Editors');
+INSERT INTO `groups` (`gname`, `gid`, `description`) VALUES ('Viewers', 3, 'Viewers');
+
+INSERT INTO `users` (`uid`, `uname`, `gid`, `email`, `password`, `mobile`) 
+VALUES (1, 'Admin', 1, 'admin@admin.com', '$2y$10$COjPEi06PNqMZsRfukBkIOiRdbX7LMy46sb1nlr7uAQ10Flsp8EyK', '1234567890');

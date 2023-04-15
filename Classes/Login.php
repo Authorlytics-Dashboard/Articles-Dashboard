@@ -63,12 +63,12 @@ class Login extends MYSQLHandler{
       
       try {
   //       $message = $client->messages->create(
-  //     $userMobile,
-  // array(
+  //       $userMobile,
+  //       array(
   //           'body' => $message,
-  //           'from' => '+16205228490'
+  //           'from' => _SENDER_
   //         )
-        // );
+  //       );
         
         setcookie('otp', $sentOTP);
         echo "OTP successfully send..";

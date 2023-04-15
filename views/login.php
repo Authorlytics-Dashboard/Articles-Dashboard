@@ -38,7 +38,7 @@
                 echo "Welcome! This is your first visit.";
             }
             $login->setLastVisit();
-            require_once("./views/dashboard.php");
+            header("Location: /home");
         }
         elseif($result == 10){
             http_response_code(401); // Unauthorized
@@ -46,7 +46,7 @@
             $errorMessage = "Wrong password";
         }
         elseif($result == 100){
-        $errorMessage = "User not registered";
+            $errorMessage = "User not registered";
         }
     }elseif(isset($_POST["forgetPass"])){
         header("Location: /views/resetPassword.php");

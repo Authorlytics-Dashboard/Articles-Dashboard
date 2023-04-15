@@ -2,6 +2,27 @@
     $articleId = $_GET['id'];
     $article = new Article();
     $article = $article->showArticleByID($articleId)[0];
+
+    // Connect to database
+    $conn = new mysqli(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
+    if(isset($_POST['like_checkbox'])){
+      // Increment likes column in articles table
+      $stmt = $conn->prepare('UPDATE articles SET likes = likes + 1 WHERE aid = ?');
+      $stmt->bind_param('i', $articleId);
+      $stmt->execute();
+    }
+    else{
+      $stmt = $conn->prepare('UPDATE articles SET likes = CASE WHEN likes > 0 THEN likes - 1 ELSE 0 END WHERE aid = ?');
+      $stmt->bind_param('i', $articleId);
+      $stmt->execute();
+    }
+
+    // Query database for number of likes
+    $stmt = $conn->prepare('SELECT likes FROM articles WHERE aid = ?');
+    $stmt->bind_param('i', $articleId);
+    $stmt->execute();
+    $likeCount = $stmt->get_result()->fetch_assoc()['likes'];
+
 ?>
 
 <style>
@@ -108,16 +129,78 @@
   border-radius: 0;
 }
 
+/* likes button */
+.LikesContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.LikesContainer {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  transition: 100ms;
+}
+
+.checkmark {
+  top: 0;
+  left: 0;
+  height: 2em;
+  width: 2em;
+  transition: 100ms;
+  animation: dislike_effect 400ms ease;
+}
+
+.LikesContainer input:checked ~ .checkmark path {
+  fill: #FF5353;
+  stroke-width: 0;
+}
+
+.LikesContainer input:checked ~ .checkmark {
+  animation: like_effect 400ms ease;
+}
+
+/* .LikesContainer:hover {
+  transform: scale(1);
+} */
+
+@keyframes like_effect {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dislike_effect {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 </style>
 
 <section class="groupSection">
-    <!-- <h5><?php echo $article["title"]; ?></h5>
-    <h5><?php echo $article["body"]; ?></h5>
-    <img src="../../../assets/Images/<?php echo $article['photo'] ?>" alt="">
-    <h5><?php echo $article["post_date"]; ?></h5>
-    <h5><?php echo $article["uid"]; ?></h5> -->
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 <div class="container d-flex justify-content-center">
   <div class="row ">
@@ -132,13 +215,22 @@
                 <br>
                 <p><?php echo "Creator ID: " . $article["uid"]; ?></p>
                 <p><?php echo "Created at: " . $article["post_date"]; ?></p>
-
-            </div>
-
+                <!-- Like Button -->
+                <form method="post">
+                  <label class="LikesContainer">
+                    <input type="hidden" name="aid" value="123">
+                    <input type="checkbox" name="like_checkbox" onchange="this.form.submit()" <?php if(isset($_POST['like_checkbox'])) echo 'checked="checked"'; ?> >
+                    <div class="checkmark">
+                      <svg viewBox="0 0 256 256">
+                      <rect fill="none" height="256" width="256"></rect>
+                      <path d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z" stroke-width="20px" stroke="#FFF" fill="none"></path></svg>
+                    </div>
+                  </label>
+                </form>
+                <span style="transform: translate(-330px, -30px);" ><?php echo $likeCount . ' likes'; ?></span> 
+              </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>

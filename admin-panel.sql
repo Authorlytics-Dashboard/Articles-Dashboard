@@ -34,7 +34,8 @@ CREATE TABLE `articles` (
   `photo` varchar(512) NOT NULL,
   `post_date` date NOT NULL DEFAULT current_timestamp(),
   `uid` int(11) NOT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `likes` INT NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

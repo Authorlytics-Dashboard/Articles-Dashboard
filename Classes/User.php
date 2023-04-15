@@ -72,11 +72,12 @@ class User extends MYSQLHandler {
             $email = $data['email'];
             $avatar = $data['avatar'];
             $groupID = $data['groupID'];
-            $mobile = $data['mobile'];
+            $mobile = "+2".$data['mobile'];
             $password = password_hash($data['password'], PASSWORD_DEFAULT);
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
+
             $data = [
                 'username' => $username,
                 'email' => $email,

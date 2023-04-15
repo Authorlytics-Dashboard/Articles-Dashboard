@@ -249,5 +249,4 @@ class User extends MYSQLHandler {
         exit;
     }
 }
-
 ?>

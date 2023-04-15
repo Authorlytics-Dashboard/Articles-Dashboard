@@ -3,7 +3,7 @@
     $login = new Login();
     $userEmail = "";
     $error = "";
-    $flag = 2;
+    $flag = 0;
 
     if(isset($_POST["sendAnOTP"])){
         $userEmail = urldecode($_POST["email"]);

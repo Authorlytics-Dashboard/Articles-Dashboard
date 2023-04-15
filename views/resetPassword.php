@@ -65,8 +65,10 @@
                     <?php if($flag == 0){ ?>
                         <div class="SendTheOTP loginInp">
                             <!-- <p class="message">Enter your email to send an OTP.</p> -->
-                            <input class="form-control rounded-0 border-0 border-bottom" type="text" name="email" id="userNameInp" placeholder="Email">
-                            <p class="mt-0 text-danger"><?= $error?></p>
+                            <div>
+                                <input class="form-control rounded-0 border-0 border-bottom" type="text" name="email" id="userNameInp" placeholder="Email">
+                                <p class="mt-0 text-danger"><?= $error?></p>
+                            </div>
                             <button type="submit" class="btn" name="sendAnOTP">SEND OTP</button>
                         </div>
                     <?php } ?>
@@ -74,8 +76,10 @@
                     <?php if($flag == 1){ ?> 
                         <div class="VerifyTheOTP loginInp">
                             <p class="message">The OTP is send to your phone, please enter it</p>
-                            <input class="form-control rounded-0 border-0 border-bottom" type="number" name="OTP" id="OTP" placeholder="OTP">
-                            <p class="mt-0 text-danger"><?= $error?></p>
+                            <div>
+                                <input class="form-control rounded-0 border-0 border-bottom" type="number" name="OTP" id="OTP" placeholder="OTP">
+                                <p class="mt-0 text-danger"><?= $error?></p>
+                            </div>
                             <button type="submit" class="btn" name="reset" data-bs-target="#VerifyOTP" data-bs-toggle="modal">Submit</button>
                         </div>
                     <?php } ?>

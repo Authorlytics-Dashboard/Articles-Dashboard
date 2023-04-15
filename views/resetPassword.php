@@ -12,7 +12,7 @@
             if($correctEmail){
                 $flag = 1;
             }else{
-                $error = "Entered Email not found.";
+                $error = "Email not found.";
                 $flag = 0;
             }
         }else{
@@ -25,7 +25,7 @@
             if($verifiedOtp){
                 $flag = 2;
             }else{
-                $error = "Entered OTP is incorrect.";
+                $error = "OTP is incorrect.";
                 $flag = 1;
             }
         }else{
@@ -37,7 +37,7 @@
         if(!empty($password) && !empty($confirmPassword)){
             $confirmPass = $login->changePassword($userEmail, $password, $confirmPassword);
             if(! $confirmPass){
-                $error = "Password is not the same";
+                $error = "Password doesnot match.";
                 $flag = 2;
             }
         }
@@ -63,30 +63,27 @@
                 <form method="post" class="my-auto">
                     <h1>Reset password</h1>
                     <?php if($flag == 0){ ?>
-                        <div class="SendTheOTP loginInp">
-                            <!-- <p class="message">Enter your email to send an OTP.</p> -->
+                        <div class="SendTheOTP resetInp">
                             <div>
                                 <input class="form-control rounded-0 border-0 border-bottom" type="text" name="email" id="userNameInp" placeholder="Email">
-                                <p class="mt-0 text-danger"><?= $error?></p>
+                                <p class="mt-0" style="color: #fb7e61"><?= $error?></p>
                             </div>
                             <button type="submit" class="btn" name="sendAnOTP">SEND OTP</button>
                         </div>
                     <?php } ?>
 
                     <?php if($flag == 1){ ?> 
-                        <div class="VerifyTheOTP loginInp">
-                            <p class="message">The OTP is send to your phone, please enter it</p>
+                        <div class="VerifyTheOTP resetInp">
                             <div>
                                 <input class="form-control rounded-0 border-0 border-bottom" type="number" name="OTP" id="OTP" placeholder="OTP">
-                                <p class="mt-0 text-danger"><?= $error?></p>
+                                <p class="mt-0" style="color: #fb7e61"><?= $error?></p>
                             </div>
                             <button type="submit" class="btn" name="reset" data-bs-target="#VerifyOTP" data-bs-toggle="modal">Submit</button>
                         </div>
                     <?php } ?>
 
                     <?php if($flag == 2){ ?>
-                        <div class="ChangePassword">
-                            <p class="message">Enter your new passwrd</p>
+                        <div class="ChangePassword resetInp">
                             <div class="loginInp input-group w-100 mb-3">
                                 <input class="form-control rounded-0 border-0 border-bottom" type="password" name="password" id="passwordInp" placeholder="Enter Password"></input>
                                 <i class='bx bxs-show fs-5 position-absolute top-50 start-100 translate-middle pe-4' style="z-index:1000; cursor: pointer;" onclick="togglePass()" id="togglePassword"></i>
@@ -94,8 +91,8 @@
                             <div class="loginInp input-group w-100 mb-3">
                                 <input class="form-control rounded-0 border-0 border-bottom" type="password" name="confirmPassword" id="ConfPasswordInp" placeholder="Reenter Password"></input>
                                 <i class='bx bxs-show fs-5 position-absolute top-50 start-100 translate-middle pe-4' style="z-index:1000; cursor: pointer;" id="toggleConfPassword" onclick="toggleConfPass()"></i>
+                                <p class="mt-0" style="color: #fb7e61"><?= $error?></p>
                             </div>
-                            <p class="mt-0 text-danger"><?= $error?></p>
                             <button type="submit" class="btn" name="changePassword" data-bs-target="#VerifyOTP" data-bs-toggle="modal">Submit</button>
                     </div>
                     <?php } ?>

@@ -64,7 +64,7 @@
                     <h1>Reset password</h1>
                     <?php if($flag == 0){ ?>
                         <div class="SendTheOTP loginInp">
-                            <p class="message">Enter your email to send an OTP.</p>
+                            <!-- <p class="message">Enter your email to send an OTP.</p> -->
                             <input class="form-control rounded-0 border-0 border-bottom" type="text" name="email" id="userNameInp" placeholder="Email">
                             <p class="mt-0 text-danger"><?= $error?></p>
                             <button type="submit" class="btn" name="sendAnOTP">SEND OTP</button>
@@ -82,7 +82,7 @@
 
                     <?php if($flag == 2){ ?>
                         <div class="ChangePassword">
-                            <!-- <p class="message">Enter your new passwrd</p> -->
+                            <p class="message">Enter your new passwrd</p>
                             <div class="loginInp input-group w-100 mb-3">
                                 <input class="form-control rounded-0 border-0 border-bottom" type="password" name="password" id="passwordInp" placeholder="Enter Password"></input>
                                 <i class='bx bxs-show fs-5 position-absolute top-50 start-100 translate-middle pe-4' style="z-index:1000; cursor: pointer;" onclick="togglePass()" id="togglePassword"></i>

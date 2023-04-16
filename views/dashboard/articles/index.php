@@ -36,9 +36,8 @@
                 <th scope="col">ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Photo</th>
-                <th scope="col">Body</th>
                 <th scope="col">Post Date</th>
-                <th scope="col">user</th>
+                <th scope="col">Created By</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -51,15 +50,20 @@
                 <th scope="row"><?php echo $item["aid"] ?></th>
                 <td>
                     <?php if ($item["photo"]) { ?>
-                    <img src='../assets/Images/<?php echo $item['photo'] ?>' class='rounded-circle img-thumbnail' alt='photo' style='width:30px; height:30px;'>
+                        <img src='../assets/Images/<?= $item['photo'] ?>' class='rounded-circle img-thumbnail' alt='photo' style='width:30px; height:30px;'>
                     <?php } else { ?>
-                    <p>No photo</p>
+                        <p>No photo</p>
                     <?php } ?>
                 </td>
                 <td><?php echo $item["title"] ?></td>
-                <td><?php echo $item["body"] ?></td>
                 <td><?php echo $item["post_date"] ?></td>
-                <td><?php echo $item["uid"] ?></td>
+                <td>
+                    <?php 
+                        $user = new User();
+                        $createdBy = $user->showUserByID($item['uid']);
+                        echo $createdBy[0]['uname'];
+                    ?>
+                </td>
                 <td>
                     <?php
                         if ($item["deleted_at"] == null) { ?>
@@ -69,7 +73,7 @@
                         <a href="/articles/restore/?id=<?php echo $item["aid"] ; ?>" class="btn btn-success" ><i class='bx bx-recycle'></i></a>
                         <?php }
                     ?>                    
-                    <a href="/articles/edit/?id=<?php echo $item["aid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                    <!-- <a href="/articles/edit/?id=<?php echo $item["aid"] ; ?>" class="btn btn-primary"><i class='bx bxs-edit'></i></a> -->
                     <a href="/articles/show/?id=<?php echo $item["aid"] ; ?>" class="btn btn-dark"><i class='bx bx-show-alt' style="color: #fff;"></i></a>
                 </td>
             </tr>

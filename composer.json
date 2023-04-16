@@ -3,7 +3,8 @@
     "description": "php project",
     "license": "MIT",
     "require": {
-        "endroid/qr-code": "*"
+        "endroid/qr-code": "*",
+        "twilio/sdk": "^7.2"
     },
     "autoload": {
         "classmap": [

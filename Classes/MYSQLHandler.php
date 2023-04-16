@@ -13,6 +13,7 @@ class MYSQLHandler
             $handler = mysqli_connect(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
             if($handler) {
                 $this->_dbHandler = $handler;
+                // echo "DB connection established";
             }
         } catch(Exception $e) {
             die("Could not connect to db, please come back later.");
@@ -52,8 +53,6 @@ class MYSQLHandler
             return "<h5>Sent Query: </h5>" . $sql . "<br/> <br/>";
         }
     }
-
-    
 
 }
 ?>

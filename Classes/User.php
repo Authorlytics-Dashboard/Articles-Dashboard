@@ -47,10 +47,11 @@ class User extends MYSQLHandler {
             $this->update($data,$id);
             header('location:/users');
         }catch(Exception $e) {
-        new Log($this->log_file, $e->getMessage());
-        return false;
-     }
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
     }
+
     public function restore($id) {
         try{
             $this->connect();
@@ -59,10 +60,11 @@ class User extends MYSQLHandler {
             $this->update($data,$id);
             header('location:/users');
         }catch(Exception $e) {
-        new Log($this->log_file, $e->getMessage());
-        return false;
-     }
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
     }
+    
     public function create($data){
         try {    
             $this->connect();
@@ -70,11 +72,12 @@ class User extends MYSQLHandler {
             $email = $data['email'];
             $avatar = $data['avatar'];
             $groupID = $data['groupID'];
-            $mobile = $data['mobile'];
+            $mobile = "+2".$data['mobile'];
             $password = password_hash($data['password'], PASSWORD_DEFAULT);
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
+
             $data = [
                 'username' => $username,
                 'email' => $email,
@@ -100,8 +103,9 @@ class User extends MYSQLHandler {
             $groupID = $data['groupID'];
             $mobile = $data['mobile'];
             $password = $data['password'];
+            $subscriptionDate = date('Y-m-d H:i:s'); 
             $table = 'users';
-            $sql = "insert into `$table` (uname, gid, email, password, mobile , avatar) values ('$username', '$groupID', '$email','$password', '$mobile', '$avatar')";
+            $sql = "insert into `$table` (uname, gid, email, password, mobile , avatar, subscription_date) values ('$username', '$groupID', '$email','$password', '$mobile', '$avatar', '$subscriptionDate')";
             if (mysqli_query($this->_dbHandler, $sql)) {
                 $id = mysqli_insert_id($this->_dbHandler);
                 $this->disconnect();
@@ -192,11 +196,20 @@ class User extends MYSQLHandler {
         }
         return $this->get_results($sql);
     }
+
     public function filterUsersByGroup($groupName){
         try{
 
-            $sql = "SELECT * FROM user INNER JOIN groups ON user.gid = groups.gid WHERE groups.gname = $groupName";
-            return $this->get_results($sql);
+            $stmt = $this->_dbHandler->prepare("SELECT * FROM users INNER JOIN groups ON users.gid = groups.gid WHERE groups.gname = ?");
+            $stmt->bind_param("s", $groupName);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $users = array();
+            while ($user = mysqli_fetch_assoc($result)) {
+                $users[] = $user;
+            }
+        
+            return $users;
         }
         catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
@@ -204,7 +217,37 @@ class User extends MYSQLHandler {
         }
         
     }
+    
+    public function getCount ($table){
+        $sql = "select * from `$table` ";
+        $_handler_results = mysqli_query($this->_dbHandler, $sql);
+        $rowcount=mysqli_num_rows($_handler_results);
+        return $rowcount;
+    }
+
+    public function get_all_records_paginated($fields = array(), $start = 0){
+        $table = $this->table;
+        if(empty($fields)){
+            $sql = "select * from `$table` ";
+        } else {
+            $sql = "select ";
+            foreach($fields as $f){
+                $sql .= " `$f`, ";
+            }
+            $sql .= "from `$table` ";
+            $sql = str_replace(", from", "from", $sql );
+        }
+
+        $sql .= "limit $start," . 5;
+        return $this->get_results($sql);
+    }
+
+    public function logout() {
+        $_SESSION = array(); // reset session array
+        session_destroy(); 
+        setcookie("remember_token", "", time() - 3600);  // destroy session     
+        header('Location: /login');
+        exit;
+    }
 }
-
-
 ?>

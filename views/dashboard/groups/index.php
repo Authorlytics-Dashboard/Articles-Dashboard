@@ -73,6 +73,7 @@ if(isset($_GET['query'])) {
       <?php }?>
     </tbody>
   </table>
+  
   <?php
   } else {
     echo "No results found.";

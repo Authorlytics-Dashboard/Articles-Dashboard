@@ -8,7 +8,8 @@
 
             <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
-                <input type="text" class="form-control" name="body" id="body">
+                <!-- <input type="text" class="form-control" name="body" id="body"> -->
+                <textarea name="body" id="body" cols="104" rows="5"></textarea>
             </div>
 
             <div class="mb-3">

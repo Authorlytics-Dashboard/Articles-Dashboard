@@ -36,7 +36,6 @@
                 <th scope="col">ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Photo</th>
-                <th scope="col">Body</th>
                 <th scope="col">Post Date</th>
                 <th scope="col">Created By</th>
                 <th scope="col">Actions</th>
@@ -57,7 +56,6 @@
                     <?php } ?>
                 </td>
                 <td><?php echo $item["title"] ?></td>
-                <td><?php echo $item["body"] ?></td>
                 <td><?php echo $item["post_date"] ?></td>
                 <td>
                     <?php 

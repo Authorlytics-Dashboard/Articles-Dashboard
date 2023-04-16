@@ -34,7 +34,8 @@ CREATE TABLE `articles` (
   `photo` varchar(512) NOT NULL,
   `post_date` date NOT NULL DEFAULT current_timestamp(),
   `uid` int(11) NOT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `likes` INT NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -80,6 +81,21 @@ CREATE TABLE `users` (
   `subscription_date` timestamp NULL DEFAULT NULL,
   `last_visit` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- article likes table structure
+
+CREATE TABLE article_likes (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  article_id INT NOT NULL,
+  user_id INT NOT NULL,
+  liked BOOLEAN NOT NULL DEFAULT false,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (article_id) REFERENCES articles(aid),
+  FOREIGN KEY (user_id) REFERENCES users(uid)
+);
 
 
 --

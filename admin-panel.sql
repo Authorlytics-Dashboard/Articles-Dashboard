@@ -215,4 +215,4 @@ INSERT INTO `groups` (`gname`, `gid`, `description`) VALUES ('Viewers', 3, 'View
 
 
 INSERT INTO `users` (`email`, `password`, `username`, `status`, `verified`, `resettable`, `roles_mask`, `registered`, `last_login`, `force_logout`, `subscription_date`, `deleted_at`, `avatar`, `mobile`, `gid`) 
-VALUES ('admin@admin.com', '$2y$10$COjPEi06PNqMZsRfukBkIOiRdbX7LMy46sb1nlr7uAQ10Flsp8EyK', 'user123', 1, 1, 1, 0, UNIX_TIMESTAMP(), NULL, 0, NULL, NULL, NULL, '1234567890', 1);
+VALUES ('admin@admin.com', '$2y$10$COjPEi06PNqMZsRfukBkIOiRdbX7LMy46sb1nlr7uAQ10Flsp8EyK', 'admin', 1, 1, 1, 0, UNIX_TIMESTAMP(), NULL, 0, NULL, NULL, NULL, '1234567890', 1);

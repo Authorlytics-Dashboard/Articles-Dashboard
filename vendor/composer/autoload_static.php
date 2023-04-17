@@ -50,6 +50,7 @@ class ComposerStaticInit147b3127ade781718e94889d381d567c
 
     public static $classMap = array (
         'Article' => __DIR__ . '/../..' . '/Classes/Article.php',
+        'ArticleValidator' => __DIR__ . '/../..' . '/Classes/ArticleValidator.php',
         'CRUD' => __DIR__ . '/../..' . '/Classes/CRUD.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Group' => __DIR__ . '/../..' . '/Classes/Group.php',

@@ -95,7 +95,7 @@ class Login extends MYSQLHandler{
   
 
   public function resetPassword($userEmail){
-    $users = new User();
+    $users = new User('users', "UsersErrors.log",'uid');
     $user = $users->search(array("column" => "email", "value" => $userEmail));
     
     if(!empty($user)){
@@ -134,7 +134,7 @@ class Login extends MYSQLHandler{
 
   public function changePassword($userEmail ,$password, $confirmedPass){
     if($password === $confirmedPass) {
-        $users = new User();
+        $users = new User('users', "UsersErrors.log",'uid');
         $user = $users->search(array("column" => "email", "value" => $userEmail));
 
         $data = [

@@ -96,21 +96,21 @@ class Group extends MYSQLHandler {
             $gname = $data['name'];
             $nameError = $validator->validateGroupName($gname);
             if ($nameError) {
-                echo "<script>document.getElementById('name-error').innerHTML = '$nameError';</script>";
+                $this->showError('name-error', $nameError);
                 return false;
-            }   
+            }  
 
             $description = $data['description'];
             $descriptionError = $validator->validateGroupDescription($description);
             if($descriptionError){
-                echo "<script>document.getElementById('description-error').innerHTML = '$descriptionError';</script>";
+                $this->showError('description-error', $descriptionError);
                 return false;
             } 
              
             $avatar = $data['avatar'];
-            $avatarError = $validator->validateAvatar($avatar);
+            $avatarError = $validator->validateGroupAvatar($avatar);
             if($avatarError){
-                echo "<script>document.getElementById('avatar-error').innerHTML = '$avatarError';</script>";
+                $this->showError('avatar-error', $avatarError);
                 return false;
             }
     
@@ -128,6 +128,10 @@ class Group extends MYSQLHandler {
             return false;
         }
     }
+    private function showError($type, $message) {
+        echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
+    }
+    
     public function save($data){
         try{
             $name = $data['name'];

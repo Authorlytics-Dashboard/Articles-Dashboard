@@ -24,7 +24,7 @@ class GroupValidator {
         }
     }
     
-    public function validateAvatar($avatar) {
+    public function validateGroupAvatar($avatar) {
         $allowedExtensions = ['png', 'jpeg', 'jpg', 'gif'];
         $extension = strtolower(pathinfo($avatar, PATHINFO_EXTENSION));
         if (empty($avatar)) {

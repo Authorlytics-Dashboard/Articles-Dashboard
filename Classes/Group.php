@@ -1,6 +1,5 @@
 <?php
 
-use DASPRiD\Enum\NullValue;
 
 class Group extends MYSQLHandler {
     private $table = 'groups';
@@ -92,9 +91,29 @@ class Group extends MYSQLHandler {
     public function create($data){
         try {    
             $this->connect();
+            $validator = new GroupValidator();
+            
             $gname = $data['name'];
+            $nameError = $validator->validateGroupName($gname);
+            if ($nameError) {
+                $this->showError('name-error', $nameError);
+                return false;
+            }  
+
             $description = $data['description'];
+            $descriptionError = $validator->validateGroupDescription($description);
+            if($descriptionError){
+                $this->showError('description-error', $descriptionError);
+                return false;
+            } 
+             
             $avatar = $data['avatar'];
+            $avatarError = $validator->validateGroupAvatar($avatar);
+            if($avatarError){
+                $this->showError('avatar-error', $avatarError);
+                return false;
+            }
+    
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
@@ -109,7 +128,10 @@ class Group extends MYSQLHandler {
             return false;
         }
     }
-
+    private function showError($type, $message) {
+        echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
+    }
+    
     public function save($data){
         try{
             $name = $data['name'];

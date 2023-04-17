@@ -235,7 +235,7 @@ mysqli_close($conn);
   <div class="row ">
     <div class="col-lg-12">
       <div>
-        <div class="col-md-10">
+        <div class="col-md-12" style="width: 740px;">
           <div class="profile-card text-center">
             <img class="img-responsive" style="width:100%; height: 270px;" src="../../../assets/Images/<?php echo $article['photo'] ?>" alt="">
             <div class="profile-info">
@@ -261,7 +261,7 @@ mysqli_close($conn);
                     </div>
                   </label>
                 </form>
-                <span style="transform: translate(-330px, -30px);" ><?php echo $likeCount . ' likes'; ?></span> 
+                <span style="transform: translate(-270px, -30px);" ><?php echo $likeCount . ' likes'; ?></span> 
               </div>
           </div>
         </div>

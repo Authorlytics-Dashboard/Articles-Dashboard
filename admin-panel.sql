@@ -86,16 +86,14 @@ CREATE TABLE `users` (
 
 -- article likes table structure
 
-CREATE TABLE article_likes (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  article_id INT NOT NULL,
-  user_id INT NOT NULL,
-  liked BOOLEAN NOT NULL DEFAULT false,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (article_id) REFERENCES articles(aid),
-  FOREIGN KEY (user_id) REFERENCES users(uid)
-);
+CREATE TABLE `article_likes` (
+  `id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `liked` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 --

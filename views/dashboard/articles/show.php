@@ -3,42 +3,16 @@
     $article = new Article();
     $article = $article->showArticleByID($articleId)[0];
 
-    // // Connect to database
-    // $conn = new mysqli(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
-    // if(isset($_POST['like_checkbox'])){
-    //   // Increment likes column in articles table
-    //   $stmt = $conn->prepare('UPDATE articles SET likes = likes + 1 WHERE aid = ?');
-    //   $stmt->bind_param('i', $articleId);
-    //   $stmt->execute();
-    // }
-    // else{
-    //   $stmt = $conn->prepare('UPDATE articles SET likes = CASE WHEN likes > 0 THEN likes - 1 ELSE 0 END WHERE aid = ?');
-    //   $stmt->bind_param('i', $articleId);
-    //   $stmt->execute();
-    // }
-
-    // // Query database for number of likes
-    // $stmt = $conn->prepare('SELECT likes FROM articles WHERE aid = ?');
-    // $stmt->bind_param('i', $articleId);
-    // $stmt->execute();
-    // $likeCount = $stmt->get_result()->fetch_assoc()['likes'];
-
 // Connect to the database
 $conn = mysqli_connect(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
 
 $article_id = $article['aid'];
 // Check if the user has clicked the like button
 if (isset($_POST['like_checkbox'])) {
-  // Get the article ID from the value of the checkbox
   
-  // var_dump($article_id);
-  // die();
-
   // Check if the user is logged in
   if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
-    // var_dump($user_id);
-    // die();
 
     // Check if the user has already liked the article
     $query = "SELECT * FROM article_likes WHERE article_id = $article_id AND user_id = $user_id";
@@ -62,18 +36,18 @@ if (isset($_POST['like_checkbox'])) {
 
 // Display the number of likes for each article
 $query = "SELECT  COUNT(*) AS num_likes FROM article_likes WHERE liked = true and article_id = $article_id";
-// $query = "SELECT article_id, COUNT(*) AS num_likes FROM article_likes WHERE liked = true GROUP BY article_id";
+$sql = "SELECT users.uname FROM articles INNER JOIN users ON articles.uid = users.uid;";
 $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 $likeCount =$row['num_likes'];
-// var_dump($row['num_likes']);
-// die();
+
 $likes = array();
 
-// while ($row = mysqli_fetch_assoc($result)) {
-//   $likes[$row['article_id']] = $row['num_likes'];
+// get creator name
+// $sql = "SELECT users.uname FROM articles INNER JOIN users ON articles.uid = users.uid;";
+// $result = mysqli_query($conn, $sql);
+// $row = mysqli_fetch_assoc($result);
 
-// }
 
 // Close the database connection
 mysqli_close($conn);
@@ -269,11 +243,16 @@ mysqli_close($conn);
                 <div><?php echo $article["body"]; ?></div>
                 <br>
                 <p><?php echo "Creator ID: " . $article["uid"]; ?></p>
+                <p>
+                  <?php echo "Creator Name: " ?> 
+                  <?php $user = new User();
+                        $createdBy = $user->showUserByID($article['uid']);
+                        echo $createdBy[0]['uname'];?>
+                </p>
                 <p><?php echo "Created at: " . $article["post_date"]; ?></p>
                 <!-- Like Button -->
                 <form method="post">
                   <label class="LikesContainer">
-                    <!-- <input type="hidden" name="aid" value="123"> -->
                     <input type="checkbox" name="like_checkbox" onchange="this.form.submit()" <?php if(isset($_POST['like_checkbox'])) echo 'checked="checked"'; ?> >
                     <div class="checkmark">
                       <svg viewBox="0 0 256 256">

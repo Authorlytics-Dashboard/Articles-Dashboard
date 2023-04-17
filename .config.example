@@ -10,4 +10,5 @@
     define("_ACCOUNT_SID_", "sid");
     define("_AUTH_TOKEN_", "token");
     define("_SENDER_", "sender mobile")
+    define("_PAGE_RECORD_NUM_", 5);
 ?>

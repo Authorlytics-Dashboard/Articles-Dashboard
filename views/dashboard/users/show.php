@@ -1,7 +1,7 @@
 <?php     
     $UserId = $_GET['id'];
-    $user = new User();
-    $u = $user ->showUserByID($UserId);
+    $user = new User('users', "UsersErrors.log",'uid');
+    $u = $user ->getRecordByID($UserId);
     $u = $u[0];
 ?>
 
@@ -26,6 +26,8 @@
 .profile-card-5 .card-img-block img{
     border-radius:5px;
     box-shadow:0 0 10px rgba(0,0,0,0.63);
+    height:16em;
+    
 }
 .profile-card-5 h5{
     color:#4E5E30;

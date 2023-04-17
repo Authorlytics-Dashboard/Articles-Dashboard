@@ -1,8 +1,8 @@
 <?php  
 
     $userId = $_GET['id'];
-    $user = new User();
-    $userInfo = $user ->showUserByID($userId);
+    $user = new User('users', "UsersErrors.log",'uid');
+    $userInfo = $user ->getRecordByID($userId);
     $userInfo = $userInfo[0];?>
 
 <section class="userSection">
@@ -25,7 +25,7 @@
             </div>
             <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile</label>
-                <input type="number" class="form-control" name="mobile" id="mobile"
+                <input type="text" class="form-control" name="mobile" id="mobile"
                     value="<?php echo $userInfo["mobile"];?>">
             </div>
             <div class="mb-3">

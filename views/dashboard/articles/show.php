@@ -3,42 +3,16 @@
     $article = new Article();
     $article = $article->showArticleByID($articleId)[0];
 
-    // // Connect to database
-    // $conn = new mysqli(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
-    // if(isset($_POST['like_checkbox'])){
-    //   // Increment likes column in articles table
-    //   $stmt = $conn->prepare('UPDATE articles SET likes = likes + 1 WHERE aid = ?');
-    //   $stmt->bind_param('i', $articleId);
-    //   $stmt->execute();
-    // }
-    // else{
-    //   $stmt = $conn->prepare('UPDATE articles SET likes = CASE WHEN likes > 0 THEN likes - 1 ELSE 0 END WHERE aid = ?');
-    //   $stmt->bind_param('i', $articleId);
-    //   $stmt->execute();
-    // }
-
-    // // Query database for number of likes
-    // $stmt = $conn->prepare('SELECT likes FROM articles WHERE aid = ?');
-    // $stmt->bind_param('i', $articleId);
-    // $stmt->execute();
-    // $likeCount = $stmt->get_result()->fetch_assoc()['likes'];
-
 // Connect to the database
 $conn = mysqli_connect(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
 
 $article_id = $article['aid'];
 // Check if the user has clicked the like button
 if (isset($_POST['like_checkbox'])) {
-  // Get the article ID from the value of the checkbox
   
-  // var_dump($article_id);
-  // die();
-
   // Check if the user is logged in
   if (isset($_SESSION['id'])) {
     $user_id = $_SESSION['id'];
-    // var_dump($user_id);
-    // die();
 
     // Check if the user has already liked the article
     $query = "SELECT * FROM article_likes WHERE article_id = $article_id AND user_id = $user_id";
@@ -62,18 +36,12 @@ if (isset($_POST['like_checkbox'])) {
 
 // Display the number of likes for each article
 $query = "SELECT  COUNT(*) AS num_likes FROM article_likes WHERE liked = true and article_id = $article_id";
-// $query = "SELECT article_id, COUNT(*) AS num_likes FROM article_likes WHERE liked = true GROUP BY article_id";
+$sql = "SELECT users.uname FROM articles INNER JOIN users ON articles.uid = users.uid;";
 $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 $likeCount =$row['num_likes'];
-// var_dump($row['num_likes']);
-// die();
+
 $likes = array();
-
-// while ($row = mysqli_fetch_assoc($result)) {
-//   $likes[$row['article_id']] = $row['num_likes'];
-
-// }
 
 // Close the database connection
 mysqli_close($conn);
@@ -81,176 +49,158 @@ mysqli_close($conn);
 
 
 <style>
-    
 
-.container {
-  padding: 20px;
-}
+  .container {
+    padding: 20px;
+  }
 
-.profile-card {
-	background-color: #222222;
-  margin-bottom: 20px;
-			
-		}
+  .profile-card {
+    background-color: #222222;
+    margin-bottom: 20px;
+  }
+      
+  .profile-pic {
+    border-radius: 50%;
+    position: absolute;
+    top: -65px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 1;
+    max-width: 100px;
+    transition: all 0.4s;
+  }
+
+  .profile-info {
+    color: #BDBDBD;
+    padding: 25px;
+    position: relative;
+    margin-top: 15px;
+  }
 		
-.profile-pic {
-  border-radius: 50%;
-  position: absolute;
-  top: -65px;
-  left: 0;
-  right: 0;
-  margin: auto;
-  z-index: 1;
-  max-width: 100px;
-  -webkit-transition: all 0.4s;
-		  transition: all 0.4s;
-				}
-
-				
-.profile-info {
-		color: #BDBDBD;
-		padding: 25px;
-	    position: relative;
-	    margin-top: 15px;
-				}
-		
-.profile-info h2 {
-	color: #E8E8E8;
+  .profile-info h2 {
+    color: #E8E8E8;
     letter-spacing: 4px;
-	  padding-bottom: 12px;
-				}
-				
-.profile-info span {
-	display: block;
+    padding-bottom: 12px;
+  }
+
+  .profile-info span {
+    display: block;
     font-size: 12px;
     color: #4CB493;
-	letter-spacing: 2px;
-			}
-
-.profile-info a {
-	 color: #4CB493;
-		}
-.profile-info i {
-	    padding: 15px 35px 0px 35px;
-		}
-		
-
-.profile-card:hover .profile-pic {
-	transform: scale(1.1);
-		}
-
-.profile-card:hover .profile-info hr  {
-	opacity: 1;
-		}
-		
-		
-		
-		
-/* Underline From Center */
-.hvr-underline-from-center {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  overflow: hidden;
-}
-.hvr-underline-from-center:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 52%;
-  right: 52%;
-  bottom: 0;
-  background: #FFFFFF;
-  border-radius: 50%;
-  height: 3px;
-  -webkit-transition-property: all;
-  transition-property: all;
-  -webkit-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.profile-card:hover .hvr-underline-from-center:before, .profile-card:focus .hvr-underline-from-center:before, .profile-card:active .hvr-underline-from-center:before {
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #CECECE;
-  border-radius: 0;
-}
-
-/* likes button */
-.LikesContainer input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.LikesContainer {
-  display: block;
-  position: relative;
-  cursor: pointer;
-  font-size: 20px;
-  user-select: none;
-  transition: 100ms;
-}
-
-.checkmark {
-  top: 0;
-  left: 0;
-  height: 2em;
-  width: 2em;
-  transition: 100ms;
-  animation: dislike_effect 400ms ease;
-}
-
-.LikesContainer input:checked ~ .checkmark path {
-  fill: #FF5353;
-  stroke-width: 0;
-}
-
-.LikesContainer input:checked ~ .checkmark {
-  animation: like_effect 400ms ease;
-}
-
-/* .LikesContainer:hover {
-  transform: scale(1);
-} */
-
-@keyframes like_effect {
-  0% {
-    transform: scale(0);
+    letter-spacing: 2px;
   }
 
-  50% {
-    transform: scale(1.2);
+  .img-responsive{
+    width:100%; 
+    height: 330px;
+  }
+  .profile-info a {
+    color: #4CB493;
+  }
+  .profile-info i {
+    padding: 15px 35px 0px 35px;
   }
 
-  100% {
-    transform: scale(1);
+  .artcilesCard{
+    width: 60em !important;
   }
-}
-
-@keyframes dislike_effect {
-  0% {
-    transform: scale(0);
+  .profile-card:hover .profile-pic {
+    transform: scale(1.1);
   }
 
-  50% {
-    transform: scale(1.2);
+  .profile-card:hover .profile-info hr {
+    opacity: 1;
   }
 
-  100% {
-    transform: scale(1);
+  /* Underline From Center */
+  .hvr-underline-from-center {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    overflow: hidden;
   }
-}
+
+  .hvr-underline-from-center:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 52%;
+    right: 52%;
+    bottom: 0;
+    background: #FFFFFF;
+    border-radius: 50%;
+    height: 3px;
+    transition-property: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+  }
+
+  .profile-card:hover .hvr-underline-from-center:before,
+  .profile-card:focus .hvr-underline-from-center:before, 
+  .profile-card:active .hvr-underline-from-center:before {
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #CECECE;
+    border-radius: 0;
+  }
+
+  /* likes button */
+  .LikesContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .LikesContainer {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    transition: 100ms;
+  }
+
+  .checkmark {
+    top: 0;
+    left: 0;
+    height: 2em;
+    width: 2em;
+    transition: 100ms;
+    animation: dislike_effect 400ms ease;
+  }
+
+  .LikesContainer input:checked ~ .checkmark path {
+    fill: #FF5353;
+    stroke-width: 0;
+  }
+
+  .LikesContainer input:checked ~ .checkmark {
+    animation: like_effect 400ms ease;
+  }
+
+  .likesCount{
+    transform: translate(-380px, -30px);
+  }
+
+  @keyframes like_effect {
+    0% {transform: scale(0);}
+    50% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+  }
+
+  @keyframes dislike_effect {
+    0% {transform: scale(0);}
+    50% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+  }
 
 </style>
 
@@ -261,19 +211,24 @@ mysqli_close($conn);
   <div class="row ">
     <div class="col-lg-12">
       <div>
-        <div class="col-md-10">
+        <div class="col-md-12 artcilesCard">
           <div class="profile-card text-center">
-            <img class="img-responsive" style="width:100%; height: 270px;" src="../../../assets/Images/<?php echo $article['photo'] ?>" alt="">
+            <img class="img-responsive" src="../../../assets/Images/<?php echo $article['photo'] ?>" alt="">
             <div class="profile-info">
                 <h2 class="hvr-underline-from-center"><?php echo $article["title"]; ?></h2>
                 <div><?php echo $article["body"]; ?></div>
                 <br>
                 <p><?php echo "Creator ID: " . $article["uid"]; ?></p>
+                <p>
+                  <?php echo "Creator Name: " ?> 
+                  <?php $user = new User('users', "UsersErrors.log",'uid');
+                        $createdBy = $user->getRecordByID($article['uid']);
+                        echo $createdBy[0]['uname'];?>
+                </p>
                 <p><?php echo "Created at: " . $article["post_date"]; ?></p>
                 <!-- Like Button -->
                 <form method="post">
                   <label class="LikesContainer">
-                    <!-- <input type="hidden" name="aid" value="123"> -->
                     <input type="checkbox" name="like_checkbox" onchange="this.form.submit()" <?php if(isset($_POST['like_checkbox'])) echo 'checked="checked"'; ?> >
                     <div class="checkmark">
                       <svg viewBox="0 0 256 256">
@@ -282,7 +237,7 @@ mysqli_close($conn);
                     </div>
                   </label>
                 </form>
-                <span style="transform: translate(-330px, -30px);" ><?php echo $likeCount . ' likes'; ?></span> 
+                <span class="likesCount text-white" ><?php echo $likeCount . ' likes'; ?></span> 
               </div>
           </div>
         </div>

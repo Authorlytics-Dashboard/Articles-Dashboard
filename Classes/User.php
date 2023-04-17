@@ -1,8 +1,4 @@
 <?php
-use Delight\Auth\InvalidEmailException;
-use Delight\Auth\InvalidPasswordException;
-use Delight\Auth\TooManyRequestsException;
-use Delight\Auth\UserAlreadyExistsException;
 
 class User extends MYSQLHandler {
     private $table = 'users';
@@ -72,10 +68,10 @@ class User extends MYSQLHandler {
     public function create($data){
         try {    
             $this->connect();
-            $username = $data['username'];
+            $uname = $data['uname'];
             $email = $data['email'];
             $avatar = $data['avatar'];
-            $groupID = $data['groupID'];
+            $gid = $data['gid'];
             $mobile = "+2".$data['mobile'];
             $password = password_hash($data['password'], PASSWORD_DEFAULT);
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
@@ -83,9 +79,9 @@ class User extends MYSQLHandler {
             $avatar = basename($_FILES["avatar"]["name"]);
 
             $data = [
-                'username' => $username,
+                'uname' => $uname,
                 'email' => $email,
-                'groupID' => $groupID, 
+                'gid' => $gid, 
                 'mobile' => $mobile,
                 'password' => $password,
                 'avatar' => $avatar,  
@@ -98,7 +94,6 @@ class User extends MYSQLHandler {
             return false;
         }
     }
-    
     public function save($data){
         try{
             $username = $data['username'];
@@ -128,43 +123,6 @@ class User extends MYSQLHandler {
             return false;
         }
     }
-
-    public function update($edited_values, $id){
-        try{
-            $this->connect();
-            $table = $this->table;
-            $primary_key = $this->primary_key;
-            $sql = "UPDATE `" . $table . "` SET ";
-
-            foreach ($edited_values as $key => $value) {
-                if ($key != $primary_key) {
-                    if (is_null($value) && $key == 'deleted_at') {
-                        $sql .= " `$key` = NULL,";
-                    }
-                    elseif (!is_numeric($value)) {
-                        $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
-                    } else {
-                        $sql .= " `$key` = $value ,";
-                    }
-                }
-            }
-
-            $sql = rtrim($sql, ',');
-            $sql .= " WHERE `" . $primary_key . "` = " . intval($id);
-
-            if (mysqli_query($this->_dbHandler, $sql)) {
-                $this->disconnect();
-                return true;
-            } else {
-                $this->disconnect();
-                return false;
-            }
-        } catch(Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
-    
     public function edit(){
         try{
             $avatar = $_FILES['avatar']['name'];
@@ -186,25 +144,9 @@ class User extends MYSQLHandler {
             return false;
         } 
     }
-
-    public function search(...$searchColumns){
-        $table = $this->table;
-        $sql = "SELECT * FROM `$table` WHERE ";
-        $params = array();
-    
-        foreach ($searchColumns as $index => $searchColumn) {
-            $params[] = "%" . $searchColumn["value"] . "%";
-            $sql .= "`" . $searchColumn["column"] . "` LIKE '" . $searchColumn["value"] . "%'";
-            if ($index < count($searchColumns) - 1) {
-                $sql .= " OR ";
-            }
-        }
-        return $this->get_results($sql);
-    }
-
     public function filterUsersByGroup($groupName){
         try{
-
+            $this->connect();
             $stmt = $this->_dbHandler->prepare("SELECT * FROM users INNER JOIN groups ON users.gid = groups.gid WHERE groups.gname = ?");
             $stmt->bind_param("s", $groupName);
             $stmt->execute();
@@ -225,28 +167,11 @@ class User extends MYSQLHandler {
     
     public function getCount ($table){
         $sql = "select * from `$table` ";
+        $this->connect();
         $_handler_results = mysqli_query($this->_dbHandler, $sql);
         $rowcount=mysqli_num_rows($_handler_results);
         return $rowcount;
     }
-
-    public function get_all_records_paginated($fields = array(), $start = 0){
-        $table = $this->table;
-        if(empty($fields)){
-            $sql = "select * from `$table` ";
-        } else {
-            $sql = "select ";
-            foreach($fields as $f){
-                $sql .= " `$f`, ";
-            }
-            $sql .= "from `$table` ";
-            $sql = str_replace(", from", "from", $sql );
-        }
-
-        $sql .= "limit $start," . 5;
-        return $this->get_results($sql);
-    }
-
     public function logout() {
         $this->_auth->logOut();  
         header('Location: /login');

@@ -101,7 +101,7 @@ class Login extends MYSQLHandler{
 
   public function changePassword($userEmail ,$password, $confirmedPass){
     if($password === $confirmedPass) {
-        $users = new User();
+        $users = new User('users', "UsersErrors.log",'id');
         $user = $users->search(array("column" => "email", "value" => $userEmail));
 
         $data = [

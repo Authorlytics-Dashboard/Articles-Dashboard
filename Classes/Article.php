@@ -1,112 +1,30 @@
 <?php
 
 class Article extends CRUD {
-    private $table = 'articles';
-    private $primary_key = 'aid';
-    private $log_file="ArticlesErrors.log";
-
-    public function getData($fields = array(), $start = 0) {
-        try {
-            $this->connect();
-            if (empty($fields)) {
-                $sql = "select * from `$this->table`";
-            } else {
-                $sql = "select ";
-                foreach ($fields as $f) {
-                    $sql .= " `$f`, ";
-                }
-                $sql .= "from  `$this->table` ";
-                $sql = str_replace(", from", "from", $sql);
-            }
-            return $this->get_results($sql);
-
-        }catch (Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
-
-
-    public function showArticleByID($id) {
-        try {
-            $primary_key = $this->primary_key;
-            $table = $this->table;
-            $sql = "select * from `$table` where `$primary_key` = '$id' ";
-            return $this->get_results($sql);
-
-        }catch(Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
-
-
-    public function delete($id) {
-        try{
-            $this->connect();
-            $timestamp = date('Y-m-d H:i:s');
-            $data = $this->showArticleByID($id)[0];
-            $data['deleted_at'] = $timestamp;
-            $this->update($data,$id);
-            header('location:/articles');
-        }catch(Exception $e) {
-        new Log($this->log_file, $e->getMessage());
-        return false;
-     }
-    }
-
-    public function restore($id) {
-        try{
-            $this->connect();
-            $data = $this->showArticleByID($id)[0];
-            $data['deleted_at'] = null;
-            $this->update($data,$id);
-            header('location:/articles');
-        }catch(Exception $e) {
-        new Log($this->log_file, $e->getMessage());
-        return false;
-     }
-    }
-
-        public function update($edited_values, $id){
-        try{
-            $this->connect();
-            $table = $this->table;
-            $primary_key = $this->primary_key;
-            $sql = "UPDATE `" . $table . "` SET ";
-
-            foreach ($edited_values as $key => $value) {
-                if ($key != $primary_key) {
-                    if (is_null($value) && $key == 'deleted_at') {
-                        $sql .= " `$key` = NULL,";
-                    }
-                    elseif (!is_numeric($value)) {
-                        $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
-                    } else {
-                        $sql .= " `$key` = $value ,";
-                    }
-                }
-            }
-
-            $sql = rtrim($sql, ',');
-            $sql .= " WHERE `" . $primary_key . "` = " . intval($id);
-
-            if (mysqli_query($this->_dbHandler, $sql)) {
-                $this->disconnect();
-                return true;
-            } else {
-                $this->disconnect();
-                return false;
-            }
-        } catch(Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
-
     public function create($data){
         try {
             $this->connect();
+            $validator = new ArticleValidator();
+             $gname = $data['title'];
+            $nameError = $validator->validateArticleName($gname);
+            if ($nameError) {
+                $this->showError('name-error', $nameError);
+                return false;
+            }  
+
+            $description = $data['body'];
+            $descriptionError = $validator->validateArticleDescription($description);
+            if($descriptionError){
+                $this->showError('description-error', $descriptionError);
+                return false;
+            } 
+             
+            $avatar = $data['photo'];
+            $avatarError = $validator->validateArticleAvatar($avatar);
+            if($avatarError){
+                $this->showError('avatar-error', $avatarError);
+                return false;
+            }
             $photo = $data['photo'];
 
             $target_file = "../assets/Images/" . basename($_FILES["photo"]["name"]);  
@@ -117,7 +35,7 @@ class Article extends CRUD {
                 'title' => $data['title'],
                 'body' => $data['body'],
                 'photo' => $photo,
-                'post_date' => $data['post_date'],
+                'post_date' => $data['post_date']? $data['post_date']:  date('Y-m-d H:i:s') ,
                 'uid' => $data['uid']
             ];
             $this->save($data);
@@ -190,6 +108,7 @@ class Article extends CRUD {
         $result = mysqli_query($this->_dbHandler, $query);
         $row = mysqli_fetch_assoc($result);
         return $likeCount =$row['num_likes'];
+
     }
     public function getCount ($table){
         $this->connect();
@@ -198,7 +117,9 @@ class Article extends CRUD {
         $rowcount=mysqli_num_rows($_handler_results);
         return $rowcount;
     }
-
+    private function showError($type, $message) {
+        echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
+    }
 }
 
 

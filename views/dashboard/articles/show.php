@@ -181,9 +181,9 @@
                 <p><?php echo "Creator ID: " . $article["uid"]; ?></p>
                 <p>
                   <?php echo "Creator Name: " ?> 
-                  <?php $user = new User('users', "UsersErrors.log",'uid');
+                  <?php $user = new User('users', "UsersErrors.log",'id');
                         $createdBy = $user->getRecordByID($article['uid']);
-                        echo $createdBy[0]['uname'];?>
+                        echo $createdBy[0]['username'];?>
                 </p>
                 <p><?php echo "Created at: " . $article["post_date"]; ?></p>
                 <!-- Like Button -->

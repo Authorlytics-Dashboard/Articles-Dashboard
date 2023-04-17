@@ -26,7 +26,7 @@
 
             <div class=" mb-3">
                 <label for="mobile" class="form-label">Mobile Number</label>
-                <input type="number" class="form-control" name="mobile" id="mobile">
+                <input type="text" class="form-control" name="mobile" id="mobile">
             </div>
             <div class=" mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -47,7 +47,7 @@
 </section>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-$user = new User('users', "UsersErrors.log",'uid');
+$user = new User('users', "UsersErrors.log",'id');
 $data = [
 'uname' => $_POST['name'],
 'email' => $_POST['email'],

@@ -4,6 +4,7 @@
     $rowCount = $articles->getCount('articles');
     $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
     $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
+    ob_start();
 ?>  
 
 <style>
@@ -214,6 +215,7 @@
 
             <tr>
                 <th scope="row"><?php echo $item["aid"] ?></th>
+                <td><?php echo $item["title"] ?></td>
                 <td>
                     <?php if ($item["photo"]) { ?>
                         <img src='../assets/Images/<?= $item['photo'] ?>' class='rounded-circle img-thumbnail' alt='photo' style='width:30px; height:30px;'>
@@ -221,13 +223,12 @@
                         <p>No photo</p>
                     <?php } ?>
                 </td>
-                <td><?php echo $item["title"] ?></td>
                 <td><?php echo $item["post_date"] ?></td>
                 <td>
                     <?php 
-                        $user = new User('users', "UsersErrors.log",'uid');
+                        $user = new User('users', "UsersErrors.log",'id');
                         $createdBy = $user->getRecordByID($item['uid']);
-                        echo $createdBy[0]['uname'];
+                        echo $createdBy[0]['username'];
                     ?>
                 </td>
                 <td>

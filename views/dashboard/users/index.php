@@ -1,10 +1,10 @@
 <?php 
-    $users = new User('users', "UsersErrors.log",'uid');
+    $users = new User('users', "UsersErrors.log",'id');
     $current_index = isset($_GET["page"]) && is_numeric($_GET["page"])? (int)$_GET["page"]: 0;
     $rowCount = $users->getCount('users');
     $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
     $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
-   
+    ob_start();
 ?>
 
 <style>
@@ -208,7 +208,7 @@
 
     <?php 
     if(isset($_GET['query'])) {
-         $items = $users->search(array("column" => "uname", "value" => $_GET['query']));
+         $items = $users->search(array("column" => "username", "value" => $_GET['query']));
     }else if (isset( $_GET['group_name']) && $_GET['group_name'] != 'all'){
         $items = $users->filterUsersByGroup($_GET['group_name']);
     }
@@ -235,7 +235,7 @@
                 foreach ($items as $user)
             {?>
             <tr>
-                <th scope="row"><?php echo $user["uid"] ?></th>
+                <th scope="row"><?php echo $user["id"] ?></th>
                 <td>
                     <?php if ($user["avatar"]) { ?>
                     <img src='../assets/Images/<?php echo $user['avatar'] ?>' class='rounded-circle img-thumbnail'
@@ -244,23 +244,23 @@
                     <p>No Avatar</p>
                     <?php } ?>
                 </td>
-                <td><?php echo $user["uname"] ?></td>
+                <td><?php echo $user["username"] ?></td>
                 <td><?php echo $user["email"] ?></td>
                 <td><?php echo $user["mobile"] ?></td>
                 <td>
                     <?php
                         if ($user["deleted_at"] == null) { ?>
-                    <a href="/users/delete/?id=<?php echo $user["uid"] ; ?>" class="btn btn-danger"><i
+                    <a href="/users/delete/?id=<?php echo $user["id"] ; ?>" class="btn btn-danger"><i
                             class='bx bx-trash'></i></a>
                     <?php } 
                         else { ?>
-                    <a href="/users/restore/?id=<?php echo $user["uid"] ; ?>" class="btn btn-success"><i
+                    <a href="/users/restore/?id=<?php echo $user["id"] ; ?>" class="btn btn-success"><i
                             class='bx bx-recycle'></i></a>
                     <?php }
                     ?>
-                    <a href="/users/edit/?id=<?php echo $user["uid"] ; ?>" class="btn btn-primary"><i
+                    <a href="/users/edit/?id=<?php echo $user["id"] ; ?>" class="btn btn-primary"><i
                             class='bx bxs-edit'></i></a>
-                    <a href="/users/show/?id=<?php echo $user["uid"] ; ?>" class="btn btn-dark"><i
+                    <a href="/users/show/?id=<?php echo $user["id"] ; ?>" class="btn btn-dark"><i
                             class='bx bx-show-alt' style="color: #fff;"></i></a>
                 </td>
             </tr>

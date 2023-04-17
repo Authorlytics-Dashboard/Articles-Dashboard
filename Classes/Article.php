@@ -1,6 +1,109 @@
 <?php
 
 class Article extends CRUD {
+    private $table = 'articles';
+    private $primary_key = 'aid';
+    private $log_file="ArticlesErrors.log";
+
+    public function getData($fields = array(), $start = 0) {
+        try {
+            $this->connect();
+            if (empty($fields)) {
+                $sql = "select * from `$this->table`";
+            } else {
+                $sql = "select ";
+                foreach ($fields as $f) {
+                    $sql .= " `$f`, ";
+                }
+                $sql .= "from  `$this->table` ";
+                $sql = str_replace(", from", "from", $sql);
+            }
+            return $this->get_results($sql);
+
+        }catch (Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+    }
+
+
+    public function showArticleByID($id) {
+        try {
+            $primary_key = $this->primary_key;
+            $table = $this->table;
+            $sql = "select * from `$table` where `$primary_key` = '$id' ";
+            return $this->get_results($sql);
+
+        }catch(Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+    }
+
+
+    public function delete($id) {
+        try{
+            $this->connect();
+            $timestamp = date('Y-m-d H:i:s');
+            $data = $this->showArticleByID($id)[0];
+            $data['deleted_at'] = $timestamp;
+            $this->update($data,$id);
+            header('location:/articles');
+        }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
+    }
+
+    public function restore($id) {
+        try{
+            $this->connect();
+            $data = $this->showArticleByID($id)[0];
+            $data['deleted_at'] = null;
+            $this->update($data,$id);
+            header('location:/articles');
+        }catch(Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+     }
+    }
+
+        public function update($edited_values, $id){
+        try{
+            $this->connect();
+            $table = $this->table;
+            $primary_key = $this->primary_key;
+            $sql = "UPDATE `" . $table . "` SET ";
+
+            foreach ($edited_values as $key => $value) {
+                if ($key != $primary_key) {
+                    if (is_null($value) && $key == 'deleted_at') {
+                        $sql .= " `$key` = NULL,";
+                    }
+                    elseif (!is_numeric($value)) {
+                        $sql .= " `$key` = '" . mysqli_real_escape_string($this->_dbHandler, $value) . "',";
+                    } else {
+                        $sql .= " `$key` = $value ,";
+                    }
+                }
+            }
+
+            $sql = rtrim($sql, ',');
+            $sql .= " WHERE `" . $primary_key . "` = " . intval($id);
+
+            if (mysqli_query($this->_dbHandler, $sql)) {
+                $this->disconnect();
+                return true;
+            } else {
+                $this->disconnect();
+                return false;
+            }
+        } catch(Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+    }
+
     public function create($data){
         try {
             $this->connect();

@@ -1,8 +1,8 @@
 <?php
     $uri = explode('/', $_SERVER['REQUEST_URI']);
-    $user = new User('users', "UsersErrors.log",'uid');
-    $article = new Article('articles','ArticlesErrors.log','aid');
+    $user = new User('users', "UsersErrors.log",'id');
     $group = new Group('groups',"GroupsErrors.log",'gid');
+    $article = new Article('articles','ArticlesErrors.log','aid');
     if($uri[1] == "home") {
         include_once("./views/dashboard/home.php");
     }elseif ($uri[1] == "groups" && isset($uri[2]) && $uri[2] == "edit" && isset($uri[3])) {

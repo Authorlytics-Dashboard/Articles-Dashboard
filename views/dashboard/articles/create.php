@@ -27,7 +27,7 @@
                 <select name="uid" class="form-control" id="uid">
                     <?php
                         ob_start();
-                        $users = new User();
+                        $users = new User('users', "UsersErrors.log",'uid');
                         $users = $users->getData();
                         foreach ($users as $user){
                     ?>

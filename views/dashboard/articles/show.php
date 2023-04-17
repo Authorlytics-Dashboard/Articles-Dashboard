@@ -43,12 +43,6 @@ $likeCount =$row['num_likes'];
 
 $likes = array();
 
-// get creator name
-// $sql = "SELECT users.uname FROM articles INNER JOIN users ON articles.uid = users.uid;";
-// $result = mysqli_query($conn, $sql);
-// $row = mysqli_fetch_assoc($result);
-
-
 // Close the database connection
 mysqli_close($conn);
 ?>

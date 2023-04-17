@@ -140,7 +140,7 @@
 .dark-mode #logoSvg .stroke2,
 .dark-mode #logoSvg .stroke3,
 .dark-mode #logoSvg .stroke4{
-    stroke: black;
+    stroke: rgb(255, 255, 255);
 }
 
 .dark-mode  .welcome,

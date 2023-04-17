@@ -225,8 +225,8 @@
                 <td><?php echo $item["post_date"] ?></td>
                 <td>
                     <?php 
-                        $user = new User();
-                        $createdBy = $user->showUserByID($item['uid']);
+                        $user = new User('users', "UsersErrors.log",'uid');
+                        $createdBy = $user->getRecordByID($item['uid']);
                         echo $createdBy[0]['uname'];
                     ?>
                 </td>

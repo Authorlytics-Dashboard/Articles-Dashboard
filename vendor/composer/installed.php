@@ -3,7 +3,7 @@
         'name' => 'php/adminpanel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3e040c27316fd0771f0e30fd576c3b18cdbdf794',
+        'reference' => '3a5ab7cfcd6d75b120e6664975bcbf13d8e7fe6a',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'php/adminpanel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3e040c27316fd0771f0e30fd576c3b18cdbdf794',
+            'reference' => '3a5ab7cfcd6d75b120e6664975bcbf13d8e7fe6a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

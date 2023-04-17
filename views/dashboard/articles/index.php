@@ -1,7 +1,7 @@
 <?php 
-    $db = new Article();
+    $articles=new Article('articles','ArticlesErrors.log','aid');
     $current_index = isset($_GET["page"]) && is_numeric($_GET["page"])? (int)$_GET["page"]: 0;
-    $rowCount = $db->getCount('articles');
+    $rowCount = $articles->getCount('articles');
     $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
     $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
     ob_start();
@@ -187,11 +187,11 @@
     </div>
 
     <?php 
-        $articles=new Article();
+ 
         if(isset($_GET['query'])) {
             $items = $articles->search(array("column" => "title", "value" => $_GET['query']));
         } else{
-            $items = $db->get_all_records_paginated(array(), $current_index);
+            $items = $articles->get_all_records_paginated(array(), $current_index);
         }
 
         if (count($items) > 0) {
@@ -272,7 +272,7 @@
 <?php
     if(isset($_POST['query'])){
         $title = $_POST['query'];
-        $obj = new Article();
+        $obj = new Article('articles','ArticlesErrors.log','aid');
         $d=  $obj->search('title' , $title);
     }
 ?>

@@ -214,6 +214,7 @@
 
             <tr>
                 <th scope="row"><?php echo $item["aid"] ?></th>
+                <td><?php echo $item["title"] ?></td>
                 <td>
                     <?php if ($item["photo"]) { ?>
                         <img src='../assets/Images/<?= $item['photo'] ?>' class='rounded-circle img-thumbnail' alt='photo' style='width:30px; height:30px;'>
@@ -221,7 +222,6 @@
                         <p>No photo</p>
                     <?php } ?>
                 </td>
-                <td><?php echo $item["title"] ?></td>
                 <td><?php echo $item["post_date"] ?></td>
                 <td>
                     <?php 

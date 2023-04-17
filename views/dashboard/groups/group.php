@@ -3,17 +3,22 @@
         <form method="post" action="" class="w-75 mx-auto" enctype="multipart/form-data">
             <div class=" mb-3">
                 <label for="name" class="form-label">Group Name</label>
-                <input type="text" class="form-control" name="name" id="name">
+                <input type="text" class="form-control" name="name" id="name"
+                    value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
+                <label class="error-message text-danger mt-2" id="name-error"></label>
             </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control" name="description" id="description">
+                <input type="text" class="form-control" name="description" id="description"
+                    value="<?php echo isset($_POST['description']) ? $_POST['description'] : ''; ?>">
+                <label class="error-message text-danger mt-2" id="description-error"></label>
             </div>
 
             <div class="mb-3">
                 <label for="avatar" class="form-label">Avatar</label>
                 <input type="file" class="form-control" name="avatar" id="avatar">
+                <label class="error-message text-danger mt-2" id="avatar-error"></label>
             </div>
 
             <div class="mb-3 text-center mt-5">

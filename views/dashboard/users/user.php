@@ -14,7 +14,7 @@
                 <select class="form-control" name="group_id" id="group_id">
                     <?php
                     ob_start();
-                    $group = new Group();
+                    $group = new Group('groups',"GroupsErrors.log",'gid');
                     $groups = $group->getGroups();
                     foreach ($groups as $g) {
                         $gid = $g['gid'];
@@ -47,11 +47,11 @@
 </section>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-$user = new User();
+$user = new User('users', "UsersErrors.log",'uid');
 $data = [
-'username' => $_POST['name'],
+'uname' => $_POST['name'],
 'email' => $_POST['email'],
-'groupID' => $_POST['group_id'],
+'gid' => $_POST['group_id'],
 'mobile' => $_POST['mobile'],
 'password' => $_POST['password'],
 'avatar' => $_FILES['avatar']['name']

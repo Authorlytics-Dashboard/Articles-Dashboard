@@ -1,7 +1,7 @@
 <?php     
     $UserId = $_GET['id'];
-    $user = new User();
-    $u = $user ->showUserByID($UserId);
+    $user = new User('users', "UsersErrors.log",'uid');
+    $u = $user ->getRecordByID($UserId);
     $u = $u[0];
 ?>
 

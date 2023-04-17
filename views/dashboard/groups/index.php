@@ -1,5 +1,5 @@
 <?php 
-    $db = new Group();
+    $db = new Group('groups',"GroupsErrors.log",'gid');
     $current_index = isset($_GET["page"]) && is_numeric($_GET["page"])? (int)$_GET["page"]: 0;
     $rowCount = $db->getCount('groups');
     $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
@@ -186,7 +186,7 @@
   </div>
 
 <?php 
-$groups=new Group();
+$groups=new Group('groups',"GroupsErrors.log",'gid');
 if(isset($_GET['query'])) {
   $items = $groups->search(array("column" => "gname", "value" => $_GET['query']),
   array("column" => "description", "value" => $_GET['query']));
@@ -259,7 +259,7 @@ if(isset($_GET['query'])) {
 <?php
   if(isset($_POST['query'])){
     $name = $_POST['query'];
-    $obj = new Group();
+    $obj = new Group('groups',"GroupsErrors.log",'gid');
     $d=  $obj->search('gname' , $name);
   }
 ?>

@@ -11,6 +11,10 @@ class ComposerStaticInit147b3127ade781718e94889d381d567c
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Twilio\\' => 7,
+        ),
         'E' => 
         array (
             'Endroid\\QrCode\\' => 15,
@@ -26,6 +30,10 @@ class ComposerStaticInit147b3127ade781718e94889d381d567c
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twilio\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twilio/sdk/src/Twilio',
+        ),
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
@@ -42,6 +50,7 @@ class ComposerStaticInit147b3127ade781718e94889d381d567c
 
     public static $classMap = array (
         'Article' => __DIR__ . '/../..' . '/Classes/Article.php',
+        'CRUD' => __DIR__ . '/../..' . '/Classes/CRUD.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Group' => __DIR__ . '/../..' . '/Classes/Group.php',
         'GroupValidator' => __DIR__ . '/../..' . '/Classes/GroupValidator.php',

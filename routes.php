@@ -1,5 +1,7 @@
 <?php
     $uri = explode('/', $_SERVER['REQUEST_URI']);
+    $user = new User('users', "UsersErrors.log",'uid');
+    $group = new Group('groups',"GroupsErrors.log",'gid');
     if($uri[1] == "home") {
         include_once("./views/dashboard/home.php");
     }elseif ($uri[1] == "groups" && isset($uri[2]) && $uri[2] == "edit" && isset($uri[3])) {
@@ -8,17 +10,15 @@
     }
     elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "update" && isset($uri[3])) {
         $groupId = $_GET['id'];
-        $group = new Group();
+
         $group ->edit();
     }
     elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "delete" && isset($uri[3])) {
         $groupId = $_GET['id'];
-        $group = new Group();
         $group ->delete($groupId);
     }
     elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "restore" && isset($uri[3])) {
         $groupId = $_GET['id'];
-        $group = new Group();
         $group ->restore($groupId);
     }
     elseif ($uri[1] == "groups" && isset($uri[2]) &&  $uri[2] == "show" && isset($uri[3])) {
@@ -46,17 +46,15 @@
     }
     elseif ($uri[1] == "users" && isset($uri[2]) &&  $uri[2] == "update" && isset($uri[3])) {
         $userId = $_GET['id'];
-        $user = new User();
+ 
         $user ->edit();
     }
     elseif ($uri[1] == "users" && isset($uri[2]) &&  $uri[2] == "delete" && isset($uri[3])) {
         $userId = $_GET['id'];
-        $user = new User();
         $user ->delete($userId);
     }
     elseif ($uri[1] == "users" && isset($uri[2]) &&  $uri[2] == "restore" && isset($uri[3])) {
         $userId = $_GET['id'];
-        $user = new User();
         $user ->restore($userId);
     }
     elseif ($uri[1] == "users" && isset($uri[2]) &&  $uri[2] == "show" && isset($uri[3])) {
@@ -76,7 +74,6 @@
     }elseif($uri[1] == "articles") {
         include_once("./views/dashboard/articles/index.php");
     }elseif($uri[1] == "logout") {
-        $user = new User();
         $user->logout();
     }
     elseif($uri[1] == "login") {

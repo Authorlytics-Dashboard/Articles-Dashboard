@@ -44,9 +44,11 @@ class ComposerStaticInit147b3127ade781718e94889d381d567c
         'Article' => __DIR__ . '/../..' . '/Classes/Article.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Group' => __DIR__ . '/../..' . '/Classes/Group.php',
+        'GroupValidator' => __DIR__ . '/../..' . '/Classes/GroupValidator.php',
         'Log' => __DIR__ . '/../..' . '/Classes/Log.php',
         'Login' => __DIR__ . '/../..' . '/Classes/Login.php',
         'MYSQLHandler' => __DIR__ . '/../..' . '/Classes/MYSQLHandler.php',
+        'Message' => __DIR__ . '/../..' . '/Classes/Message.php',
         'User' => __DIR__ . '/../..' . '/Classes/User.php',
     );
 

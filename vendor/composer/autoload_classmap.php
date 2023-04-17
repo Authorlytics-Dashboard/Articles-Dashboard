@@ -9,8 +9,10 @@ return array(
     'Article' => $baseDir . '/Classes/Article.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Group' => $baseDir . '/Classes/Group.php',
+    'GroupValidator' => $baseDir . '/Classes/GroupValidator.php',
     'Log' => $baseDir . '/Classes/Log.php',
     'Login' => $baseDir . '/Classes/Login.php',
     'MYSQLHandler' => $baseDir . '/Classes/MYSQLHandler.php',
+    'Message' => $baseDir . '/Classes/Message.php',
     'User' => $baseDir . '/Classes/User.php',
 );

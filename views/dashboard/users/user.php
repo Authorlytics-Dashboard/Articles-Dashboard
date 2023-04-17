@@ -37,9 +37,9 @@
                 <input type="file" class="form-control" name="avatar" id="avatar">
             </div>
 
-            <div class="mb-3 text-center mt-5">
-                <input type="submit" class="btn btn-primary me-1 rounded-1" name="action" value="Create">
-                <a href="/home" class="btn btn-danger">cancel</a>
+            <div class="mb-3 text-center mt-5 d-flex justify-content-end">
+                <input type="submit" class="btn createBtn me-1 rounded-1" name="action" value="Create">
+                <a href="/home" class="btn cancelBtn">Cancel</a>
             </div>
         </form>
 

@@ -113,6 +113,5 @@
             break;
         default:
             include_once("./views/errors.php");
-
     }
 ?>

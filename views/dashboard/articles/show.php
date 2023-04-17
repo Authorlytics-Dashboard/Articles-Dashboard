@@ -243,7 +243,7 @@ mysqli_close($conn);
                     </div>
                   </label>
                 </form>
-                <span class="likesCount" ><?php echo $likeCount . ' likes'; ?></span> 
+                <span class="likesCount text-white" ><?php echo $likeCount . ' likes'; ?></span> 
               </div>
           </div>
         </div>

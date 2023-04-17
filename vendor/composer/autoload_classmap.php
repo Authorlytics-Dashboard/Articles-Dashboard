@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Article' => $baseDir . '/Classes/Article.php',
+    'ArticleValidator' => $baseDir . '/Classes/ArticleValidator.php',
     'CRUD' => $baseDir . '/Classes/CRUD.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Group' => $baseDir . '/Classes/Group.php',

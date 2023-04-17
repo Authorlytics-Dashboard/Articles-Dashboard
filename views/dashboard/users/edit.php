@@ -25,7 +25,7 @@
             </div>
             <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile</label>
-                <input type="number" class="form-control" name="mobile" id="mobile"
+                <input type="text" class="form-control" name="mobile" id="mobile"
                     value="<?php echo $userInfo["mobile"];?>">
             </div>
             <div class="mb-3">

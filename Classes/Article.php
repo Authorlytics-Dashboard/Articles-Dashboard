@@ -235,9 +235,31 @@ class Article extends MYSQLHandler {
 //     }
 // }
 
+
     public function create($data){
         try {
             $this->connect();
+            $validator = new ArticleValidator();
+             $gname = $data['title'];
+            $nameError = $validator->validateArticleName($gname);
+            if ($nameError) {
+                $this->showError('name-error', $nameError);
+                return false;
+            }  
+
+            $description = $data['body'];
+            $descriptionError = $validator->validateArticleDescription($description);
+            if($descriptionError){
+                $this->showError('description-error', $descriptionError);
+                return false;
+            } 
+             
+            $avatar = $data['photo'];
+            $avatarError = $validator->validateArticleAvatar($avatar);
+            if($avatarError){
+                $this->showError('avatar-error', $avatarError);
+                return false;
+            }
             $photo = $data['photo'];
 
             $target_file = "../assets/Images/" . basename($_FILES["photo"]["name"]);  
@@ -248,7 +270,7 @@ class Article extends MYSQLHandler {
                 'title' => $data['title'],
                 'body' => $data['body'],
                 'photo' => $photo,
-                'post_date' => $data['post_date'],
+                'post_date' => $data['post_date']? $data['post_date']:  date('Y-m-d H:i:s') ,
                 'uid' => $data['uid']
             ];
             $this->save($data);
@@ -423,6 +445,9 @@ class Article extends MYSQLHandler {
 
         $sql .= "limit $start," . _PAGE_RECORD_NUM_;
         return $this->get_results($sql);
+    }
+        private function showError($type, $message) {
+        echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
     }
 }
 

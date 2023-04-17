@@ -1,39 +1,40 @@
 <?php 
-    session_start();
+    // session_start();
+    \Delight\Cookie\Session::start('None');
     $login = new Login();
-    if (isset($_COOKIE["remember_token"])) {
-        $token = $login -> getUserToken();
-        if ($token && time() < strtotime($token["expire"])) {
-            $user_id = $token["user_id"];
-            $_SESSION["id"] = $user_id ;
-        }
-    }
+    // if (isset($_COOKIE["remember_token"])) {
+    //     $token = $login -> getUserToken();
+    //     if ($token && time() < strtotime($token["expire"])) {
+    //         $user_id = $token["user_id"];
+    //         $_SESSION["id"] = $user_id ;
+    //     }
+    // }
     $login->checkLoggedIn();
 if(isset($_POST["login"])) {
-    $result = $login->login(urldecode($_POST["email"]), $_POST["password"]);
-    if($result == 1) {
-        $_SESSION["login"] = true;
-        $_SESSION["id"] = $login->idUser();
-        $lastVisit = $login->getLastVisit($_POST["email"]);
-        if($lastVisit) {
-            new Message("Hello and welcome back! We hope you've been well since your last visit on $lastVisit");
-        } else {
-            new Message("Welcome! This is your first visit.");
-        }
-        $login->setLastVisit();
-        require_once("./views/dashboard.php");
-    } elseif($result == 10) {
-        http_response_code(401); // Unauthorized
-        $errorMessage = "";
-        //   $errorMessage = "Wrong password";
-        new Message("Wrong password");
-    } elseif($result == 100) {
-        //   $errorMessage = "User not registered";
-        new Message("User not registered");
+    $result = $login->login();
+    // if($result == 1) {
+    //     $_SESSION["login"] = true;
+    //     $_SESSION["id"] = $login->idUser();
+    //     $lastVisit = $login->getLastVisit($_POST["email"]);
+    //     if($lastVisit) {
+    //         new Message("Hello and welcome back! We hope you've been well since your last visit on $lastVisit");
+    //     } else {
+    //         new Message("Welcome! This is your first visit.");
+    //     }
+    //     $login->setLastVisit();
+    //     require_once("./views/dashboard.php");
+    // } elseif($result == 10) {
+    //     http_response_code(401); // Unauthorized
+    //     $errorMessage = "";
+    //     //   $errorMessage = "Wrong password";
+    //     new Message("Wrong password");
+    // } elseif($result == 100) {
+    //     //   $errorMessage = "User not registered";
+    //     new Message("User not registered");
     } elseif(isset($_POST["forgetPass"])) {
         header("Location: /views/resetPassword.php");
     }
-}
+// }
 
 ?>
 

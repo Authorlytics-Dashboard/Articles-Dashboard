@@ -1,4 +1,8 @@
 <?php
+use Delight\Auth\InvalidEmailException;
+use Delight\Auth\InvalidPasswordException;
+use Delight\Auth\TooManyRequestsException;
+use Delight\Auth\UserAlreadyExistsException;
 
 class User extends MYSQLHandler {
     private $table = 'users';
@@ -105,7 +109,8 @@ class User extends MYSQLHandler {
             $password = $data['password'];
             $subscriptionDate = date('Y-m-d H:i:s'); 
             $table = 'users';
-            $sql = "insert into `$table` (uname, gid, email, password, mobile , avatar, subscription_date) values ('$username', '$groupID', '$email','$password', '$mobile', '$avatar', '$subscriptionDate')";
+            $sql = "insert into `$table` (email, password,username,registered,last_login,subscription_date,avatar,mobile,gid) 
+            values ('$email', '$password', '$username',  '$subscriptionDate ', '$subscriptionDate ','$subscriptionDate ', '$avatar', '$mobile' , '$groupID');";
             if (mysqli_query($this->_dbHandler, $sql)) {
                 $id = mysqli_insert_id($this->_dbHandler);
                 $this->disconnect();
@@ -243,9 +248,7 @@ class User extends MYSQLHandler {
     }
 
     public function logout() {
-        $_SESSION = array(); // reset session array
-        session_destroy(); 
-        setcookie("remember_token", "", time() - 3600);  // destroy session     
+        $this->_auth->logOut();  
         header('Location: /login');
         exit;
     }

@@ -1,0 +1,17 @@
+{
+    "name": "php/adminpanel",
+    "description": "php project",
+    "license": "MIT",
+    "require": {
+        "endroid/qr-code": "*",
+        "twilio/sdk": "^7.2"
+    },
+    "autoload": {
+        "classmap": [
+        "Classes"
+        ],
+        "files": [
+        "config.php"
+        ]
+    }
+}

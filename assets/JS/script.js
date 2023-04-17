@@ -2,31 +2,36 @@ let darkModeBtn = document.querySelector("#check-5");
 let section = document.querySelector("section");
 let nav = document.querySelector("nav");
 let body = document.querySelector("body");
+let navUl = document.querySelector("nav ul");
+let navLinks = document.querySelectorAll("nav li a");
 
 const savedMode = localStorage.getItem("Mode");
-if(savedMode !== undefined || savedMode !== null){
-  darkModeBtn.checked = savedMode === 'light';
-  if(darkModeBtn.checked){
-    body.classList.add('light-mode');
-  }else{
-    body.classList.add('dark-mode');
+if (savedMode !== undefined || savedMode !== null) {
+  darkModeBtn.checked = savedMode === "light";
+  if (darkModeBtn.checked) {
+    body.classList.add("light-mode");
+  } else {
+    body.classList.add("dark-mode");
   }
 }
 
-
-addEventListener('change', function(){
-  let value = darkModeBtn.checked ? 'light' : 'dark';
-
-  if (darkModeBtn.checked){
-    console.log("light");
-    body.classList.add('light-mode');
-    body.classList.remove('dark-mode');
+const clickedLink = window.location.href.split("/")[3];
+navLinks.forEach((link) => {
+  if (link.classList.contains(clickedLink)) {
+    link.classList.add("active");
   }
-  else {
-    console.log("dark");
+});
+
+darkModeBtn.addEventListener("change", function () {
+  let value = darkModeBtn.checked ? "light" : "dark";
+
+  if (darkModeBtn.checked) {
+    body.classList.add("light-mode");
+    body.classList.remove("dark-mode");
+  } else {
     body.classList.remove("light-mode");
     body.classList.add("dark-mode");
   }
 
-  localStorage.setItem("Mode", value)
-})
+  localStorage.setItem("Mode", value);
+});

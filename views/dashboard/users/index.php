@@ -1,7 +1,7 @@
 <?php 
-    $db = new User();
+    $users = new User('users', "UsersErrors.log",'uid');
     $current_index = isset($_GET["page"]) && is_numeric($_GET["page"])? (int)$_GET["page"]: 0;
-    $rowCount = $db->getCount('users');
+    $rowCount = $users->getCount('users');
     $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
     $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
    
@@ -191,7 +191,7 @@
             <ul class="dropdown-menu">
               <?php
               ob_start();
-              $group = new Group();
+              $group = new Group('groups',"GroupsErrors.log",'gid');
               $groups = $group->getGroups();
               foreach ($groups as $g) {
                   $gid = $g['gid'];
@@ -207,14 +207,13 @@
    
 
     <?php 
-    $users=new User();
     if(isset($_GET['query'])) {
          $items = $users->search(array("column" => "uname", "value" => $_GET['query']));
     }else if (isset( $_GET['group_name']) && $_GET['group_name'] != 'all'){
         $items = $users->filterUsersByGroup($_GET['group_name']);
     }
      else{
-         $items = $db->get_all_records_paginated(array(), $current_index);
+         $items = $users->get_all_records_paginated(array(), $current_index);
     }
 
 

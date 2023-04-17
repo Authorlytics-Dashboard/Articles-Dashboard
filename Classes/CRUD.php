@@ -111,6 +111,7 @@ class CRUD extends MYSQLHandler {
         }
     }
     public function search(...$searchColumns){
+        $this->connect();
         $table = $this->table;
         $sql = "SELECT * FROM `$table` WHERE ";
         $params = array();

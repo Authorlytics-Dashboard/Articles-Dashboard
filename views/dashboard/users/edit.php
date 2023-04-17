@@ -1,8 +1,8 @@
 <?php  
 
     $userId = $_GET['id'];
-    $user = new User();
-    $userInfo = $user ->showUserByID($userId);
+    $user = new User('users', "UsersErrors.log",'uid');
+    $userInfo = $user ->getRecordByID($userId);
     $userInfo = $userInfo[0];?>
 
 <section class="userSection">

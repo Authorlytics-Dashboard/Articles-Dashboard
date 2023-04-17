@@ -96,6 +96,7 @@ class User extends MYSQLHandler {
     }
     public function save($data){
         try{
+            $this->connect();
             $username = $data['username'];
             $email = $data['email'];
             $avatar = $data['avatar'];

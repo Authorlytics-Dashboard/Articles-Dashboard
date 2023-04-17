@@ -21,7 +21,7 @@ if(isset($_POST["login"])) {
             new Message("Welcome! This is your first visit.");
         }
         $login->setLastVisit();
-        require_once("./views/dashboard.php");
+        header("Location: home");
     } elseif($result == 10) {
         http_response_code(401); // Unauthorized
         $errorMessage = "";

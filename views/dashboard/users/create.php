@@ -13,16 +13,17 @@
                 <label for="group_id" class="form-label">Group</label>
                 <select class="form-control" name="group_id" id="group_id">
                     <?php
-                    ob_start();
-                    $group = new Group();
-                    $groups = $group->getGroups();
-                    foreach ($groups as $g) {
-                        $gid = $g['gid'];
-                        $gname = $g['gname'];
-                        echo "<option value=\"$gid\">$gname</option>";}?>
+                        ob_start();
+                        $group = new Group();
+                        $groups = $group->getGroups();
+                        foreach ($groups as $g) {
+                            $gid = $g['gid'];
+                            $gname = $g['gname'];
+                            echo "<option value=\"$gid\">$gname</option>";
+                        }
+                    ?>
                 </select>
             </div>
-
 
             <div class=" mb-3">
                 <label for="mobile" class="form-label">Mobile Number</label>
@@ -45,16 +46,20 @@
 
     </div>
 </section>
+
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-$user = new User();
-$data = [
-'username' => $_POST['name'],
-'email' => $_POST['email'],
-'groupID' => $_POST['group_id'],
-'mobile' => $_POST['mobile'],
-'password' => $_POST['password'],
-'avatar' => $_FILES['avatar']['name']
-];
-$user->create($data);
-}?>
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
+        $user = new User();
+
+        $data = [
+            'username' => $_POST['name'],
+            'email' => $_POST['email'],
+            'groupID' => $_POST['group_id'],
+            'mobile' => $_POST['mobile'],
+            'password' => $_POST['password'],
+            'avatar' => $_FILES['avatar']['name']
+        ];
+        
+        $user->create($data);
+    }
+?>

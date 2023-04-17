@@ -16,20 +16,19 @@
       </div>
     </div>
   </form>
-  <form action="CreateGroup" method="post">
+  <form action="groups/create" method="post">
     <button type="submit" class="btn btn-success mb-5 mt-3">Add New Group</button>
   </form>
   </div>
- 
-<?php 
-$groups=new Group();
-if(isset($_GET['query'])) {
-  $items = $groups->search(array("column" => "gname", "value" => $_GET['query']),
-  array("column" => "description", "value" => $_GET['query']));
-} else{
-  $items = $db->get_all_records_paginated(array(), $current_index);
-}
 
+  <?php 
+    $groups=new Group();
+    if(isset($_GET['query'])) {
+      $items = $groups->search(array("column" => "gname", "value" => $_GET['query']),
+      array("column" => "description", "value" => $_GET['query']));
+    } else{
+      $items = $db->get_all_records_paginated(array(), $current_index);
+    }
 
     if (count($items) > 0) {
   ?>

@@ -21,14 +21,12 @@ if(isset($_POST["login"])) {
             new Message("Welcome! This is your first visit.");
         }
         $login->setLastVisit();
-        require_once("./views/dashboard.php");
+        header("Location: /home");
     } elseif($result == 10) {
         http_response_code(401); // Unauthorized
         $errorMessage = "";
-        //   $errorMessage = "Wrong password";
         new Message("Wrong password");
     } elseif($result == 100) {
-        //   $errorMessage = "User not registered";
         new Message("User not registered");
     } elseif(isset($_POST["forgetPass"])) {
         header("Location: /views/resetPassword.php");

@@ -4,7 +4,6 @@
     $rowCount = $db->getCount('users');
     $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
     $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
-   
 ?>
 
 <section class="userSection">
@@ -18,45 +17,43 @@
                 </div>
             </div>
         </form>
-        <form action="CreateUser" method="post">
+        <form action="users/create" method="post">
             <button type="submit" class="btn btn-success mb-5 mt-3">Add New User</button>
         </form>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:#221f26;">
-              Filter By Group
+                Filter By Group
             </button>
             <ul class="dropdown-menu">
-              <?php
-              ob_start();
-              $group = new Group();
-              $groups = $group->getGroups();
-              foreach ($groups as $g) {
-                  $gid = $g['gid'];
-                  $gname = $g['gname'];
-                  echo "<li><a class='dropdown-item' href='/users/?group_name=$gname'>$gname</a></li>";
-              }
-              echo "<li><a class='dropdown-item' href='/users/?group_name=all'>ALL</a></li>";
-              ?>
+                <?php
+                    ob_start();
+                    $group = new Group();
+                    $groups = $group->getGroups();
+                    foreach ($groups as $g) {
+                        $gid = $g['gid'];
+                        $gname = $g['gname'];
+                        echo "<li><a class='dropdown-item' href='/users/?group_name=$gname'>$gname</a></li>";
+                    }
+                    echo "<li><a class='dropdown-item' href='/users/?group_name=all'>ALL</a></li>";
+                ?>
             </ul>
         </div>
     </div>
 
-   
 
     <?php 
-    $users=new User();
-    if(isset($_GET['query'])) {
-         $items = $users->search(array("column" => "uname", "value" => $_GET['query']));
-    }else if (isset( $_GET['group_name']) && $_GET['group_name'] != 'all'){
-        $items = $users->filterUsersByGroup($_GET['group_name']);
-    }
-     else{
-         $items = $db->get_all_records_paginated(array(), $current_index);
-    }
+        $users=new User();
+        if(isset($_GET['query'])) {
+            $items = $users->search(array("column" => "uname", "value" => $_GET['query']));
+        }else if (isset( $_GET['group_name']) && $_GET['group_name'] != 'all'){
+            $items = $users->filterUsersByGroup($_GET['group_name']);
+        }
+        else{
+            $items = $db->get_all_records_paginated(array(), $current_index);
+        }
 
-
-    if (count($items) > 0) {
-  ?>
+        if (count($items) > 0) {
+    ?>
     <table class="table text-center">
         <thead>
             <tr>
@@ -115,9 +112,9 @@
         </button>
     </div>
     <?php
-  } else {
-    echo "No results found.";
-  }
-  ?>
+        } else {
+            echo "No results found.";
+        }
+    ?>
 </section>
 

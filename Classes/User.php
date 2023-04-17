@@ -13,16 +13,14 @@ class User extends CRUD {
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
-
             $data = [
-                'uname' => $uname,
+                'username' => $uname,
                 'email' => $email,
                 'gid' => $gid, 
                 'mobile' => $mobile,
                 'password' => $password,
                 'avatar' => $avatar,  
-                ];
-                
+                ];               
             $this->save($data);
         
         }catch(Exception $e) {
@@ -32,16 +30,17 @@ class User extends CRUD {
     }
     public function save($data){
         try{
-            $this->connect(); 
-            $columns = '';
-            $values = '';
-            foreach ($data as $key => $value) {
-                $columns .= "`$key`,";
-                $values .= "'$value',";
-            }
-            $columns = rtrim($columns, ',');
-            $values = rtrim($values, ',');
-            $sql = "INSERT INTO `$this->table` ($columns, subscription_date) VALUES ($values, '".date('Y-m-d H:i:s')."')";
+            $this->connect();
+            $username = $data['username'];
+            $email = $data['email'];
+            $avatar = $data['avatar'];
+            $groupID = $data['gid'];
+            $mobile = $data['mobile'];
+            $password = $data['password'];
+            $subscriptionDate = date('Y-m-d H:i:s'); 
+            $table = 'users';
+            $sql = "insert into `$table` (email, password,username,registered,last_login,subscription_date,avatar,mobile,gid) 
+            values ('$email', '$password', '$username',  '$subscriptionDate ', '$subscriptionDate ','$subscriptionDate ', '$avatar', '$mobile' , '$groupID');";
             if (mysqli_query($this->_dbHandler, $sql)) {
                 $id = mysqli_insert_id($this->_dbHandler);
                 $this->disconnect();
@@ -67,7 +66,7 @@ class User extends CRUD {
             $avatar = basename($_FILES["avatar"]["name"]);
             $id = $_GET['id'];
             $edited_values = array(
-                'uname' => $_POST['name'],
+                'username' => $_POST['name'],
                 'email' => $_POST['email'],
                 'mobile' => $_POST['mobile'],
                 'password' => password_hash( $_POST['password'], PASSWORD_DEFAULT),

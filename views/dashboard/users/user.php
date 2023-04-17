@@ -47,7 +47,7 @@
 </section>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-$user = new User('users', "UsersErrors.log",'uid');
+$user = new User('users', "UsersErrors.log",'id');
 $data = [
 'uname' => $_POST['name'],
 'email' => $_POST['email'],

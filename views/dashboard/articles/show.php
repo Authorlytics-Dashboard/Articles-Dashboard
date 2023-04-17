@@ -36,7 +36,7 @@ if (isset($_POST['like_checkbox'])) {
 
 // Display the number of likes for each article
 $query = "SELECT  COUNT(*) AS num_likes FROM article_likes WHERE liked = true and article_id = $article_id";
-$sql = "SELECT users.uname FROM articles INNER JOIN users ON articles.uid = users.uid;";
+$sql = "SELECT users.username FROM articles INNER JOIN users ON articles.uid = users.id;";
 $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 $likeCount =$row['num_likes'];
@@ -45,6 +45,7 @@ $likes = array();
 
 // Close the database connection
 mysqli_close($conn);
+ob_start();
 ?>
 
 
@@ -221,9 +222,9 @@ mysqli_close($conn);
                 <p><?php echo "Creator ID: " . $article["uid"]; ?></p>
                 <p>
                   <?php echo "Creator Name: " ?> 
-                  <?php $user = new User('users', "UsersErrors.log",'uid');
+                  <?php $user = new User('users', "UsersErrors.log",'id');
                         $createdBy = $user->getRecordByID($article['uid']);
-                        echo $createdBy[0]['uname'];?>
+                        echo $createdBy[0]['username'];?>
                 </p>
                 <p><?php echo "Created at: " . $article["post_date"]; ?></p>
                 <!-- Like Button -->

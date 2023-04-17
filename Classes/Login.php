@@ -17,22 +17,28 @@ class Login extends MYSQLHandler{
         $rememberDuration = null;
     }
       $this->_auth->login($_POST['email'], $_POST['password'],$rememberDuration);
+      $this->getLastVisit();
+      // new Message("Hello and welcome back! We hope you've been well since your last visit on $lastVisit");
       require_once("./views/dashboard.php");
-
-      echo 'User is logged in';
+      return true ; 
   }
   catch (\Delight\Auth\InvalidEmailException $e) {
-      die('Wrong email address');
+       new Message('Wrong email address');
+       return false ; 
   }
   catch (\Delight\Auth\InvalidPasswordException $e) {
-      die('Wrong password');
+       new Message('Wrong password');
+       return false ; 
   }
   catch (\Delight\Auth\EmailNotVerifiedException $e) {
-      die('Email not verified');
+       new Message('Email not verified');
+       return false ; 
   }
   catch (\Delight\Auth\TooManyRequestsException $e) {
-      die('Too many requests');
+       new Message('Too many requests');
+       return false ; 
   }
+
     // if(empty($email) || empty($password)){
     //   return "Please enter both email and password";
     // }
@@ -83,6 +89,23 @@ class Login extends MYSQLHandler{
     if($this->_auth->isLoggedIn()){
       require_once("./views/dashboard.php");
     }
+  }
+
+  public function getLastVisit(){
+    $id = $this->_auth->getUserId();
+    $stmt = $this->_dbHandler->prepare('SELECT last_login FROM users WHERE id = ?' );
+    $stmt->bind_param('i' , $id);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+    $last_login = $result['last_login'];
+    $last_login = date("Y-m-d H:i:s", $last_login);
+    echo $last_login;
+    if($last_login) {
+        new Message("Hello and welcome back! We hope you've been well since your last visit on $last_login");
+    } else {
+        new Message("Welcome! This is your first visit.");
+    }
+    new Message("Hello and welcome back! We hope you've been well since your last visit on $last_login");
   }
   
   // public function setUserCookie(){

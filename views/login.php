@@ -11,7 +11,12 @@
     // }
     $login->checkLoggedIn();
 if(isset($_POST["login"])) {
-    $result = $login->login();
+    
+    if($login->login()){
+        // $lastVisit = $login->getLastVisit($_POST["email"]);
+
+        // new Message("Hello and welcome back! We hope you've been well since your last visit on $lastVisit");
+    }
     // if($result == 1) {
     //     $_SESSION["login"] = true;
     //     $_SESSION["id"] = $login->idUser();

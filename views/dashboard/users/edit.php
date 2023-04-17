@@ -15,7 +15,7 @@
             enctype="multipart/form-data">
             <div class=" mb-3">
                 <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" name="name" id="name" value="<?php echo $userInfo["uname"];?>">
+                <input type="text" class="form-control" name="name" id="name" value="<?php echo $userInfo["username"];?>">
             </div>
 
             <div class="mb-3">

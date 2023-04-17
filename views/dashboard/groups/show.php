@@ -223,7 +223,7 @@
     <tbody>
       <tr>
         <td>
-          <?php echo $row['uname']; ?>
+          <?php echo $row['username']; ?>
         </td>
         <td>
           <?php echo $row['email']; ?>

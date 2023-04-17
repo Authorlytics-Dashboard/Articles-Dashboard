@@ -1,70 +1,6 @@
 <?php
 
-class User extends MYSQLHandler {
-    private $table = 'users';
-    private $primary_key = 'uid';
-    private $log_file="UsersErrors.log";
-
-    public function getData($fields = array(), $start = 0) {
-        try {
-            $this->connect();
-            if (empty($fields)) {
-                $sql = "select * from `$this->table`";
-            } else {
-                $sql = "select ";
-                foreach ($fields as $f) {
-                    $sql .= " `$f`, ";
-                }
-                $sql .= "from  `$this->table` ";
-                $sql = str_replace(", from", "from", $sql);
-            }
-            return $this->get_results($sql);
-        }catch (Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
-
-    public function showUserByID($id) {
-        try {
-            $primary_key = $this->primary_key;
-            $table = $this->table;
-            $sql = "select * from `$table` where `$primary_key` = '$id' ";
-
-            return $this->get_results($sql);
-        }catch(Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
-
-    public function delete($id) {
-        try{
-            $this->connect();
-            $timestamp = date('Y-m-d H:i:s');
-            $data = $this->showUserByID($id)[0];
-            $data['deleted_at'] = $timestamp;
-            $this->update($data,$id);
-            header('location:/users');
-        }catch(Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
-
-    public function restore($id) {
-        try{
-            $this->connect();
-            $data = $this->showUserByID($id)[0];
-            $data['deleted_at'] = null;
-            $this->update($data,$id);
-            header('location:/users');
-        }catch(Exception $e) {
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
-    
+class User extends CRUD {
     public function create($data){
         try {    
             $this->connect();
@@ -77,16 +13,14 @@ class User extends MYSQLHandler {
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
-
             $data = [
-                'uname' => $uname,
+                'username' => $uname,
                 'email' => $email,
                 'gid' => $gid, 
                 'mobile' => $mobile,
                 'password' => $password,
                 'avatar' => $avatar,  
-                ];
-                
+                ];               
             $this->save($data);
         
         }catch(Exception $e) {
@@ -100,7 +34,7 @@ class User extends MYSQLHandler {
             $username = $data['username'];
             $email = $data['email'];
             $avatar = $data['avatar'];
-            $groupID = $data['groupID'];
+            $groupID = $data['gid'];
             $mobile = $data['mobile'];
             $password = $data['password'];
             $subscriptionDate = date('Y-m-d H:i:s'); 
@@ -132,7 +66,7 @@ class User extends MYSQLHandler {
             $avatar = basename($_FILES["avatar"]["name"]);
             $id = $_GET['id'];
             $edited_values = array(
-                'uname' => $_POST['name'],
+                'username' => $_POST['name'],
                 'email' => $_POST['email'],
                 'mobile' => $_POST['mobile'],
                 'password' => password_hash( $_POST['password'], PASSWORD_DEFAULT),
@@ -174,7 +108,9 @@ class User extends MYSQLHandler {
         return $rowcount;
     }
     public function logout() {
-        $this->_auth->logOut();  
+        $_SESSION = array(); // reset session array
+        session_destroy(); 
+        setcookie("remember_token", "", time() - 3600);  // destroy session     
         header('Location: /login');
         exit;
     }

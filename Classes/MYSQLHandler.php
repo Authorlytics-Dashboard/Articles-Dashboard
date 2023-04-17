@@ -13,9 +13,8 @@ class MYSQLHandler
             $pdo = new PDO($dsn, _USER_, _PASSWORD_); 
 
         }catch(PDOException $e){
-            var_dump($e->getMessage());
+            die($e->getMessage());
         }
-        // var_dump($pdo);  
         $this->_auth = new \Delight\Auth\Auth($pdo);
     }
     public function connect(){
@@ -24,9 +23,6 @@ class MYSQLHandler
             if($handler) {
                 $this->_dbHandler = $handler;
                 $this->myWrapperFunction();
-                // $this->_auth = new \delight\auth\Auth($handler);
-                // $this->_auth = new \delight\auth\Auth($database);
-                // echo "DB connection established";
             }
         } catch(Exception $e) {
             die("Could not connect to db, please come back later.");

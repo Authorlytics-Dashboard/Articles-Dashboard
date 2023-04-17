@@ -7,7 +7,6 @@ if(isset($_POST["login"])) {
     } elseif(isset($_POST["forgetPass"])) {
         header("Location: /views/resetPassword.php");
     }
-
 ?>
 
 

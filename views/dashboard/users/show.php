@@ -1,6 +1,6 @@
 <?php     
     $UserId = $_GET['id'];
-    $user = new User('users', "UsersErrors.log",'uid');
+    $user = new User('users', "UsersErrors.log",'id');
     $u = $user ->getRecordByID($UserId);
     $u = $u[0];
 ?>
@@ -50,7 +50,7 @@
                         <img class="card-img-top" src="../../../assets/Images/<?php echo $u['avatar'] ?>" alt="">
     		        </div>
                     <div class="card-body pt-0">
-                    <h5 class="card-title"><?php echo $u["uname"]; ?></h5>
+                    <h5 class="card-title"><?php echo $u["username"]; ?></h5>
                     <hr>
                     <p class="card-text"><?php echo "Email: " . $u["email"]; ?></p>
                     <p class="card-text"><?php echo "Mobile Number: " . $u["mobile"]; ?></p>

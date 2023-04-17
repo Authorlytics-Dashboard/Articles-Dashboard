@@ -34,7 +34,7 @@
                         $users = $users->getData();
                         foreach ($users as $user){
                     ?>
-                    <option value="<?= $user['uid']?>"><?= $user['uname']?></option>
+                    <option value="<?= $user['id']?>"><?= $user['username']?></option>
                     <?php
                     }
                 ?>

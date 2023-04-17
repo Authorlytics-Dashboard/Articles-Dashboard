@@ -1,9 +1,10 @@
 <?php  
 
     $userId = $_GET['id'];
-    $user = new User('users', "UsersErrors.log",'uid');
+    $user = new User('users', "UsersErrors.log",'id');
     $userInfo = $user ->getRecordByID($userId);
-    $userInfo = $userInfo[0];?>
+    $userInfo = $userInfo[0];
+    ?>
 
 <section class="userSection">
     <div class="container py-4 border my-5 mx-auto">

@@ -1,50 +1,10 @@
 <?php     
     $articleId = $_GET['id'];
-    $article = new Article();
-    $article = $article->showArticleByID($articleId)[0];
+    $articles = new Article('articles','ArticlesErrors.log','aid');
+    $article = $article->getRecordByID($articleId)[0];
+    $articles->likeArticle($articleId);
+    $likeCount=$articles->displayLikes($articleId);
 
-// Connect to the database
-$conn = mysqli_connect(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
-
-$article_id = $article['aid'];
-// Check if the user has clicked the like button
-if (isset($_POST['like_checkbox'])) {
-  
-  // Check if the user is logged in
-  if (isset($_SESSION['id'])) {
-    $user_id = $_SESSION['id'];
-
-    // Check if the user has already liked the article
-    $query = "SELECT * FROM article_likes WHERE article_id = $article_id AND user_id = $user_id";
-    $result = mysqli_query($conn, $query);
-
-    if (mysqli_num_rows($result) == 0) {
-      // User has not liked the article yet, insert a new record
-      $query = "INSERT INTO article_likes (article_id, user_id, liked) VALUES ($article_id, $user_id, true)";
-      mysqli_query($conn, $query);
-    } else {
-      // User has already liked the article, update the existing record
-      $query = "UPDATE article_likes SET liked = true WHERE article_id = $article_id AND user_id = $user_id";
-      mysqli_query($conn, $query);
-    }
-  } else {
-    // User is not logged in, redirect to login page
-    header('login.php');
-    exit;
-  }
-}
-
-// Display the number of likes for each article
-$query = "SELECT  COUNT(*) AS num_likes FROM article_likes WHERE liked = true and article_id = $article_id";
-$sql = "SELECT users.uname FROM articles INNER JOIN users ON articles.uid = users.uid;";
-$result = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($result);
-$likeCount =$row['num_likes'];
-
-$likes = array();
-
-// Close the database connection
-mysqli_close($conn);
 ?>
 
 
@@ -221,9 +181,9 @@ mysqli_close($conn);
                 <p><?php echo "Creator ID: " . $article["uid"]; ?></p>
                 <p>
                   <?php echo "Creator Name: " ?> 
-                  <?php $user = new User('users', "UsersErrors.log",'uid');
+                  <?php $user = new User('users', "UsersErrors.log",'id');
                         $createdBy = $user->getRecordByID($article['uid']);
-                        echo $createdBy[0]['uname'];?>
+                        echo $createdBy[0]['username'];?>
                 </p>
                 <p><?php echo "Created at: " . $article["post_date"]; ?></p>
                 <!-- Like Button -->

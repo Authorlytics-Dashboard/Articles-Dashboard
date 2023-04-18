@@ -38,6 +38,7 @@
                     <?php
                     }
                 ?>
+                </select>
             </div>
 
             <div class="mb-3 text-center mt-5 d-flex justify-content-end">

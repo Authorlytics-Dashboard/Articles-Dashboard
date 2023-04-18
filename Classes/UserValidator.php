@@ -6,8 +6,6 @@ class UserValidator {
     public function validateUserName() {
         if (empty($this->data['uname'])) {
             return "Name is required";
-        } elseif (!preg_match('/^01[0-9]{9}$/', $this->data['mobile'])) {
-            return "mobile should only contain numbers";
         } elseif (strlen($this->data['uname']) < 3) {
             return "Name should be at least 3 characters long";
         } else {
@@ -27,9 +25,9 @@ class UserValidator {
 
     public function validateUserPassword() {
         if (empty($this->data['password'])) {
-            return "password is required";
+            return "Password is required";
         } elseif (strlen($this->data['password']) < 6) {
-            return "password should be at least 6 characters long";
+            return "Password should be at least 6 characters long";
         } else {
             return null; 
         }
@@ -41,7 +39,7 @@ class UserValidator {
         } elseif (strlen($this->data['mobile']) == 10) {
             return "Mobile should be 10 digits";
         } elseif (!preg_match('/^(?:\+20|0)?1[0125]\d{8}$/', $this->data['mobile'])) {
-            return "mobile should be a valid number";
+            return "Mobile should be a valid number";
         } else {
             return null; 
         }

@@ -86,7 +86,6 @@
 
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-        $user = new User('users', "UsersErrors.log",'id');
         $data = [
             'uname' => $_POST['name'],
             'email' => $_POST['email'],
@@ -95,7 +94,7 @@
             'password' => $_POST['password'],
             'avatar' => $_FILES['avatar']['name']
         ];
-
+        
         $userValidation = new UserValidator($data);
         if(! $userValidation->isValid()){
             $error = $userValidation->getErrorMessage();
@@ -106,6 +105,7 @@
             exit();
         } else {
             var_dump("Data Valid");
+            $user = new User('users', "UsersErrors.log",'id');
             $user->create($data);
         }
     }

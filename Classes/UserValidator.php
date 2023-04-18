@@ -6,6 +6,8 @@ class UserValidator {
     public function validateUserName() {
         if (empty($this->data['uname'])) {
             return "Name is required";
+        } elseif (!preg_match('/^01[0-9]{9}$/', $this->data['mobile'])) {
+            return "mobile should only contain numbers";
         } elseif (strlen($this->data['uname']) < 3) {
             return "Name should be at least 3 characters long";
         } else {
@@ -36,10 +38,8 @@ class UserValidator {
     public function validateUserMobile() {
         if (empty($this->data['mobile'])) {
             return "Mobile Number is required";
-        } elseif (!preg_match('/^01[0-9]{9}$/', $this->data['mobile'])) {
-            return "mobile should only contain numbers";
-        } elseif (strlen($this->data['mobile']) < 11) {
-            return "mobile should be at least 3 characters long";
+        } elseif (strlen($this->data['mobile']) == 10) {
+            return "mobile should be 10 digits";
         } else {
             return null; 
         }

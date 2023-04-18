@@ -37,7 +37,7 @@ class UserValidator {
         if (empty($this->data['mobile'])) {
             return "Mobile Number is required";
         } elseif (!preg_match('/^01[0-9]{9}$/', $this->data['mobile'])) {
-            return "mobile should only contain letters";
+            return "mobile should only contain numbers";
         } elseif (strlen($this->data['mobile']) < 11) {
             return "mobile should be at least 3 characters long";
         } else {
@@ -71,17 +71,21 @@ class UserValidator {
         if( $this->validateUserName() && $this->validateUserEmail() 
             && $this->validateUserPassword() && $this->validateUserMobile()
             && $this->validateUserGroup() && $this->validateUserAvatar() ){
-            return null;
+            return true;
         }else{
-            return [
-                'nameErr' => $this->validateUserName(), 
-                'emailErr' => $this->validateUserEmail(), 
-                'passwordErr' => $this->validateUserPassword(),
-                'mobileErr' => $this->validateUserMobile(), 
-                'groupErr' => $this->validateUserGroup(),
-                'avatarErr' => $this->validateUserAvatar()
-            ];
+            return false;
         }
+    }
+    
+    public function getErrorMessage(){
+        return [
+            'nameErr' => $this->validateUserName(), 
+            'emailErr' => $this->validateUserEmail(), 
+            'passwordErr' => $this->validateUserPassword(),
+            'mobileErr' => $this->validateUserMobile(), 
+            'groupErr' => $this->validateUserGroup(),
+            'avatarErr' => $this->validateUserAvatar()
+        ];
     }
 }
 

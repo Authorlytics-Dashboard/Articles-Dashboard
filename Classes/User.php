@@ -2,32 +2,38 @@
 
 class User extends CRUD {
     public function create($data){
+
         try {    
             $this->connect();
-            $uname = $data['uname'];
-            $email = $data['email'];
-            $avatar = $data['avatar'];
-            $gid = $data['gid'];
-            $mobile = "+2".$data['mobile'];
-            $password = password_hash($data['password'], PASSWORD_DEFAULT);
-            $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
-            move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
-            $avatar = basename($_FILES["avatar"]["name"]);
-            $data = [
-                'username' => $uname,
-                'email' => $email,
-                'gid' => $gid, 
-                'mobile' => $mobile,
-                'password' => $password,
-                'avatar' => $avatar,  
-                ];               
-            $this->save($data);
+            $userValidation = new UserValidator($data, "create");
+            var_dump($userValidation->isValid());
+            
+            if( $userValidation->isValid()){
+                $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
+                move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
+                $data['avatar'] = basename($_FILES["avatar"]["name"]);
+                $data['mobile'] = "+2".$data['mobile'];
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                $this->save($data);
+            }else{
+                $_SESSION['data'] = $data;
+                $this->showError($userValidation->getError());
+            }
         
         }catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
             return false;
         }
     }
+
+    private function showError($error) {
+        foreach ($error as $key => $value) {
+            if (!empty($value)){
+                echo "<script>document.getElementById('$key').innerHTML = '$value';</script>";
+            }
+        }
+    }
+
     public function save($data){
         try{
             $this->connect();
@@ -58,6 +64,7 @@ class User extends CRUD {
             return false;
         }
     }
+
     public function edit(){
         try{
             $avatar = $_FILES['avatar']['name'];
@@ -72,6 +79,7 @@ class User extends CRUD {
                 'password' => password_hash( $_POST['password'], PASSWORD_DEFAULT),
                 'avatar' => $avatar
             );
+
             $update_group = $this->update($edited_values , $id);
             header('location: /users');
         } catch(Exception $e) {
@@ -79,6 +87,7 @@ class User extends CRUD {
             return false;
         } 
     }
+    
     public function filterUsersByGroup($groupName){
         try{
             $this->connect();
@@ -107,6 +116,7 @@ class User extends CRUD {
         $rowcount=mysqli_num_rows($_handler_results);
         return $rowcount;
     }
+
     public function logout() {
         $_SESSION = array(); // reset session array
         session_destroy(); 

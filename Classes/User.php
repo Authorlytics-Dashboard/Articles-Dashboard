@@ -114,22 +114,5 @@ class User extends CRUD {
         header('Location: /login');
         exit;
     }
-
-    public function validateUserData($data){
-        $usernameErr = '';
-        $emailErr = '';
-        $groupErr = '';
-        $mobileErr = '';
-        $passwordErr = '';
-        $avatarErr = '';
-        // $error = [];
-        // if(empty($data['username'])){
-        //     $usernameErr = "this field required";
-        // }elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
-        //     $emailErr = "Invalid email formate";
-        // }elseif(empty($data['password'])){
-        //     $passwordErr = "this field is required";
-        // }
-    }
 }
 ?>

@@ -14,7 +14,7 @@
                 <select class="form-control" name="group_id" id="group_id">
                     <?php
                         ob_start();
-                        $group = new Group();
+                        $group = new Group('groups',"GroupsErrors.log",'gid');
                         $groups = $group->getGroups();
                         foreach ($groups as $g) {
                             $gid = $g['gid'];
@@ -44,19 +44,20 @@
                 <a href="/home" class="btn cancelBtn">Cancel</a>
             </div>
         </form>
-
     </div>
 </section>
+
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-    $user = new User('users', "UsersErrors.log",'id');
-    $data = [
-        'uname' => $_POST['name'],
-        'email' => $_POST['email'],
-        'gid' => $_POST['group_id'],
-        'mobile' => $_POST['mobile'],
-        'password' => $_POST['password'],
-        'avatar' => $_FILES['avatar']['name']
-    ];
-    $user->create($data);
-}?>
+        $user = new User('users', "UsersErrors.log",'id');
+        $data = [
+            'uname' => $_POST['name'],
+            'email' => $_POST['email'],
+            'gid' => $_POST['group_id'],
+            'mobile' => $_POST['mobile'],
+            'password' => $_POST['password'],
+            'avatar' => $_FILES['avatar']['name']
+        ];
+        $user->create($data);
+    }
+?>

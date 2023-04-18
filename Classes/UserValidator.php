@@ -31,7 +31,7 @@ class UserValidator {
                 $this->error['emailErr'] = "Email is already token.";
             }
         }else{
-            if(!empty($user) &&( $user['uid'] != $this->data['uid'])){
+            if(!empty($user) &&( $user['uid'] != $this->data['id'])){
                 $this->error['emailErr'] = "Email is already token.";
             }
         }

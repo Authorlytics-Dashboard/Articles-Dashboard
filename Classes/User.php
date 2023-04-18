@@ -43,6 +43,7 @@ class User extends CRUD {
             $password = $data['password'];
             $subscriptionDate = date('Y-m-d H:i:s'); 
             $table = 'users';
+
             $sql = "insert into `$table` (email, password,username,registered,last_login,subscription_date,avatar,mobile,gid) 
             values ('$email', '$password', '$username',  '$subscriptionDate ', '$subscriptionDate ','$subscriptionDate ', '$avatar', '$mobile' , '$groupID');";
             if (mysqli_query($this->_dbHandler, $sql)) {
@@ -66,29 +67,32 @@ class User extends CRUD {
     public function edit(){
         try{
             $id = $_GET['id'];
+            $user = $this->search(array("column" => "id", "value" => $id));
+
             $edited_values = array(
                 'username' => $_POST['name'],
                 'email' => $_POST['email'],
                 'mobile' => $_POST['mobile'],
+                'group_id' => $user['group_id'],
                 'password' => $_POST['password'],
             );
 
             if(isset($_FILES['avatar']['name'])){
-                $edited_values['avatar'] = $_FILES['avatar']['name'];
-            }else{
-                
-            }
-            
-            $userValidation = new UserValidator($edited_values, "update");
-            if( $userValidation->isValid()){
-                $edited_values['password'] = password_hash( $_POST['password'], PASSWORD_DEFAULT);
                 $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
                 move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
                 $avatar = basename($_FILES["avatar"]["name"]);
                 $edited_values['avatar'] = $avatar;
+            }else{
+                $edited_values['avatar'] = $user[0]['avatar'];
+            }
 
-                // $update_group = $this->update($edited_values , $id);
-                // header('location: /users');
+            var_dump($edited_values);
+            
+            $userValidation = new UserValidator($edited_values, "update");
+            if( $userValidation->isValid()){
+                $edited_values['password'] = password_hash( $_POST['password'], PASSWORD_DEFAULT);
+                $update_group = $this->update($edited_values , $id);
+                header('location: /users');
             }else{
                 $_SESSION['data'] = $edited_values;
                 $this->showError($userValidation->getError());

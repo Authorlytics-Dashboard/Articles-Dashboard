@@ -114,5 +114,7 @@
         case 'charts':
             include_once("./views/dashboard/charts/index.php");
             break;
+        default:
+            include_once("./views/error.php");
     }
 ?>

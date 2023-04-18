@@ -32,7 +32,6 @@ nav {
     max-width: 300px;
     transform: translateX(-100%);
     transition: transform 0.3s;
-
 }
 
 nav ul {

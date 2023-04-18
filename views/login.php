@@ -1,38 +1,12 @@
 <?php 
     session_start();
     $login = new Login();
-    if (isset($_COOKIE["remember_token"])) {
-        $token = $login -> getUserToken();
-        if ($token && time() < strtotime($token["expire"])) {
-            $user_id = $token["user_id"];
-            $_SESSION["id"] = $user_id ;
-        }
-    }
     $login->checkLoggedIn();
-if(isset($_POST["login"])) {
-    $result = $login->login(urldecode($_POST["email"]), $_POST["password"]);
-    if($result == 1) {
-        $_SESSION["login"] = true;
-        $_SESSION["id"] = $login->idUser();
-        $lastVisit = $login->getLastVisit($_POST["email"]);
-        if($lastVisit) {
-            new Message("Hello and welcome back! We hope you've been well since your last visit on $lastVisit");
-        } else {
-            new Message("Welcome! This is your first visit.");
-        }
-        $login->setLastVisit();
-        header("Location: /home");
-    } elseif($result == 10) {
-        http_response_code(401); // Unauthorized
-        $errorMessage = "";
-        new Message("Wrong password");
-    } elseif($result == 100) {
-        new Message("User not registered");
+    if(isset($_POST["login"])) {
+        $login->login(); 
     } elseif(isset($_POST["forgetPass"])) {
         header("Location: /views/resetPassword.php");
     }
-}
-
 ?>
 
 

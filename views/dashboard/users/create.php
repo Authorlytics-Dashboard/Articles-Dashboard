@@ -28,7 +28,7 @@
 
             <div class=" mb-3">
                 <label for="mobile" class="form-label">Mobile Number</label>
-                <input type="number" class="form-control" name="mobile" id="mobile">
+                <input type="text" class="form-control" name="mobile" id="mobile">
             </div>
             <div class=" mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -39,9 +39,9 @@
                 <input type="file" class="form-control" name="avatar" id="avatar">
             </div>
 
-            <div class="mb-3 text-center mt-5">
-                <input type="submit" class="btn btn-primary me-1 rounded-1" name="action" value="Create">
-                <a href="/home" class="btn btn-danger">cancel</a>
+            <div class="mb-3 text-center mt-5 d-flex justify-content-end">
+                <input type="submit" class="btn createBtn me-1 rounded-1" name="action" value="Create">
+                <a href="/home" class="btn cancelBtn">Cancel</a>
             </div>
         </form>
 
@@ -49,15 +49,14 @@
 </section>
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-    $user = new User();
+    $user = new User('users', "UsersErrors.log",'id');
     $data = [
-        'username' => $_POST['name'],
+        'uname' => $_POST['name'],
         'email' => $_POST['email'],
-        'group_id' => $_POST['group_id'],
+        'gid' => $_POST['group_id'],
         'mobile' => $_POST['mobile'],
         'password' => $_POST['password'],
         'avatar' => $_FILES['avatar']['name']
     ];
     $user->create($data);
-    }
-?>
+}?>

@@ -30,6 +30,13 @@
 2023-04-15 01:00:55-Unknown column 'Admin' in 'where clause'
 2023-04-15 01:00:59-Unknown column 'Admin' in 'where clause'
 2023-04-15 01:00:59-Unknown column 'Admin' in 'where clause'
+2023-04-17 23:12:05-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '@gmail.com, $2y$10$HI1PWMa/T0DZigoCxMqkpOupGXinNdZqv9AyFuEY1K0j4hdtmW1wq, hag...' at line 2
+2023-04-17 23:16:17-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '@g.com, $2y$10$qQa11TKAu0GGWPfEIH1LtOkgMOQJ2l8ziOoXJHnOz.JYmue58rP8., hager, ...' at line 2
+2023-04-17 23:19:20-Unknown column 'hager@g.com' in 'field list'
+2023-04-17 23:19:32-Unknown column 'hage@g.com' in 'field list'
+2023-04-17 23:20:47-Unknown column 'hager@g.com' in 'field list'
+2023-04-17 23:33:48-Unknown column 'uid' in 'where clause'
+2023-04-18 00:13:54-Unknown column 'uid' in 'where clause'
 2023-04-17 17:54:16-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `uid` = 1' at line 1
 2023-04-17 17:55:10-You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `uid` = 1' at line 1
 2023-04-17 19:51:28-Unknown column 'username' in 'field list'
@@ -48,3 +55,14 @@
 2023-04-17 20:20:14-Unknown column 'groupID' in 'field list'
 2023-04-17 20:20:51-Unknown column 'groupID' in 'field list'
 2023-04-17 20:21:03-Unknown column 'groupID' in 'field list'
+2023-04-18 00:39:01-Unknown column 'uid' in 'where clause'
+2023-04-18 00:39:53-Unknown column 'uid' in 'where clause'
+2023-04-18 00:40:03-Unknown column 'uid' in 'where clause'
+2023-04-18 00:40:05-Unknown column 'uid' in 'where clause'
+2023-04-18 00:40:19-Unknown column 'uid' in 'where clause'
+2023-04-18 00:41:19-Unknown column 'uid' in 'where clause'
+2023-04-18 00:44:01-Unknown column 'uid' in 'where clause'
+2023-04-18 00:49:18-Cannot add or update a child row: a foreign key constraint fails (`admin-panel`.`users`, CONSTRAINT `foreign key` FOREIGN KEY (`gid`) REFERENCES `groups` (`gid`))
+2023-04-18 00:50:03-Unknown column 'uid' in 'where clause'
+2023-04-18 00:51:19-Unknown column 'name' in 'field list'
+2023-04-18 01:20:52-Unknown column 'uid' in 'where clause'

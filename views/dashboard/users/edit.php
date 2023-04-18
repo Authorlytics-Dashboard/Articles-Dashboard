@@ -1,9 +1,10 @@
 <?php  
 
     $userId = $_GET['id'];
-    $user = new User('users', "UsersErrors.log",'uid');
+    $user = new User('users', "UsersErrors.log",'id');
     $userInfo = $user ->getRecordByID($userId);
-    $userInfo = $userInfo[0];?>
+    $userInfo = $userInfo[0];
+    ?>
 
 <section class="userSection">
     <div class="container py-4 border my-5 mx-auto">
@@ -15,7 +16,7 @@
             enctype="multipart/form-data">
             <div class=" mb-3">
                 <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" name="name" id="name" value="<?php echo $userInfo["uname"];?>">
+                <input type="text" class="form-control" name="name" id="name" value="<?php echo $userInfo["username"];?>">
             </div>
 
             <div class="mb-3">
@@ -25,7 +26,7 @@
             </div>
             <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile</label>
-                <input type="number" class="form-control" name="mobile" id="mobile"
+                <input type="text" class="form-control" name="mobile" id="mobile"
                     value="<?php echo $userInfo["mobile"];?>">
             </div>
             <div class="mb-3">
@@ -36,9 +37,9 @@
                 <label for="avatar" class="form-label">Avatar</label>
                 <input type="file" class="form-control" name="avatar" id="avatar">
             </div>
-            <div class="mb-3 text-center mt-5">
-                <input type="submit" class="btn btn-success me-1 rounded-1" name="update" value="update">
-                <a href="index.php" class="btn btn-danger">cancel</a>
+            <div class="mb-3 text-center mt-5 d-flex justify-content-end">
+                <input type="submit" class="btn updateBtn me-1 rounded-1" name="update" value="Update">
+                <a href="index.php" class="btn cancelBtn">Cancel</a>
             </div>
         </form>
     </div>

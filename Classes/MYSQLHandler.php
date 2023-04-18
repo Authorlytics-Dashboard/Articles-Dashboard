@@ -1,19 +1,28 @@
 <?php
-
 class MYSQLHandler
 {
     public $_dbHandler;
-
+    protected $_auth ; 
     public function __construct(){
         $this->connect();
     }
+    function myWrapperFunction() {
+        $dsn = 'mysql:host=' . _HOST_ . ':3306;dbname=' . _DB_NAME_ .'';
+        // var_dump($dsn);
+        try{
+            $pdo = new PDO($dsn, _USER_, _PASSWORD_); 
 
+        }catch(PDOException $e){
+            die($e->getMessage());
+        }
+        $this->_auth = new \Delight\Auth\Auth($pdo);
+    }
     public function connect(){
         try {
             $handler = mysqli_connect(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
             if($handler) {
                 $this->_dbHandler = $handler;
-                // echo "DB connection established";
+                $this->myWrapperFunction();
             }
         } catch(Exception $e) {
             die("Could not connect to db, please come back later.");

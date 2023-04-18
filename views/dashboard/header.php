@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="/assets/CSS/style.css">
     <link rel="stylesheet" href="/assets/CSS/darkMode.css">
     <link rel="stylesheet" href="/assets/CSS/lightMode.css">
+    <link rel="stylesheet" href="/assets/CSS/buttons.css">
+    <link rel="stylesheet" href="/assets/CSS/showCard.css">
+    
 </head>
 
 <body>

@@ -1,12 +1,13 @@
 <?php     
     $UserId = $_GET['id'];
-    $user = new User();
-    $u = $user ->showUserByID($UserId);
+    $user = new User('users', "UsersErrors.log",'uid');
+    $u = $user ->getRecordByID($UserId);
     $u = $u[0];
 ?>
 
 <style>
     /*Profile Card 5*/
+<<<<<<< HEAD
     .profile-card-5{
         margin-top:20px;
     }
@@ -39,6 +40,42 @@
         background-color:#4E5E30;
         border-color:#4E5E30;
     }
+=======
+.profile-card-5{
+    margin-top:20px;
+}
+.profile-card-5 .btn{
+    border-radius:2px;
+    text-transform:uppercase;
+    font-size:12px;
+    padding:7px 20px;
+}
+.profile-card-5 .card-img-block {
+    width: 91%;
+    margin: 0 auto;
+    position: relative;
+    top: -20px;
+    
+}
+.profile-card-5 .card-img-block img{
+    border-radius:5px;
+    box-shadow:0 0 10px rgba(0,0,0,0.63);
+    height:16em;
+    
+}
+.profile-card-5 h5{
+    color:#4E5E30;
+    font-weight:600;
+}
+.profile-card-5 p{
+    font-size:14px;
+    font-weight:300;
+}
+.profile-card-5 .btn-primary{
+    background-color:#4E5E30;
+    border-color:#4E5E30;
+}
+>>>>>>> 420778d09d58ab0250d19b6d8cee1bf1352d86ce
 </style>
 
 <section class="userSection d-flex justify-content-center align-items-center">

@@ -421,7 +421,7 @@ class Article extends MYSQLHandler {
             $sql = str_replace(", from", "from", $sql );
         }
 
-        $sql .= "limit $start," . 5;
+        $sql .= "limit $start," . _PAGE_RECORD_NUM_;
         return $this->get_results($sql);
     }
 }

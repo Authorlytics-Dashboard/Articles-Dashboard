@@ -1,8 +1,8 @@
 <?php  
 
     $groupId = $_GET['id'];
-    $group = new Group();
-    $groupInfo = $group ->showGroupByID($groupId);
+    $group = new Group('groups',"GroupsErrors.log",'gid');
+    $groupInfo = $group ->getRecordByID($groupId);
     $groupInfo = $groupInfo[0];?>
 
 <section class="groupSection">

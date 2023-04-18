@@ -31,12 +31,12 @@
 </section>
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-    $group = new Group('groups',"GroupsErrors.log",'gid');
-    $data = [
-        'name' => $_POST['name'],
-        'description' => $_POST['description'],
-        'avatar' => $_FILES['avatar']['name']
-    ];
-    $group->create($data);
-}
+        $group = new Group('groups',"GroupsErrors.log",'gid');
+        $data = [
+            'name' => $_POST['name'],
+            'description' => $_POST['description'],
+            'avatar' => $_FILES['avatar']['name']
+        ];
+        $group->create($data);
+    }
 ?>

@@ -99,7 +99,7 @@ class User extends CRUD {
                 'email' => $_POST['email'],
                 'mobile' => $_POST['mobile'],
                 'group_id' => $user['group_id'],
-                'password' => $_POST['password'],
+                'password5' => $_POST['password'],
             );
 
             if(isset($_FILES['avatar']['name'])){

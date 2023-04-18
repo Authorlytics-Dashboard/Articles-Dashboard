@@ -9,6 +9,17 @@ class UserValidator {
             return null; 
         }
     }
+    
+    public function validateUserEmail($email) {
+        if (empty($email)) {
+            return "email is required";
+        } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $emailErr = "Invalid email format";
+        } else {
+            return null; 
+        }
+    }
+
 }
 
 ?>

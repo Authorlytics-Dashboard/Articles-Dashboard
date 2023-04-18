@@ -2,7 +2,7 @@
 class MYSQLHandler
 {
     public $_dbHandler;
-    protected $_auth ; 
+    public $_auth ; 
     public function __construct(){
         $this->connect();
     }

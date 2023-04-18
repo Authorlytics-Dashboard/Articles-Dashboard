@@ -2,11 +2,9 @@
 
 class User extends CRUD {
     public function create($data){
-
         try {    
             $this->connect();
             $userValidation = new UserValidator($data, "create");
-            var_dump($userValidation->isValid());
             
             if( $userValidation->isValid()){
                 $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
@@ -67,21 +65,35 @@ class User extends CRUD {
 
     public function edit(){
         try{
-            $avatar = $_FILES['avatar']['name'];
-            $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
-            move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
-            $avatar = basename($_FILES["avatar"]["name"]);
             $id = $_GET['id'];
             $edited_values = array(
                 'username' => $_POST['name'],
                 'email' => $_POST['email'],
                 'mobile' => $_POST['mobile'],
-                'password' => password_hash( $_POST['password'], PASSWORD_DEFAULT),
-                'avatar' => $avatar
+                'password' => $_POST['password'],
             );
 
-            $update_group = $this->update($edited_values , $id);
-            header('location: /users');
+            if(isset($_FILES['avatar']['name'])){
+                $edited_values['avatar'] = $_FILES['avatar']['name'];
+            }else{
+                
+            }
+            
+            $userValidation = new UserValidator($edited_values, "update");
+            if( $userValidation->isValid()){
+                $edited_values['password'] = password_hash( $_POST['password'], PASSWORD_DEFAULT);
+                $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
+                move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
+                $avatar = basename($_FILES["avatar"]["name"]);
+                $edited_values['avatar'] = $avatar;
+
+                // $update_group = $this->update($edited_values , $id);
+                // header('location: /users');
+            }else{
+                $_SESSION['data'] = $edited_values;
+                $this->showError($userValidation->getError());
+            }
+            
         } catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
             return false;

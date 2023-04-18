@@ -68,3 +68,4 @@
 2023-04-18 01:20:52-Unknown column 'uid' in 'where clause'
 2023-04-18 20:16:01-Duplicate entry '' for key 'email'
 2023-04-18 20:23:13-Duplicate entry '' for key 'email'
+2023-04-18 21:57:02-Unknown column 'uid' in 'field list'

@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/assets/CSS/lightMode.css">
     <link rel="stylesheet" href="/assets/CSS/buttons.css">
     <link rel="stylesheet" href="/assets/CSS/showCard.css">
+    <link rel="stylesheet" href="/assets/CSS/errorPage.css">
+    
     
 </head>
 

@@ -1,4 +1,5 @@
 <?php
+    $permission = new Permissions();
     $uri = explode('/', $_SERVER['REQUEST_URI']);
 
     switch($uri[1]) {
@@ -44,7 +45,7 @@
             }
             break;
         case 'articles':
-            if(isset($uri[2])) {
+            if(isset($uri[2]) && $permission->canViewArticle()) {
                 switch($uri[2]) {
                     case 'create':
                         include_once('./views/dashboard/articles/create.php');
@@ -66,7 +67,7 @@
                         include_once("./views/dashboard/articles/index.php");
                 }
             } else {
-                include_once("./views/dashboard/articles/index.php");
+                include_once("./views/error.php");
             }
             break;
         case 'users':
@@ -114,5 +115,7 @@
         case 'charts':
             include_once("./views/dashboard/charts/index.php");
             break;
+        default:
+            include_once("./views/error.php");
     }
 ?>

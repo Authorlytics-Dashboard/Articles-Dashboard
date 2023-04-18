@@ -1,374 +1,348 @@
  /* Articles */
- 
- .container {
-    padding: 20px;
-  }
 
-  .profile-card {
-    background-color: #222222;
-    margin-bottom: 20px;
-  }
-      
-  .profile-pic {
-    border-radius: 50%;
-    position: absolute;
-    top: -65px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    z-index: 1;
-    max-width: 100px;
-    transition: all 0.4s;
-  }
-
-  .profile-info {
-    color: #BDBDBD;
-    padding: 25px;
-    position: relative;
-    margin-top: 15px;
-  }
-		
-  .profile-info h2 {
-    color: #E8E8E8;
-    letter-spacing: 4px;
-    padding-bottom: 12px;
-  }
-
-  .profile-info span {
-    display: block;
-    font-size: 12px;
-    color: #4CB493;
-    letter-spacing: 2px;
-  }
-
-  .img-responsive{
-    width:100%; 
-    height: 330px;
-  }
-  .profile-info a {
-    color: #4CB493;
-  }
-  .profile-info i {
-    padding: 15px 35px 0px 35px;
-  }
-
-  .artcilesCard{
-    width: 60em !important;
-  }
-  .profile-card:hover .profile-pic {
-    transform: scale(1.1);
-  }
-
-  .profile-card:hover .profile-info hr {
-    opacity: 1;
-  }
-
-  /* Underline From Center */
-  .hvr-underline-from-center {
-    display: inline-block;
-    vertical-align: middle;
-    transform: translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hvr-underline-from-center:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    left: 52%;
-    right: 52%;
-    bottom: 0;
-    background: #FFFFFF;
-    border-radius: 50%;
-    height: 3px;
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-out;
-  }
-
-  .profile-card:hover .hvr-underline-from-center:before,
-  .profile-card:focus .hvr-underline-from-center:before, 
-  .profile-card:active .hvr-underline-from-center:before {
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: #CECECE;
-    border-radius: 0;
-  }
-
-  /* likes button */
-  .LikesContainer input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-
-  .LikesContainer {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    font-size: 20px;
-    user-select: none;
-    transition: 100ms;
-  }
-
-  .checkmark {
-    top: 0;
-    left: 0;
-    height: 2em;
-    width: 2em;
-    transition: 100ms;
-    animation: dislike_effect 400ms ease;
-  }
-
-  .LikesContainer input:checked ~ .checkmark path {
-    fill: #FF5353;
-    stroke-width: 0;
-  }
-
-  .LikesContainer input:checked ~ .checkmark {
-    animation: like_effect 400ms ease;
-  }
-
-  .likesCount{
-    transform: translate(-380px, -30px);
-  }
-
-  @keyframes like_effect {
-    0% {transform: scale(0);}
-    50% {transform: scale(1.2);}
-    100% {transform: scale(1);}
-  }
-
-  @keyframes dislike_effect {
-    0% {transform: scale(0);}
-    50% {transform: scale(1.2);}
-    100% {transform: scale(1);}
-  }
-
-  /* groups */
-
-      .card {
-      --cardbg: 245, 245, 245;
-      --cardBase: 112,53,62;
-      --cardText: 100, 100, 100;
-      --cardTextBtn: 106, 16, 88;
-      --cardsquares: 156, 113, 227;
-      display: flex;
-      flex-flow: column nowrap;
-      place-items: center;
-      text-align: center;
-      border: 1px solid #ccc;
-      box-shadow: 0 0 3em rgba(var(--cardBase), .25),
-      inset 0 -.25em 1px rgba(var(--cardBase), .125);
-      border-radius: 4px;
-      background: rgba(var(--cardbg), 1);
-      position: relative;
-      width: 300px;
-      height: 390px;
-      perspective: 1000px;
-      z-index: 0;
-      transition: all 1s ease-out;
-    }
-
-    .card:hover {
-      filter: grayscale(0%);
-      scale: 1.025;
-      box-shadow: 0 0 5em rgba(var(--cardBase), .5);
-    }
-
-    .card::after,
-    .card::before {
-      content: '';
-      width: 200px;
-      height: 50%;
-      display: block;
-      background-color: rgba(var(--cardsquares), .5);
-      filter: blur(10px);
-      position: absolute;
-      transition: all 1s ease-out;
-      opacity: .1;
-      z-index: 0;
-    }
-
-    .card:hover::after,
-    .card:hover::before {
-      opacity: .5;
-      rotate: 60deg;
-    }
-
-    .card:hover::after {
-      translate: 100% 0;
-    }
-
-    .card:hover::before {
-      translate: -100% 0;
-    }
-
-    .card .card-title {
-      color: rgba(var(--cardText), .75);
-      font-size: 1.1em;
-      font-weight: 600;
-      margin: .5em;
-      position: relative;
-      transition: all .3s ease-out;
-      z-index: 100;
-      text-shadow: 0px 0px 0px rgba(var(--cardText), .25);
-    }
-
-    .card:hover h3 {
-      color: rgba(var(--cardText), 1);
-      text-shadow: 0px 8px 5px rgba(var(--cardText), .35);
-    }
-
-    .card:hover span {
-      filter: grayscale(0%);
-    }
-
-    /* Inner card */
-    .card-info::after {
-      left: -6rem;
-      bottom: 0;
-    }
-
-    .card-info::before {
-      right: -6rem;
-      top: 1rem;
-    }
-
-    /* Avatar container */
-    .card-info span {
-      color: rgba(var(--cardBase), 1);
-      display: flex;
-      place-items: center;
-      text-align: center;
-      border-radius: 50%;
-      overflow: hidden;
-      background-color: rgba(var(--cardBase), .5);
-      height: 120px;
-      width: 50%;
-      box-shadow: inset 0px 2px 4px rgba(var(--cardBase), .95),
-      inset 0px 2px 40px rgba(var(--cardbg), .95);
-      position: relative;
-      transition: all .3s ease-out .1s;
-      filter: grayscale(75%);
-      z-index: 0;
-    }
-
-    .card-info span:hover .avatar {
-      scale: 1.5;
-    }
-
-    .avatar {
-      transition: all .3s ease-out;
-      position: relative;
-    }
-
-    /* Inner card container and UI */
-    .card-info {
-      --angle: 0deg;
-      display: flex;
-      flex-flow: column nowrap;
-      place-items: center;
-      padding: 1em;
-      margin: 0 .75em;
-      color: rgba(var(--cardText), 1);
-      background-color: rgba(250, 246, 246, 1);
-      transition: all .5s ease-out;
-      animation: animateBorder 10s linear infinite reverse;
-      border: .15em solid;
-      position: relative;
-      z-index: 10;
-      border-image: linear-gradient(var(--angle), rgba(var(--cardbg), 1), rgba(var(--cardBase), .5), rgba(var(--cardbg), 1)) 1;
-    }
-
-    .card-info p {
-      color: rgba(var(--cardText), 1);
-      line-height: 1.25em;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 3;
-      font-size: 1em;
-      margin: 1em 0;
-      transition: all .3s ease-out .3s;
-      width: 230px;
-    }
-
-    @keyframes animateBorder {
-      to {
-        --angle: 360deg;
-      }
-    }
+.container {
+  padding: 20px;
+}
+.profile-card {
+  background-color: #222222;
+  margin-bottom: 20px;
+}
     
+.profile-pic {
+  border-radius: 50%;
+  position: absolute;
+  top: -65px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1;
+  max-width: 100px;
+  transition: all 0.4s;
+}
+.profile-info {
+  color: #BDBDBD;
+  padding: 25px;
+  position: relative;
+  margin-top: 15px;
+}
+	
+.profile-info h2 {
+  color: #E8E8E8;
+  letter-spacing: 4px;
+  padding-bottom: 12px;
+}
+.profile-info span {
+  display: block;
+  font-size: 12px;
+  color: #4CB493;
+  letter-spacing: 2px;
+}
+.img-responsive{
+  width:100%; 
+  height: 330px;
+}
+.profile-info a {
+  color: #4CB493;
+}
+.profile-info i {
+  padding: 15px 35px 0px 35px;
+}
+.artcilesCard{
+  width: 60em !important;
+}
+.profile-card:hover .profile-pic {
+  transform: scale(1.1);
+}
+.profile-card:hover .profile-info hr {
+  opacity: 1;
+}
+/* Underline From Center */
+.hvr-underline-from-center {
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
+}
+.hvr-underline-from-center:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 52%;
+  right: 52%;
+  bottom: 0;
+  background: #FFFFFF;
+  border-radius: 50%;
+  height: 3px;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
+.profile-card:hover .hvr-underline-from-center:before,
+.profile-card:focus .hvr-underline-from-center:before, 
+.profile-card:active .hvr-underline-from-center:before {
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #CECECE;
+  border-radius: 0;
+}
 
-    .userCard {
-      width: 190px;
-      height:  136px;
-      background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
-      border-radius: 20px;
-      transition: all .3s;
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Like Button */
+.LikesContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.LikesContainer {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  transition: 100ms;
+}
+
+.checkmark {
+  top: 0;
+  left: 0;
+  height: 2em;
+  width: 2em;
+  transition: 100ms;
+  animation: dislike_effect 400ms ease;
+}
+.LikesContainer input:checked ~ .checkmark path {
+  fill: #FF5353;
+  stroke-width: 0;
+}
+.LikesContainer input:checked ~ .checkmark {
+  animation: like_effect 400ms ease;
+}
+.likesCount{
+  transform: translate(-380px, -30px);
+}
+@keyframes like_effect {
+  0% {transform: scale(0);}
+  50% {transform: scale(1.2);}
+  100% {transform: scale(1);}
+}
+
+@keyframes dislike_effect {
+  0% {transform: scale(0);}
+  50% {transform: scale(1.2);}
+  100% {transform: scale(1);}
+}
+
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Groups */
+
+.card {
+  --cardbg: 245, 245, 245;
+  --cardBase: 112,53,62;
+  --cardText: 100, 100, 100;
+  --cardTextBtn: 106, 16, 88;
+  --cardsquares: 156, 113, 227;
+  display: flex;
+  flex-flow: column nowrap;
+  place-items: center;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 3em rgba(var(--cardBase), .25),
+  inset 0 -.25em 1px rgba(var(--cardBase), .125);
+  border-radius: 4px;
+  background: rgba(var(--cardbg), 1);
+  position: relative;
+  width: 300px;
+  height: 390px;
+  perspective: 1000px;
+  z-index: 0;
+  transition: all 1s ease-out;
+}
+.card:hover {
+  filter: grayscale(0%);
+  scale: 1.025;
+  box-shadow: 0 0 5em rgba(var(--cardBase), .5);
+}
+.card::after,
+.card::before {
+  content: '';
+  width: 200px;
+  height: 50%;
+  display: block;
+  background-color: rgba(var(--cardsquares), .5);
+  filter: blur(10px);
+  position: absolute;
+  transition: all 1s ease-out;
+  opacity: .1;
+  z-index: 0;
+}
+.card:hover::after,
+.card:hover::before {
+  opacity: .5;
+  rotate: 60deg;
+}
+
+.card:hover::after {
+  translate: 100% 0;
+}
+.card:hover::before {
+  translate: -100% 0;
+}
+.card .card-title {
+  color: rgba(var(--cardText), .75);
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: .5em;
+  position: relative;
+  transition: all .3s ease-out;
+  z-index: 100;
+  text-shadow: 0px 0px 0px rgba(var(--cardText), .25);
+}
+.card:hover h3 {
+  color: rgba(var(--cardText), 1);
+  text-shadow: 0px 8px 5px rgba(var(--cardText), .35);
+}
+.card:hover span {
+  filter: grayscale(0%);
+}
+/* Inner card */
+.card-info::after {
+  left: -6rem;
+  bottom: 0;
+}
+.card-info::before {
+  right: -6rem;
+  top: 1rem;
+}
+/* Avatar container */
+.card-info span {
+  color: rgba(var(--cardBase), 1);
+  display: flex;
+  place-items: center;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: rgba(var(--cardBase), .5);
+  height: 120px;
+  width: 50%;
+  box-shadow: inset 0px 2px 4px rgba(var(--cardBase), .95),
+  inset 0px 2px 40px rgba(var(--cardbg), .95);
+  position: relative;
+  transition: all .3s ease-out .1s;
+  filter: grayscale(75%);
+  z-index: 0;
+}
+
+.card-info span:hover .avatar {
+  scale: 1.5;
+}
+.avatar {
+  transition: all .3s ease-out;
+  position: relative;
+}
+/* Inner card container and UI */
+.card-info {
+  --angle: 0deg;
+  display: flex;
+  flex-flow: column nowrap;
+  place-items: center;
+  padding: 1em;
+  margin: 0 .75em;
+  color: rgba(var(--cardText), 1);
+  background-color: rgba(250, 246, 246, 1);
+  transition: all .5s ease-out;
+  animation: animateBorder 10s linear infinite reverse;
+  border: .15em solid;
+  position: relative;
+  z-index: 10;
+  border-image: linear-gradient(var(--angle), rgba(var(--cardbg), 1), rgba(var(--cardBase), .5), rgba(var(--cardbg), 1)) 1;
+}
+
+.card-info p {
+  color: rgba(var(--cardText), 1);
+  line-height: 1.25em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  font-size: 1em;
+  margin: 1em 0;
+  transition: all .3s ease-out .3s;
+  width: 230px;
+}
+@keyframes animateBorder {
+  to {
+    --angle: 360deg;
   }
+}
 
-    .userCard2 {
-      width: 190px;
-      height:  136px;
-      background-color: #1a1a1a;
-      transition: all .2s;
-    }
+.userCard {
+  width: 190px;
+  height:  136px;
+  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+  border-radius: 20px;
+  transition: all .3s;
+}
 
-    .userCard2 h5{
-      font-size:15px;
-    }
+.userCard2 {
+  width: 190px;
+  height:  136px;
+  background-color: #1a1a1a;
+  transition: all .2s;
+}
 
-    .userCard2:hover {
-      transform: scale(0.98);
-      border-radius: 20px;
-    }
+.userCard2 h5{
+  font-size:15px;
+}
+.userCard2:hover {
+  transform: scale(0.98);
+  border-radius: 20px;
+}
+.userCard:hover {
+  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+}
 
-    .userCard:hover {
-      box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
-    }
+/* ---------------------------------------------------------------------------------------------------------- */
+/* Users */
 
-    /* users */
-    .profile-card-5{
-    margin-top:20px;
+.profile-card-5{
+  margin-top:20px;
 }
 .profile-card-5 .btn{
-    border-radius:2px;
-    text-transform:uppercase;
-    font-size:12px;
-    padding:7px 20px;
+  border-radius:2px;
+  text-transform:uppercase;
+  font-size:12px;
+  padding:7px 20px;
 }
 .profile-card-5 .card-img-block {
-    width: 91%;
-    margin: 0 auto;
-    position: relative;
-    top: -20px;
-    
+  width: 91%;
+  margin: 0 auto;
+  position: relative;
+  top: -20px;
+  
 }
 .profile-card-5 .card-img-block img{
-    border-radius:5px;
-    box-shadow:0 0 10px rgba(0,0,0,0.63);
-    height:16em;
-    
+  border-radius:5px;
+  box-shadow:0 0 10px rgba(0,0,0,0.63);
+  height:16em;
+  
 }
 .profile-card-5 h5{
-    color:#4E5E30;
-    font-weight:600;
+  color:#4E5E30;
+  font-weight:600;
 }
 .profile-card-5 p{
-    font-size:14px;
-    font-weight:300;
+  font-size:14px;
+  font-weight:300;
 }
 .profile-card-5 .btn-primary{
-    background-color:#4E5E30;
-    border-color:#4E5E30;
+  background-color:#4E5E30;
+  border-color:#4E5E30;
 }

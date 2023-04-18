@@ -32,6 +32,30 @@ class User extends CRUD {
         }
     }
 
+    private function assignRole($email,$group){
+
+        try {
+            switch($group){
+                case 1:
+                {
+                    $this->_auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::ADMIN);
+                    break;
+                } 
+                case 2:
+                {
+                    $this->_auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::EDITOR);
+                    break;
+                } 
+                case 3:
+                default:
+                $this->_auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::REVIEWER);
+            }
+            
+        }
+        catch (\Delight\Auth\InvalidEmailException $e) {
+            die('Unknown email address');
+        }
+    }
     public function save($data){
         try{
             $this->connect();
@@ -48,6 +72,7 @@ class User extends CRUD {
             values ('$email', '$password', '$username',  '$subscriptionDate ', '$subscriptionDate ','$subscriptionDate ', '$avatar', '$mobile' , '$groupID');";
             if (mysqli_query($this->_dbHandler, $sql)) {
                 $id = mysqli_insert_id($this->_dbHandler);
+                $this->assignRole($email,$groupID);
                 $this->disconnect();
                 header("Location:/users");
                 return $id;

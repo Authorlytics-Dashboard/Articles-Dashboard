@@ -5,29 +5,39 @@
     $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
     $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
     ob_start();
-?>  
+    $permission = new Permissions();
+?>
 
 <section class="articaleSection">
     <div class="d-flex justify-content-between">
         <form method="get" action="/articles/">
             <div class="search mb-3">
-                <input type="text" class="search__input" placeholder="Search"name="query"
-                value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
-                <button class="search__button"type="submit">
+                <input type="text" class="search__input" placeholder="Search" name="query"
+                    value="<?php echo isset($_GET['query']) ? htmlspecialchars($_GET['query']) : ''; ?>">
+                <button class="search__button" type="submit">
                     <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
                         <g>
-                            <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+                            <path
+                                d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                            </path>
                         </g>
                     </svg>
-                    </button>
+                </button>
             </div>
         </form>
+        <?php if($permission->canViewArticle()){?>
         <form action="articles/create" method="post">
             <button type="submit" class="button">
                 <span class="button__text">New Article</span>
-                <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+                <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor"
+                        height="24" fill="none" class="svg">
+                        <line y2="19" y1="5" x2="12" x1="12"></line>
+                        <line y2="12" y1="12" x2="19" x1="5"></line>
+                    </svg></span>
             </button>
         </form>
+        <?php } ?>
     </div>
 
     <?php 
@@ -62,9 +72,10 @@
                 <td><?php echo $item["title"] ?></td>
                 <td>
                     <?php if ($item["photo"]) { ?>
-                        <img src='../assets/Images/<?= $item['photo'] ?>' class='rounded-circle img-thumbnail' alt='photo' style='width:30px; height:30px;'>
+                    <img src='../assets/Images/<?= $item['photo'] ?>' class='rounded-circle img-thumbnail' alt='photo'
+                        style='width:30px; height:30px;'>
                     <?php } else { ?>
-                        <p>No photo</p>
+                    <p>No photo</p>
                     <?php } ?>
                 </td>
                 <td><?php echo $item["post_date"] ?></td>
@@ -78,13 +89,16 @@
                 <td>
                     <?php
                         if ($item["deleted_at"] == null) { ?>
-                        <a href="/articles/delete/?id=<?php echo $item["aid"] ; ?>" class="btn btn-danger" ><i class='bx bx-trash' ></i></a>
-                        <?php } 
+                    <a href="/articles/delete/?id=<?php echo $item["aid"] ; ?>" class="btn btn-danger"><i
+                            class='bx bx-trash'></i></a>
+                    <?php } 
                         else { ?>
-                        <a href="/articles/restore/?id=<?php echo $item["aid"] ; ?>" class="btn btn-success" ><i class='bx bx-recycle'></i></a>
-                        <?php }
-                    ?>                    
-                    <a href="/articles/show/?id=<?php echo $item["aid"] ; ?>" class="btn btn-dark"><i class='bx bx-show-alt' style="color: #fff;"></i></a>
+                    <a href="/articles/restore/?id=<?php echo $item["aid"] ; ?>" class="btn btn-success"><i
+                            class='bx bx-recycle'></i></a>
+                    <?php }
+                    ?>
+                    <a href="/articles/show/?id=<?php echo $item["aid"] ; ?>" class="btn btn-dark"><i
+                            class='bx bx-show-alt' style="color: #fff;"></i></a>
                 </td>
             </tr>
 
@@ -99,17 +113,17 @@
             echo "No results found.";
         }
     ?>
-    
-    <div class="d-flex justify-content-center gap-2" >
+
+    <div class="d-flex justify-content-center gap-2">
         <button class="custom-btn btn-2">
-                        <a href="<?php echo "/articles/"."?page=".$previous_index; ?>" class="text-light">
-                            <i class='bx bx-chevrons-left' ></i>Previous
-                        </a>
-                    </button>
-                    <button class="custom-btn btn-2">
-                        <a href="<?php echo "/articles/"."?page=".$next_index; ?>" class="text-light">Next 
-                            <i class='bx bx-chevrons-right' ></i>
-                        </a>
+            <a href="<?php echo "/articles/"."?page=".$previous_index; ?>" class="text-light">
+                <i class='bx bx-chevrons-left'></i>Previous
+            </a>
+        </button>
+        <button class="custom-btn btn-2">
+            <a href="<?php echo "/articles/"."?page=".$next_index; ?>" class="text-light">Next
+                <i class='bx bx-chevrons-right'></i>
+            </a>
         </button>
     </div>
 </section>

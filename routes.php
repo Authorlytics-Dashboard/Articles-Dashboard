@@ -1,9 +1,13 @@
 <?php
+    $permission = new Permissions();
     $uri = explode('/', $_SERVER['REQUEST_URI']);
-
+    $user = new User('users', "UsersErrors.log",'id');
     switch($uri[1]) {
         case 'home':
             include_once("./views/dashboard/home.php");
+            break;
+        case 'error':
+            include_once("./views/error.php");
             break;
         case 'groups':
             if(isset($uri[2])) {
@@ -41,23 +45,28 @@
             }
             break;
         case 'articles':
-            if(isset($uri[2])) {
-                switch($uri[2]) {
+            if(isset($uri[2]) ) {
+                switch($uri[2] ) {
                     case 'create':
+                        if($permission->canViewArticle())
                         include_once('./views/dashboard/articles/create.php');
                         break;
                     case 'show':
                         include_once('./views/dashboard/articles/show.php');
                         break;
                     case 'delete':
-                        $articleId = $_GET['id'];
-                        $article = new Article('articles','ArticlesErrors.log','aid');
-                        $article ->delete($articleId);
+                        if($permission->canViewArticle()){
+                            $articleId = $_GET['id'];
+                            $article = new Article('articles','ArticlesErrors.log','aid');
+                            $article ->delete($articleId);
+                        }
                         break;
                     case 'restore':
-                        $articleId = $_GET['id'];
-                        $article = new Article('articles','ArticlesErrors.log','aid');
-                        $article ->restore($articleId);
+                        if($permission->canViewArticle()) {
+                            $articleId = $_GET['id'];
+                            $article = new Article('articles', 'ArticlesErrors.log', 'aid');
+                            $article ->restore($articleId);
+                        }
                         break;
                     default:
                         include_once("./views/dashboard/articles/index.php");
@@ -78,17 +87,15 @@
                         break;
                     case 'update':
                         $userId = $_GET['id'];
-                        $user = new User('users', "UsersErrors.log",'uid');
+                        
                         $user ->edit();
                         break;
                     case 'delete':
                         $userId = $_GET['id'];
-                        $user = new User('users', "UsersErrors.log",'uid');
                         $user ->delete($userId);
                         break;
                     case 'restore':
                         $userId = $_GET['id'];
-                        $user = new User('users', "UsersErrors.log",'uid');
                         $user ->restore($userId);
                         break;
                     case 'show':
@@ -102,7 +109,6 @@
             }
             break;
         case 'logout':
-            $user = new User('users', "UsersErrors.log",'uid');
             $user->logout();
             break;
         case 'login':

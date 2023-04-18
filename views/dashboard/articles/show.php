@@ -1,8 +1,8 @@
 <?php     
     $articleId = $_GET['id'];
     $articles = new Article('articles','ArticlesErrors.log','aid');
-    $article = $article->getRecordByID($articleId)[0];
-    $articles->likeArticle($articleId);
+    $article = $articles->getRecordByID($articleId)[0];
+    // $articles->likeArticle($articleId);
     $likeCount=$articles->displayLikes($articleId);
     ob_start();
 ?>

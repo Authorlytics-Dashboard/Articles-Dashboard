@@ -24,7 +24,7 @@ class MYSQLHandler
                 $this->myWrapperFunction();
             }
         } catch(Exception $e) {
-            die("Could not connect to db, please come back later.");
+            header("Location: /error");
         }
     }
 

@@ -39,7 +39,9 @@ class UserValidator {
         if (empty($this->data['mobile'])) {
             return "Mobile Number is required";
         } elseif (strlen($this->data['mobile']) == 10) {
-            return "mobile should be 10 digits";
+            return "Mobile should be 10 digits";
+        } elseif (!preg_match('/^(?:\+20|0)?1[0125]\d{8}$/', $this->data['mobile'])) {
+            return "mobile should be a valid number";
         } else {
             return null; 
         }
@@ -68,9 +70,9 @@ class UserValidator {
     }
 
     public function isValid(){
-        if( $this->validateUserName() && $this->validateUserEmail() 
-            && $this->validateUserPassword() && $this->validateUserMobile()
-            && $this->validateUserGroup() && $this->validateUserAvatar() ){
+        if( is_null($this->validateUserName()) && is_null($this->validateUserEmail()) 
+            && is_null($this->validateUserPassword()) && is_null($this->validateUserMobile())
+            && is_null($this->validateUserGroup()) && is_null($this->validateUserAvatar()) ){
             return true;
         }else{
             return false;

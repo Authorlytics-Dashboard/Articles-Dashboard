@@ -96,17 +96,17 @@
         ];
         
         $userValidation = new UserValidator($data);
+        
         if(! $userValidation->isValid()){
             $error = $userValidation->getErrorMessage();
+            var_dump($error);
             session_start();
             $_SESSION['data'] = $data;
             $_SESSION['error'] = $error;
             header("Location: /users/create");
             exit();
-        } else {
-            var_dump("Data Valid");
-            $user = new User('users', "UsersErrors.log",'id');
-            $user->create($data);
         }
+        $user = new User('users', "UsersErrors.log",'id');
+        $user->create($data);
     }
 ?>

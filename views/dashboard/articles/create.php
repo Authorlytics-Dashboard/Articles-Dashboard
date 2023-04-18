@@ -34,7 +34,7 @@
                         $users = $users->getData();
                         foreach ($users as $user){
                     ?>
-                    <option value="<?= $user['uid']?>"><?= $user['uname']?></option>
+                    <option value="<?= $user['id']?>"><?= $user['username']?></option>
                     <?php
                     }
                 ?>
@@ -50,7 +50,7 @@
 </section>
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-        $article = new Article();
+        $article = new Article('articles','ArticlesErrors.log','aid');
         $data = [
             'title' => $_POST['title'],
             'body' => $_POST['body'],

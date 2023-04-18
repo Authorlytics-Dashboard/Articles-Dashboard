@@ -12,9 +12,9 @@ class UserValidator {
     }
 
     public function validateUserName() {
-        if (empty($this->data['uname'])) {
+        if (empty($this->data['username'])) {
             $this->error['nameErr'] =  "Name is required";
-        } elseif (strlen($this->data['uname']) < 3) {
+        } elseif (strlen($this->data['username']) < 3) {
             $this->error['nameErr'] =  "Name should be at least 3 characters long";
         } else {
             return null; 
@@ -31,7 +31,7 @@ class UserValidator {
                 $this->error['emailErr'] = "Email is already token.";
             }
         }else{
-            if(!empty($user) &&( $user['uid'] != $this->data['id'])){
+            if(!empty($user) &&( $user[0]['id'] != $this->data['id'])){
                 $this->error['emailErr'] = "Email is already token.";
             }
         }

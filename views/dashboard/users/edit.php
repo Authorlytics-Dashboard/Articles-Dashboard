@@ -3,8 +3,7 @@
     $user = new User('users', "UsersErrors.log",'id');
     $userInfo = $user ->getRecordByID($userId);
     $userInfo = $userInfo[0];
-
-    $error = array();
+    
     if (isset($_SESSION['data'])) {
         $data = $_SESSION['data'];
         unset($_SESSION['data']);
@@ -17,34 +16,31 @@
             <img src="../../../assets/Images/<?php echo $userInfo['avatar'] ?>" alt=""
                 class='rounded-circle img-thumbnail' style='width:150px; height:150px;'>
         </div>
-        <form action="/users/edit/?id=<?php echo $userId ;?>" method="POST" class="w-75 mx-auto"
+        <form action="/users/update/?id=<?php echo $userId ;?>" method="POST" class="w-75 mx-auto"
             enctype="multipart/form-data">
             <div class=" mb-3">
                 <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" name="name" id="name" value="<?= htmlspecialchars($data['uname'] ?? $userInfo["username"]) ?>">
+                <input type="text" class="form-control" name="name" id="name" value="<?php echo $userInfo["username"];?>">
                 <p class="col-12 text-danger" id="nameErr"></p>
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="email"
-                    value="<?= htmlspecialchars($data['email'] ?? $userInfo["email"]) ?>">
+                    value="<?php echo $userInfo["email"];?>">
                 <p class="col-12 text-danger" id="emailErr"></p>
             </div>
-
             <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile</label>
                 <input type="text" class="form-control" name="mobile" id="mobile"
-                    value="<?= htmlspecialchars($data['mobile'] ?? $userInfo["mobile"]) ?>">
+                    value="<?php echo $userInfo["mobile"];?>">
                 <p class="col-12 text-danger" id="mobileErr"></p>
             </div>
-
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" name="password" id="password">
                 <p class="col-12 text-danger" id="passwordErr"></p>
             </div>
-
             <div class="mb-3">
                 <label for="avatar" class="form-label">Avatar</label>
                 <input type="file" class="form-control" name="avatar" id="avatar">

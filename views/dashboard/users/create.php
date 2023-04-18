@@ -1,5 +1,4 @@
 <?php
-    $error = array();
     if (isset($_SESSION['data'])) {
         $data = $_SESSION['data'];
         unset($_SESSION['data']);
@@ -73,7 +72,7 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
         $data = [
-            'uname' => $_POST['name'],
+            'username' => $_POST['name'],
             'email' => $_POST['email'],
             'gid' => $_POST['group_id'],
             'mobile' => $_POST['mobile'],

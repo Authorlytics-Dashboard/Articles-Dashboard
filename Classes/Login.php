@@ -4,7 +4,6 @@ use Twilio\Rest\Client;
 
 class Login extends MYSQLHandler{
   public $id;
-
   private $log_file="loginError.log";
 
   public function login(){

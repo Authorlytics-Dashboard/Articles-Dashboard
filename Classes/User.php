@@ -33,7 +33,6 @@ class User extends CRUD {
     }
 
     private function assignRole($email,$group){
-
         try {
             switch($group){
                 case 1:
@@ -56,6 +55,7 @@ class User extends CRUD {
             die('Unknown email address');
         }
     }
+
     public function save($data){
         try{
             $this->connect();
@@ -91,38 +91,42 @@ class User extends CRUD {
 
     public function edit(){
         try{
+            $avatar = $_FILES['avatar']['name'];
             $id = $_GET['id'];
-            $user = $this->search(array("column" => "id", "value" => $id));
+            $user = $this->search(Array('column'=> 'id', 'value' => $id));
 
             $edited_values = array(
+                'id' => $id,
                 'username' => $_POST['name'],
                 'email' => $_POST['email'],
                 'mobile' => $_POST['mobile'],
-                'group_id' => $user['group_id'],
-                'password5' => $_POST['password'],
+                'password' => $_POST['password'],
+                'gid' => $user[0]['gid'],
+                'avatar' => $avatar
             );
-
-            if(isset($_FILES['avatar']['name'])){
+            
+            if(! is_null($avatar)){
                 $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
                 move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
                 $avatar = basename($_FILES["avatar"]["name"]);
-                $edited_values['avatar'] = $avatar;
             }else{
-                $edited_values['avatar'] = $user[0]['avatar'];
+                if(! is_null($user[0]['avatar'])){
+                    $edited_values['avatar'] = $user[0]['avatar'];
+                }
             }
 
-            var_dump($edited_values);
-            
             $userValidation = new UserValidator($edited_values, "update");
+
             if( $userValidation->isValid()){
                 $edited_values['password'] = password_hash( $_POST['password'], PASSWORD_DEFAULT);
-                $update_group = $this->update($edited_values , $id);
+                // $update_group = $this->update($edited_values , $id);
                 header('location: /users');
             }else{
                 $_SESSION['data'] = $edited_values;
-                $this->showError($userValidation->getError());
+                $_SESSION['errors'] = $userValidation->getError();
+                header("location: /users/edit/?id=$id");
             }
-            
+
         } catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
             return false;
@@ -140,7 +144,6 @@ class User extends CRUD {
             while ($user = mysqli_fetch_assoc($result)) {
                 $users[] = $user;
             }
-        
             return $users;
         }
         catch(Exception $e) {

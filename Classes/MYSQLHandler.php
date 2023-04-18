@@ -8,15 +8,14 @@ class MYSQLHandler
     }
     function myWrapperFunction() {
         $dsn = 'mysql:host=' . _HOST_ . ':3306;dbname=' . _DB_NAME_ .'';
-        // var_dump($dsn);
         try{
             $pdo = new PDO($dsn, _USER_, _PASSWORD_); 
-
         }catch(PDOException $e){
             die($e->getMessage());
         }
         $this->_auth = new \Delight\Auth\Auth($pdo);
     }
+
     public function connect(){
         try {
             $handler = mysqli_connect(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
@@ -39,23 +38,23 @@ class MYSQLHandler
         }
     }
 
-        public function get_results($sql)
-        {
-            $this->debug($sql);
-            $_handler_results = mysqli_query($this->_dbHandler, $sql);
-            $_arr_results = array();
+    public function get_results($sql)
+    {
+        $this->debug($sql);
+        $_handler_results = mysqli_query($this->_dbHandler, $sql);
+        $_arr_results = array();
 
-            if ($_handler_results) {
-                while ($row = mysqli_fetch_array($_handler_results, MYSQLI_ASSOC)) {
-                    $_arr_results[] = array_change_key_case($row);
-                }
-                // $this->disconnect();
-                return $_arr_results;
-            } else {
-                // $this->disconnect();
-                return false;
+        if ($_handler_results) {
+            while ($row = mysqli_fetch_array($_handler_results, MYSQLI_ASSOC)) {
+                $_arr_results[] = array_change_key_case($row);
             }
+            // $this->disconnect();
+            return $_arr_results;
+        } else {
+            // $this->disconnect();
+            return false;
         }
+    }
 
     protected function debug($sql){
         if (_Debug_Mode_ === 1) {

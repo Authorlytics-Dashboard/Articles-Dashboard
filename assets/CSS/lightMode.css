@@ -7,14 +7,20 @@
 }
 
 /* ---------------------------------------------------------------------------------------------------------- */
-/* Nav Dark mode */
+/* Nav light mode */
 .light-mode nav {
     background: white;
     color: black;
 }
+
 .light-mode nav ul li a  {
     color: black;
 }
+
+.light-mode nav ul li i{
+    color: black;
+}
+
 .light-mode .active, 
 .light-mode .active:hover, 
 .light-mode nav ul li a:hover, 
@@ -22,12 +28,13 @@
     background: var(--lightBackground-color);
 }
 
-.light-mode .active{
+.light-mode .active,
+.light-mode nav .active i{
     color: white;
 }
 
 /* ---------------------------------------------------------------------------------------------------------- */
-/* Home Dark mode */
+/* Home light mode */
 .light-mode .homeSection h1 {
     color: var(--lightPrimary-color);
 }

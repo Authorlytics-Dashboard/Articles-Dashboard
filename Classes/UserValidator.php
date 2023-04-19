@@ -1,70 +1,97 @@
 <?php
 class UserValidator {
-    public function __construct(private $data){
+    private $error;
+
+    public function __construct(private $data, private $operation){
+        $this->validateUserName();
+        $this->validateUserEmail();
+        $this->validateUserPassword();
+        $this->validateUserMobile();
+        $this->validateUserGroup();
+        $this->validateUserAvatar();
     }
 
     public function validateUserName() {
-        if (empty($this->data['uname'])) {
-            return "Name is required";
-        } elseif (strlen($this->data['uname']) < 3) {
-            return "Name should be at least 3 characters long";
+        if (empty($this->data['username'])) {
+            $this->error['nameErr'] =  "Name is required";
+        } elseif (strlen($this->data['username']) < 3) {
+            $this->error['nameErr'] =  "Name should be at least 3 characters long";
         } else {
             return null; 
         }
+        return true;
     }
     
     public function validateUserEmail() {
+        $users = new User('users', "UsersErrors.log",'id');
+        $user = $users->search(array("column" => "email", "value" => $this->data['email']));
+        
+        if($this->operation == "create"){
+            if(!empty($user)){
+                $this->error['emailErr'] = "Email is already token.";
+            }
+        }else{
+            if(!empty($user) &&( $user[0]['id'] != $this->data['id'])){
+                $this->error['emailErr'] = "Email is already token.";
+            }
+        }
+
         if (empty($this->data['email'])) {
-            return "Email is required";
+            $this->error['emailErr'] = "Email is required";
         } elseif(!filter_var($this->data['email'], FILTER_VALIDATE_EMAIL)){
-            return "Invalid email format";
+            $this->error['emailErr'] = "Invalid email format";
         } else {
             return null; 
         }
+        return true;
     }
 
     public function validateUserPassword() {
         if (empty($this->data['password'])) {
-            return "Password is required";
+            $this->error['passwordErr'] = "Password is required";
         } elseif (strlen($this->data['password']) < 6) {
-            return "Password should be at least 6 characters long";
+            $this->error['passwordErr'] = "Password should be at least 6 characters long";
         } else {
             return null; 
         }
+        return true;
     }
     
     public function validateUserMobile() {
         if (empty($this->data['mobile'])) {
-            return "Mobile Number is required";
-        } elseif (strlen($this->data['mobile']) == 10) {
-            return "Mobile should be 10 digits";
-        } elseif (!preg_match('/^(?:\+20|0)?1[0125]\d{8}$/', $this->data['mobile'])) {
-            return "Mobile should be a valid number";
+            $this->error['mobileErr'] = "Mobile Number is required";
+        } elseif (!preg_match('/^01[0-9]\d{8}$/', $this->data['mobile'])) {
+            $this->error['mobileErr'] = "Mobile should be a valid number";
         } else {
             return null; 
         }
+        return true;
     }
 
     public function validateUserGroup(){
         $groups = new User('groups', "GroupsErrors.log",'id');
         $group = $groups->search(array("column" => "gid", "value" => $this->data['gid']));
+        
         if(!$group){
-            return "Selected group does not exist";
+            $this->error['groupErr'] = "Selected group does not exist";
         } else{
             return null;
         }
+        return true;
     }
     
     public function validateUserAvatar() {
         $allowedExtensions = ['png', 'jpeg', 'jpg', 'gif'];
         $extension = strtolower(pathinfo($this->data['avatar'], PATHINFO_EXTENSION));
+
         if (empty($this->data['avatar'])) {
-            return "Avatar is required";
+            $this->error['avatarErr'] = "Avatar is required";
         } elseif (!in_array($extension, $allowedExtensions)) {
-            return "Avatar should be png, jpeg, jpg or gif";
+            $this->error['avatarErr']=  "Avatar should be png, jpeg, jpg or gif";
         } else {
             return null; 
         }
+        return true;
     }
 
     public function isValid(){
@@ -76,16 +103,9 @@ class UserValidator {
             return false;
         }
     }
-    
-    public function getErrorMessage(){
-        return [
-            'nameErr' => $this->validateUserName(), 
-            'emailErr' => $this->validateUserEmail(), 
-            'passwordErr' => $this->validateUserPassword(),
-            'mobileErr' => $this->validateUserMobile(), 
-            'groupErr' => $this->validateUserGroup(),
-            'avatarErr' => $this->validateUserAvatar()
-        ];
+
+    public function getError(){
+        return $this->error;
     }
 }
 

@@ -73,41 +73,65 @@ class Article extends CRUD {
             return false;
         }
     }
-    public function likeArticle($id){
+
+    public function likeArticle($id) {
         $article = $this->getRecordByID($id)[0];
         $article_id = $article['aid'];
-        // Check if the user has clicked the like button
-        if (isset($_POST['like_checkbox'])) {          
-          // Check if the user is logged in
-          if (isset($_SESSION['id'])) {
-            $user_id = $_SESSION['id'];    
-            // Check if the user has already liked the article
-            $query = "SELECT * FROM article_likes WHERE article_id = $article_id AND user_id = $user_id";
-            // $result = mysqli_query($conn, $query);
-            $result = mysqli_query($this->_dbHandler, $query);
-            if (mysqli_num_rows($result) == 0) {
-              // User has not liked the article yet, insert a new record
-              $query = "INSERT INTO article_likes (article_id, user_id, liked) VALUES ($article_id, $user_id, true)";
-              $result = mysqli_query($this->_dbHandler, $query);
-            } else {
-              // User has already liked the article, update the existing record
-              $query = "UPDATE article_likes SET liked = true WHERE article_id = $article_id AND user_id = $user_id";
-              $result = mysqli_query($this->_dbHandler, $query);
-            }
-          } else {
-            // User is not logged in, redirect to login page
-            header('login.php');
-            exit;
-          }
+        if (isset($_POST['like_checkbox'])) {
+          $this->handleLike($article_id);
         }
-    }
-
+      }
+      
+      private function handleLike($article_id) {
+        if (!$this->isLoggedIn()) {
+          $this->redirectToLogin();
+        }   
+        $user_id = $this->_auth->getUserId();
+        if ($this->hasUserLikedArticle($article_id, $user_id)) {
+            $this->deleteLike($article_id, $user_id);
+          } else {
+            $this->insertLike($article_id, $user_id, 1);
+          }
+        
+      }
+      private function deleteLike($article_id, $user_id) {
+        $this->connect();
+        $query = "DELETE FROM article_likes WHERE article_id = $article_id AND user_id = $user_id";
+        $result = mysqli_query($this->_dbHandler, $query);
+        $this->disconnect();
+      }
+      private function isLoggedIn() {
+        $user_id = $this->_auth->getUserId();
+        return isset($user_id);
+      }
+      
+      private function redirectToLogin() {
+        header('login.php');
+        exit;
+      }
+      
+      public function hasUserLikedArticle($article_id, $user_id) {
+        $this->connect();
+        $query = "SELECT * FROM article_likes WHERE article_id = $article_id AND user_id = $user_id";
+        $result = mysqli_query($this->_dbHandler, $query);
+        $this->disconnect();
+        return mysqli_num_rows($result) > 0;
+      }
+      
+      private function insertLike($article_id, $user_id,$liked) {
+        $this->connect();
+        $query = "INSERT INTO article_likes (article_id, user_id, liked) VALUES ($article_id, $user_id, $liked)";
+        $result = mysqli_query($this->_dbHandler, $query);
+        $this->disconnect();
+      }
     public function displayLikes($id){
+        $this->connect();
         $query = "SELECT  COUNT(*) AS num_likes FROM article_likes WHERE liked = true and article_id = $id";
-        // $sql = "SELECT users.uname FROM articles INNER JOIN users ON articles.uid = users.uid;";
         $result = mysqli_query($this->_dbHandler, $query);
         $row = mysqli_fetch_assoc($result);
+        $this->disconnect();
         return $likeCount =$row['num_likes'];
+
 
     }
     public function getCount ($table){

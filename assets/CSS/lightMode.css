@@ -3,7 +3,8 @@
 /* ---------------------------------------------------------------------------------------------------------- */
 /* Dashboard Light mode */
 .light-mode section {
-    background: var(--lightBackground-color) url("/assets/Images/pexels-adrien-olichon-4237148.jpg");
+    background: var(--lightBackground-color) url("/assets/FixedImages/pexels-adrien-olichon-4237148.jpg");
+    background-size: 500%;
 }
 
 /* ---------------------------------------------------------------------------------------------------------- */

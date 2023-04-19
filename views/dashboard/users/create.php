@@ -2,7 +2,9 @@
     if (isset($_SESSION['data'])) {
         $data = $_SESSION['data'];
         unset($_SESSION['data']);
+
     }
+    ob_start();
 ?>
 
 <section class="userSection">

@@ -10,7 +10,7 @@
         <form method="post" action="" class="w-75 mx-auto" enctype="multipart/form-data">
             <div class=" mb-3">
                 <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" name="name" id="name" value="<?= htmlspecialchars($data['uname'] ?? '') ?>">
+                <input type="text" class="form-control" name="name" id="name" value="<?= htmlspecialchars($data['username'] ?? '') ?>">
                 <p class="col-12 text-danger" id="nameErr"></p>
             </div>
 

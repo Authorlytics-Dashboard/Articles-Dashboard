@@ -118,7 +118,7 @@
   animation: dislike_effect 400ms ease;
 }
 .LikesContainer input:checked ~ .checkmark path {
-  fill: #FF5353;
+  /* fill: #FF5353; */
   stroke-width: 0;
 }
 .LikesContainer input:checked ~ .checkmark {

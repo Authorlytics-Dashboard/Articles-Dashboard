@@ -121,6 +121,7 @@ class User extends CRUD {
 
             if( $userValidation->isValid()){
                 $edited_values['password'] = password_hash( $_POST['password'], PASSWORD_DEFAULT);
+                $edited_values['mobile'] = "+2".$edited_values['mobile'];
                 $update_group = $this->update($edited_values , $id);
                 header('location: /users');
             }else{

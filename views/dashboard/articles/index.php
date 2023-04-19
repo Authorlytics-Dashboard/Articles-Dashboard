@@ -25,7 +25,7 @@
                 </button>
             </div>
         </form>
-        <?php if($permission->canViewArticle()){?>
+        <?php if($permission->isViewer()){?>
         <form action="articles/create" method="post">
             <button type="submit" class="button">
                 <span class="button__text">New Article</span>
@@ -87,15 +87,15 @@
                     ?>
                 </td>
                 <td>
-                    <?php
-                        if ($item["deleted_at"] == null) { ?>
+                    <?php if($permission->isViewer()){
+                    if ($item["deleted_at"] == null) { ?>
                     <a href="/articles/delete/?id=<?php echo $item["aid"] ; ?>" class="btn btn-danger"><i
                             class='bx bx-trash'></i></a>
                     <?php } 
                         else { ?>
                     <a href="/articles/restore/?id=<?php echo $item["aid"] ; ?>" class="btn btn-success"><i
                             class='bx bx-recycle'></i></a>
-                    <?php }
+                    <?php }}
                     ?>
                     <a href="/articles/show/?id=<?php echo $item["aid"] ; ?>" class="btn btn-dark"><i
                             class='bx bx-show-alt' style="color: #fff;"></i></a>

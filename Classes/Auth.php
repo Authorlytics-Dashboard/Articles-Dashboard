@@ -2,10 +2,24 @@
 
 use Twilio\Rest\Client;
 
-class Login extends MYSQLHandler{
+class Auth{
   public $id;
-  private $log_file="loginError.log";
+  public $auth;
 
+  public $pdo ; 
+  private $log_file="loginError.log";
+  public function __construct(){
+    $this->authConnection();
+}
+  function authConnection() {
+    $dsn = 'mysql:host=' . _HOST_ . ':'. _PORT_ . ';dbname=' . _DB_NAME_ .'';
+    try{
+        $pdo = new PDO($dsn, _USER_, _PASSWORD_); 
+    }catch(PDOException $e){
+        die($e->getMessage());
+    }
+    $this->auth = new \Delight\Auth\Auth($pdo);
+}
   public function login(){
     try {
       if ( isset($_POST['remember_me'])) {
@@ -14,10 +28,9 @@ class Login extends MYSQLHandler{
       else {
           $rememberDuration = null;
       }
-        $this->_auth->login($_POST['email'], $_POST['password'],$rememberDuration);
+        $this->auth->login($_POST['email'], $_POST['password'],$rememberDuration);
         $this->getLastVisit();
         echo "<script>setTimeout(\"location.href = 'home';\",1500);</script>";
-        // require_once("./views/dashboard.php");
         return true ; 
     }
     catch (\Delight\Auth\InvalidEmailException $e) {
@@ -38,14 +51,14 @@ class Login extends MYSQLHandler{
     }
   }
   public function checkLoggedIn() {
-    if($this->_auth->isLoggedIn()){
+    if($this->auth->isLoggedIn()){
       require_once("./views/dashboard.php");
     }
   }
 
   public function getLastVisit(){
-    $id = $this->_auth->getUserId();
-    $stmt = $this->_dbHandler->prepare('SELECT last_login FROM users WHERE id = ?' );
+    $id = $this->auth->getUserId();
+    $stmt = $this->pdo->prepare('SELECT last_login FROM users WHERE id = ?' );
     $stmt->bind_param('i' , $id);
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();

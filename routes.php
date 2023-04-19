@@ -6,6 +6,9 @@
         case 'home':
             include_once("./views/dashboard/home.php");
             break;
+        case 'error':
+            include_once("./views/error.php");
+            break;
         case 'groups':
             if(isset($uri[2])) {
                 switch($uri[2]) {

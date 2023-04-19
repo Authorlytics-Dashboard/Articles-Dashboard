@@ -1,6 +1,5 @@
 <?php
 
-
 class Group extends CRUD {
     public function getGroups(){
         try {
@@ -40,7 +39,7 @@ class Group extends CRUD {
                 $this->showError('description-error', $descriptionError);
                 return false;
             } 
-             
+
             $avatar = $data['avatar'];
             $avatarError = $validator->validateGroupAvatar($avatar);
             if($avatarError){
@@ -62,6 +61,7 @@ class Group extends CRUD {
             return false;
         }
     }
+    
     private function showError($type, $message) {
         echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
     }

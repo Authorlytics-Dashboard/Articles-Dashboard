@@ -36,21 +36,22 @@ class User extends CRUD {
     }
 
     private function assignRole($email,$group){
+        $auth = new Auth();
         try {
             switch($group){
                 case 1:
                 {
-                    $this->_auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::ADMIN);
+                    $auth->auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::ADMIN);
                     break;
                 } 
                 case 2:
                 {
-                    $this->_auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::EDITOR);
+                    $auth->auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::EDITOR);
                     break;
                 } 
                 case 3:
                 default:
-                $this->_auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::REVIEWER);
+                $auth->auth->admin()->addRoleForUserByEmail($email, \Delight\Auth\Role::REVIEWER);
             }
             
         }

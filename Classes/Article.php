@@ -86,7 +86,8 @@ class Article extends CRUD {
         if (!$this->isLoggedIn()) {
           $this->redirectToLogin();
         }   
-        $user_id = $this->_auth->getUserId();
+        $auth = new Auth();
+        $user_id = $auth->auth->getUserId();
         if ($this->hasUserLikedArticle($article_id, $user_id)) {
             $this->deleteLike($article_id, $user_id);
           } else {
@@ -101,7 +102,8 @@ class Article extends CRUD {
         $this->disconnect();
       }
       private function isLoggedIn() {
-        $user_id = $this->_auth->getUserId();
+        $auth = new Auth();
+        $user_id = $auth->auth->getUserId();
         return isset($user_id);
       }
       

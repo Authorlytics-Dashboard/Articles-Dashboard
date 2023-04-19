@@ -1,9 +1,9 @@
 <?php
 
 class CRUD extends MYSQLHandler {
-    public $table;
-    public $log_file;
-    public $primary_key;
+    protected $table;
+    protected $log_file;
+    protected $primary_key;
     public function __construct($table, $log_file,$primary_key){
         $this->table = $table;
         $this->log_file = $log_file;

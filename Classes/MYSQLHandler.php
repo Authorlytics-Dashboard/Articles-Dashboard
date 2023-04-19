@@ -1,12 +1,12 @@
 <?php
 class MYSQLHandler
 {
-    public $_dbHandler;
+    protected $_dbHandler;
     protected $_auth ; 
     public function __construct(){
         $this->connect();
     }
-    function myWrapperFunction() {
+    public function authConnection() {
         $dsn = 'mysql:host=' . _HOST_ . ':3306;dbname=' . _DB_NAME_ .'';
         try{
             $pdo = new PDO($dsn, _USER_, _PASSWORD_); 
@@ -21,7 +21,7 @@ class MYSQLHandler
             $handler = mysqli_connect(_HOST_, _USER_, _PASSWORD_, _DB_NAME_);
             if($handler) {
                 $this->_dbHandler = $handler;
-                $this->myWrapperFunction();
+                $this->authConnection();
             }
         } catch(Exception $e) {
             die("Could not connect to db, please come back later.");

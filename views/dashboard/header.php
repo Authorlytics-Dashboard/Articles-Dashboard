@@ -68,3 +68,6 @@
                 </div>
             </nav>
         </div>
+        <svg  class="menu-btn" style="position: absolute; margin:20px; cursor: pointer;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 5V2H0V5H20ZM20 11V8H0V11H20ZM20 17V14H0V17H20Z" fill="white"/>
+        </svg>

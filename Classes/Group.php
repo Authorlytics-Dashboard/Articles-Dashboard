@@ -117,6 +117,14 @@ class Group extends CRUD {
         $rowcount=mysqli_num_rows($_handler_results);
         return $rowcount;
     }
+
+    public function getUserInGroup($groupId){
+        $sql = "SELECT * FROM users INNER JOIN groups ON users.gid = groups.gid where groups.gid = $groupId";
+        // $img = "SELECT users.avatar FROM users INNER JOIN groups ON users.gid = groups.gid where groups.gid = users.gid;";
+        $results = $this->get_results($sql);
+
+        return  $results;
+    }
 }
 
 ?>

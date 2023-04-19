@@ -6,7 +6,7 @@ class MYSQLHandler
     public function __construct(){
         $this->connect();
     }
-    function myWrapperFunction() {
+    function authConnection() {
         $dsn = 'mysql:host=' . _HOST_ . ':'. _PORT_ . ';dbname=' . _DB_NAME_ .'';
         try{
             $pdo = new PDO($dsn, _USER_, _PASSWORD_); 

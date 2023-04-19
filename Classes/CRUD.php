@@ -70,10 +70,12 @@ class CRUD extends MYSQLHandler {
             return false;
         }
     }
+
     public function update($edited_values, $id) {
         $sql = $this->buildUpdateQuery( $edited_values,$id);
         return $this->executeQuery($sql);
     }
+
     private function buildUpdateQuery($edited_values,$id) {
         $sql = "UPDATE `" . $this->table . "` SET ";
     
@@ -89,6 +91,7 @@ class CRUD extends MYSQLHandler {
     
         return $sql;
     }   
+
     private function formatValue($value) {
         if (is_null($value)) {
             return "NULL";
@@ -96,9 +99,11 @@ class CRUD extends MYSQLHandler {
             $this->connect();
             return "'" . mysqli_real_escape_string($this->_dbHandler, $value) . "'";
         } else {
-            return $value;
+            $value = strval($value);
+            return "'" . $this->_dbHandler->real_escape_string($value) . "'";
         }
     }
+
     public function executeQuery($query) {
         try {
             $this->connect();
@@ -110,6 +115,7 @@ class CRUD extends MYSQLHandler {
             return false;
         }
     }
+
     public function search(...$searchColumns){
         $this->connect();
         $table = $this->table;

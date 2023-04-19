@@ -1,13 +1,13 @@
 <?php
 class MYSQLHandler
 {
-    protected $_dbHandler;
+    public $_dbHandler;
     protected $_auth ; 
     public function __construct(){
         $this->connect();
     }
-    public function authConnection() {
-        $dsn = 'mysql:host=' . _HOST_ . ':3306;dbname=' . _DB_NAME_ .'';
+    function myWrapperFunction() {
+        $dsn = 'mysql:host=' . _HOST_ . ':'. _PORT_ . ';dbname=' . _DB_NAME_ .'';
         try{
             $pdo = new PDO($dsn, _USER_, _PASSWORD_); 
         }catch(PDOException $e){
@@ -24,7 +24,7 @@ class MYSQLHandler
                 $this->authConnection();
             }
         } catch(Exception $e) {
-            die("Could not connect to db, please come back later.");
+            header("Location: /error");
         }
     }
 

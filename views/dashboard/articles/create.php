@@ -1,20 +1,25 @@
+<?php         
+    ob_start(); 
+?>
 <section class="articaleSection">
     <div class="container py-4 border my-5 mx-auto">
         <form method="post" action="" class="w-75 mx-auto" enctype="multipart/form-data">
             <div class=" mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" name="title" id="title">
+                <label class="error-message text-danger mt-2" id="name-error"></label>
             </div>
 
             <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
-                <!-- <input type="text" class="form-control" name="body" id="body"> -->
                 <textarea name="body" id="body" cols="104" rows="5"></textarea>
+                <label class="error-message text-danger mt-2" id="description-error"></label>
             </div>
 
             <div class="mb-3">
                 <label for="photo" class="form-label">Photo</label>
                 <input type="file" class="form-control" name="photo" id="photo">
+                <label class="error-message text-danger mt-2" id="avatar-error"></label>
             </div>
 
             <div class="mb-3">
@@ -23,23 +28,25 @@
             </div>
 
             <div class="mb-3">
-                <label for="uid" class="form-label">user id</label>
+                <label for="uid" class="form-label">Username</label>
                 <select name="uid" class="form-control" id="uid">
                     <?php
                         ob_start();
-                        $users = new User();
+                        $users = new User('users', "UsersErrors.log",'uid');
                         $users = $users->getData();
                         foreach ($users as $user){
                     ?>
-                    <option value="<?= $user['uid']?>"><?= $user['uname']?></option>
+                    <option value="<?= $user['id']?>"><?= $user['username']?></option>
                     <?php
                     }
                 ?>
+                </select>
+                
             </div>
 
-            <div class="mb-3 text-center mt-5">
-                <input type="submit" class="btn btn-primary me-1 rounded-1" name="action" value="Create">
-                <a href="/articles" class="btn btn-danger">cancel</a>
+            <div class="mb-3 text-center mt-5 d-flex justify-content-end">
+                <input type="submit" class="btn createBtn me-1 rounded-1" name="action" value="Create">
+                <a href="/articles" class="btn cancelBtn">Cancel</a>
             </div>
         </form>
 
@@ -47,7 +54,7 @@
 </section>
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-        $article = new Article();
+        $article = new Article('articles','ArticlesErrors.log','aid');
         $data = [
             'title' => $_POST['title'],
             'body' => $_POST['body'],

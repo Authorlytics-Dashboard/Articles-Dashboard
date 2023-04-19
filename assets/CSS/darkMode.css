@@ -9,7 +9,8 @@
 /* ---------------------------------------------------------------------------------------------------------- */
 /* Nav Dark mode */
 .dark-mode section {
-    background: black url("../Images/DarkModeBackground.jpg");
+    background: black url("../FixedImages/colorful-abstract-nebula-space.jpg");
+    background-size: 100%;
 }
 
 .dark-mode nav{
@@ -31,6 +32,7 @@
 .dark-mode #logoSvg .stroke3,
 .dark-mode #logoSvg .stroke4{
     color: var(--dark-primary-color);
+    stroke:#fff;
 }
 
 .dark-mode .homeSection .content p{

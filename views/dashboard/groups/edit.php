@@ -1,8 +1,8 @@
 <?php  
 
     $groupId = $_GET['id'];
-    $group = new Group();
-    $groupInfo = $group ->showGroupByID($groupId);
+    $group = new Group('groups',"GroupsErrors.log",'gid');
+    $groupInfo = $group ->getRecordByID($groupId);
     $groupInfo = $groupInfo[0];?>
 
 <section class="groupSection">
@@ -24,9 +24,9 @@
                 <label for="avatar" class="form-label">Avatar</label>
                 <input type="file" class="form-control" name="avatar" id="avatar">
             </div>
-            <div class="mb-3 text-center mt-5">
-                <input type="submit" class="btn btn-success me-1 rounded-1" name="update" value="update">
-                <a href="index.php" class="btn btn-danger">cancel</a>
+            <div class="mb-3 text-center mt-5 d-flex justify-content-end">
+                <input type="submit" class="btn updateBtn me-1 rounded-1" name="update" value="Update">
+                <a href="index.php" class="btn cancelBtn">Cancel</a>
             </div>
         </form>
     </div>

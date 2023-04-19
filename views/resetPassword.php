@@ -1,6 +1,6 @@
 <?php
     require_once('../vendor/autoload.php');
-    $login = new Login();
+    $auth = new Auth();
     $userEmail = "";
     $error = "";
     $flag = 0;
@@ -8,7 +8,7 @@
     if(isset($_POST["sendAnOTP"])){
         $userEmail = urldecode($_POST["email"]);
         if(!empty($userEmail)){
-            $correctEmail = $login->resetPassword($userEmail);
+            $correctEmail = $auth->resetPassword($userEmail);
             if($correctEmail){
                 $flag = 1;
             }else{
@@ -21,7 +21,7 @@
     }elseif(isset($_POST["reset"])){
         $otpCode = urldecode($_POST["OTP"]);
         if(!empty($otpCode)){
-            $verifiedOtp = $login->verifyOTP($otpCode);
+            $verifiedOtp = $auth->verifyOTP($otpCode);
             if($verifiedOtp){
                 $flag = 2;
             }else{
@@ -35,7 +35,7 @@
         $password = $_POST["password"];
         $confirmPassword = $_POST["confirmPassword"];
         if(!empty($password) && !empty($confirmPassword)){
-            $confirmPass = $login->changePassword($userEmail, $password, $confirmPassword);
+            $confirmPass = $auth->changePassword($userEmail, $password, $confirmPassword);
             if(! $confirmPass){
                 $error = "Password doesnot match.";
                 $flag = 2;

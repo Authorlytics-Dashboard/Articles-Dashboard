@@ -23,9 +23,9 @@
 
 </head>
 <?php 
-    $loggedIn = new Login();
-    $CurrentUserName = $loggedIn->_auth->getUserName();
-    $UID = $loggedIn->_auth->getUserId();
+    $loggedIn = new Auth();
+    $CurrentUserName = $loggedIn->auth->getUserName();
+    $UID = $loggedIn->auth->getUserId();
     $user = new User('users', "UsersErrors.log",'id');
     $u = $user ->getRecordByID($UID);
     $u = $u[0];

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/assets/CSS/buttons.css">
     <link rel="stylesheet" href="/assets/CSS/showCard.css">
     <link rel="stylesheet" href="/assets/CSS/errorPage.css">
+    <link rel="stylesheet" href="/assets/CSS/CurrentUserAvatar.css">
 
 
 </head>
@@ -29,46 +30,21 @@
     $u = $user ->getRecordByID($UID);
     $u = $u[0];
 ?>
-<style>
-    .avatar {
-    width: 70px;
-    height: 70px;
-    box-sizing: border-box;
-    border: 5px white solid;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-    transform: translatey(0px);
-    animation: float 6s ease-in-out infinite;
-}
-@keyframes float {
 
-    0% {
-        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-        transform: translatey(0px);
-    }
-    50% {
-        box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-        transform: translatey(-20px);
-    }
-    100% {
-        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-        transform: translatey(0px);
-    }
-}
-</style>
 <body>
     <div class="container-fluid m-0 p-0">
         <div class="left-col">
             <nav style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
                 <img src="https://i.postimg.cc/JzKwwG16/arrow.png" class="back-btn">
-                <div class="avatar">
-                    <a href="">
-                        <img src="../../../assets/Images/<?php echo $u['avatar'] ?>" alt="Skytsunami" style="width: 100%">
-                    </a>
+                <div class="d-flex justify-content-center flex-column align-items-center" >
+                    <div class="Useravatar">
+                        <a href="">
+                            <img src="../../../assets/Images/<?php echo $u['avatar'] ?>" alt="Skytsunami" style="width: 100%; height:100%;">
+                        </a>
+                    </div>
+                    <li class="mt-1 d-flex justify-content-center gap-1" ><?php echo "Current User:  "?><i class='bx bx-crown my-auto'></i><?php echo $CurrentUserName ?></li>
                 </div>
                 <ul>
-                    <li class="mb-5 d-flex justify-content-center gap-1" ><?php echo "Current User:  "?><i class='bx bx-crown my-auto'></i><?php echo $CurrentUserName ?></li>
                     <li><a href="/home" class="d-flex gap-1 home"><i class='bx bxs-home my-auto'></i>Home</a></li>
                     <?php if($permission->isViewer() && $permission->isEditor()){?>
                     <li><a href="/groups" class="d-flex gap-1 groups"><i class='bx bxs-group my-auto'></i>Groups</a>

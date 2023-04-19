@@ -1,4 +1,6 @@
-<section class="groupSection">
+<?php
+ob_start();
+?><section class="groupSection">
     <div class="container py-4 border my-5 mx-auto">
         <form method="post" action="" class="w-75 mx-auto" enctype="multipart/form-data">
             <div class=" mb-3">

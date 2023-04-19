@@ -23,38 +23,24 @@ class Group extends CRUD {
     }
     public function create($data){
         try {    
-            $this->connect();
             $validator = new GroupValidator();
-            
+            $this->connect();
             $gname = $data['name'];
-            $nameError = $validator->validateGroupName($gname);
-            if ($nameError) {
-                $this->showError('name-error', $nameError);
-                return false;
-            }  
-
             $description = $data['description'];
-            $descriptionError = $validator->validateGroupDescription($description);
-            if($descriptionError){
-                $this->showError('description-error', $descriptionError);
-                return false;
-            } 
-
             $avatar = $data['avatar'];
-            $avatarError = $validator->validateGroupAvatar($avatar);
-            if($avatarError){
-                $this->showError('avatar-error', $avatarError);
-                return false;
-            }
-    
+            
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
             move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
             $avatar = basename($_FILES["avatar"]["name"]);
+            $data['avatar'] = $avatar;
+            $isValid = $validator->validateGroup($data);
+            if(!$isValid) return false;
             $data = [
                 'name' => $gname,
                 'description' => $description,
                 'avatar' => $avatar
                 ];
+      
             $this->save($data);
         }catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
@@ -62,9 +48,6 @@ class Group extends CRUD {
         }
     }
     
-    private function showError($type, $message) {
-        echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
-    }
     
     public function save($data){
         try{
@@ -75,13 +58,15 @@ class Group extends CRUD {
             $table = 'groups';
             $sql = "insert into `$table` (gname, description, avatar) values ('$name', '$description', '$avatar')";
             if (mysqli_query($this->_dbHandler, $sql)) {
-                $id = mysqli_insert_id($this->_dbHandler);
-                $this->disconnect();
+                $id = mysqli_insert_id($this->_dbHandler);  
+                $this->disconnect();    
                 header('Location: /groups');
+                ob_end_flush();
                 return $id;
             } else {
                 $this->disconnect();
                 header('location:/groups');
+                ob_end_flush();
                 return false;
             }
         }catch(Exception $e){
@@ -92,6 +77,7 @@ class Group extends CRUD {
 
     public function edit(){
         try{
+            $validator = new GroupValidator();
             $this->connect();
             $avatar = $_FILES['avatar']['name'];
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
@@ -103,13 +89,31 @@ class Group extends CRUD {
                 'description' => $_POST['description'],
                 'avatar' => $avatar,
             );
-            $update_group = $this->update($edited_values , $id);
-            header('location:/groups');
+            $data = [
+                'name' => $_POST['name'],
+                'description' => $_POST['description'],
+                'avatar' => $avatar
+            ];
+            
+            $isValid = $validator->validateGroup($data);
+         
+            // $isValid = $validator->validateGroup($data);
+
+            if (empty($isValid)) {
+                $update_group = $this->update($edited_values , $id);
+                header('location:/groups');
+            } else {
+         
+               header("location: /groups/edit/?id=$id");
+            }
+            
+            
         } catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
             return false;
         } 
     }
+
     public function getCount ($table){
         $this->connect();
         $sql = "select * from `$table` ";

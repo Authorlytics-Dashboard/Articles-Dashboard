@@ -53,24 +53,34 @@ class Article extends CRUD {
   }
   
   private function uploadPhoto($file) {
-      $target_file = "../assets/Images/" . basename($file["name"]);
-      move_uploaded_file($file["tmp_name"], __DIR__ . '/' . $target_file);
-  
-      return basename($file["name"]);
-  }
+    try {
+        $target_file = "../assets/Images/" . basename($file["name"]);
+        if (!move_uploaded_file($file["tmp_name"], __DIR__ . '/' . $target_file)) {
+            throw new Exception('Error uploading file');
+        }
+        return basename($file["name"]);
+    } catch (Exception $e) {
+        new Log($this->log_file, $e->getMessage());
+        return false;
+    }
+}
     private function save($data) {
+      try {
       $sql = $this->buildInsertStatement($this->table, $data);
-  
-      if (mysqli_query($this->_dbHandler, $sql)) {
-          $id = mysqli_insert_id($this->_dbHandler);
-          $this->disconnect();
-          header('Location:/articles');
-          return $id;
-      } else {
-          $this->disconnect();
-          ob_flush();
-          header('location:/articles');
-          return false;
+          if (mysqli_query($this->_dbHandler, $sql)) {
+              $id = mysqli_insert_id($this->_dbHandler);
+              $this->disconnect();
+              header('Location:/articles');
+              return $id;
+          } else {
+              $this->disconnect();
+              ob_flush();
+              header('location:/articles');
+              return false;
+          }
+      }catch(Exception $e){
+        new Log($this->log_file, $e->getMessage());
+
       }
   }
 
@@ -101,10 +111,16 @@ class Article extends CRUD {
         
       }
       private function deleteLike($article_id, $user_id) {
-        $this->connect();
-        $query = "DELETE FROM article_likes WHERE article_id = $article_id AND user_id = $user_id";
-        $result = mysqli_query($this->_dbHandler, $query);
-        $this->disconnect();
+        try {
+          $this->connect();
+          $query = "DELETE FROM article_likes WHERE article_id = $article_id AND user_id = $user_id";
+          if (!mysqli_query($this->_dbHandler, $query)) {
+              throw new Exception('Error deleting like');
+          }
+          $this->disconnect();
+        } catch (Exception $e) {
+          new Log($this->log_file, $e->getMessage());
+      }
       }
       private function isLoggedIn() {
         $auth = new Auth();
@@ -126,10 +142,16 @@ class Article extends CRUD {
       }
       
       private function insertLike($article_id, $user_id,$liked) {
-        $this->connect();
-        $query = "INSERT INTO article_likes (article_id, user_id, liked) VALUES ($article_id, $user_id, $liked)";
-        $result = mysqli_query($this->_dbHandler, $query);
-        $this->disconnect();
+        try {
+          $this->connect();
+          $query = "INSERT INTO article_likes (article_id, user_id, liked) VALUES ($article_id, $user_id, $liked)";
+          if (!mysqli_query($this->_dbHandler, $query)) {
+              throw new Exception('Error inserting like');
+          }
+          $this->disconnect();
+      } catch (Exception $e) {
+          new Log($this->log_file, $e->getMessage());
+      }
       }
     public function displayLikes($id){
         $this->connect();
@@ -138,8 +160,6 @@ class Article extends CRUD {
         $row = mysqli_fetch_assoc($result);
         $this->disconnect();
         return $likeCount =$row['num_likes'];
-
-
     }
     public function getCount ($table){
         $this->connect();

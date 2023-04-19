@@ -166,9 +166,13 @@ class User extends CRUD {
     }
 
     public function logout() {
-        $_SESSION = array(); // reset session array
-        session_destroy(); 
-        setcookie("remember_token", "", time() - 3600);  // destroy session     
+        $auth  = new Auth();
+        try {
+            $auth->auth->logout();
+        }
+        catch (\Delight\Auth\NotLoggedInException $e) {
+            die('Not logged in');
+        }
         header('Location: /login');
         exit;
     }

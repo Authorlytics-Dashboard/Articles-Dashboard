@@ -224,7 +224,7 @@ section {
 .homeSection .cta:before {
     content: "";
     position: absolute;
-    background: url("../Images/arrow.png") no-repeat;
+    background: url("../FixedImages/arrow.png") no-repeat;
     width: 1.5em;
     height: 1.5em;
     left: 1.25em;

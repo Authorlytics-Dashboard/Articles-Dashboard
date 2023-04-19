@@ -10,7 +10,7 @@
             include_once("./views/error.php");
             break;
         case 'groups':
-            if(isset($uri[2])) {
+            if(isset($uri[2]) && ($permission->isViewer() && $permission->isEditor())) {
                 switch($uri[2]) {
                     case 'create':
                         include_once("./views/dashboard/groups/create.php");
@@ -48,21 +48,21 @@
             if(isset($uri[2]) ) {
                 switch($uri[2] ) {
                     case 'create':
-                        if($permission->canViewArticle())
+                        if($permission->isViewer())
                         include_once('./views/dashboard/articles/create.php');
                         break;
                     case 'show':
                         include_once('./views/dashboard/articles/show.php');
                         break;
                     case 'delete':
-                        if($permission->canViewArticle()){
+                        if($permission->isViewer()){
                             $articleId = $_GET['id'];
                             $article = new Article('articles','ArticlesErrors.log','aid');
                             $article ->delete($articleId);
                         }
                         break;
                     case 'restore':
-                        if($permission->canViewArticle()) {
+                        if($permission->isViewer()) {
                             $articleId = $_GET['id'];
                             $article = new Article('articles', 'ArticlesErrors.log', 'aid');
                             $article ->restore($articleId);
@@ -76,7 +76,7 @@
             }
             break;
         case 'users':
-            if(isset($uri[2])) {
+            if(isset($uri[2]) && ($permission->isViewer() && $permission->isEditor())) {
                 switch($uri[2]) {
                     case 'create':
                         include_once("./views/dashboard/users/create.php");
@@ -115,6 +115,7 @@
             include_once("./views/login.php");
             break;
         case 'charts':
+            if($permission->isViewer() && $permission->isEditor())
             include_once("./views/dashboard/charts/index.php");
             break;
         default:

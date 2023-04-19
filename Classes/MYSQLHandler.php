@@ -7,7 +7,7 @@ class MYSQLHandler
         $this->connect();
     }
     function myWrapperFunction() {
-        $dsn = 'mysql:host=' . _HOST_ . ':' ._PORT_.';dbname=' . _DB_NAME_ .'';
+        $dsn = 'mysql:host=' . _HOST_ . ':'. _PORT_ . ';dbname=' . _DB_NAME_ .'';
         try{
             $pdo = new PDO($dsn, _USER_, _PASSWORD_); 
         }catch(PDOException $e){

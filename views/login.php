@@ -1,9 +1,9 @@
 <?php 
     session_start();
-    $login = new Login();
-    $login->checkLoggedIn();
+    $auth = new Auth();
+    $auth->checkLoggedIn();
     if(isset($_POST["login"])) {
-        $login->login(); 
+        $auth->login(); 
     } elseif(isset($_POST["forgetPass"])) {
         header("Location: /views/resetPassword.php");
     }

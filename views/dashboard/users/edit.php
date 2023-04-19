@@ -3,12 +3,8 @@
     $user = new User('users', "UsersErrors.log",'id');
     $userInfo = $user ->getRecordByID($userId);
     $userInfo = $userInfo[0];
-    
-    if (isset($_SESSION['data'])) {
-        $data = $_SESSION['data'];
-        unset($_SESSION['data']);
-    }
-?>
+    $userInfo['mobile'] = substr($userInfo['mobile'], 2);
+?> 
 
 <section class="userSection">
     <div class="container py-4 border my-5 mx-auto">
@@ -53,3 +49,12 @@
         </form>
     </div>
 </section>
+<?php 
+    if (isset($_SESSION['errors'])) {
+        $errors = $_SESSION['errors'];
+        unset($_SESSION['errors']);
+        $data = $_SESSION['data'];
+        unset($_SESSION['data']);
+        $user->showError($errors);
+    }
+?>

@@ -24,11 +24,14 @@ class User extends CRUD {
         }
     }
 
-    private function showError($error) {
+    public function showError($error) {
         foreach ($error as $key => $value) {
+            $script = "<script>";
             if (!empty($value)){
-                echo "<script>document.getElementById('$key').innerHTML = '$value';</script>";
+                $script .= "document.getElementById('$key').innerHTML = '$value';";
             }
+            $script .= "</script>";
+            echo $script;
         }
     }
 
@@ -91,10 +94,9 @@ class User extends CRUD {
 
     public function edit(){
         try{
-            $avatar = $_FILES['avatar']['name'];
             $id = $_GET['id'];
             $user = $this->search(Array('column'=> 'id', 'value' => $id));
-
+            
             $edited_values = array(
                 'id' => $id,
                 'username' => $_POST['name'],
@@ -102,24 +104,24 @@ class User extends CRUD {
                 'mobile' => $_POST['mobile'],
                 'password' => $_POST['password'],
                 'gid' => $user[0]['gid'],
-                'avatar' => $avatar
             );
             
-            if(! is_null($avatar)){
+            if(! is_null($_FILES['avatar']['name'])){
                 $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
                 move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
                 $avatar = basename($_FILES["avatar"]["name"]);
+                $edited_values['avatar'] = $avatar;
             }else{
                 if(! is_null($user[0]['avatar'])){
                     $edited_values['avatar'] = $user[0]['avatar'];
                 }
             }
-
+            
             $userValidation = new UserValidator($edited_values, "update");
 
             if( $userValidation->isValid()){
                 $edited_values['password'] = password_hash( $_POST['password'], PASSWORD_DEFAULT);
-                // $update_group = $this->update($edited_values , $id);
+                $update_group = $this->update($edited_values , $id);
                 header('location: /users');
             }else{
                 $_SESSION['data'] = $edited_values;

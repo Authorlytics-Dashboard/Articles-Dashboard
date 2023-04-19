@@ -3,12 +3,12 @@
     $user = new User('users', "UsersErrors.log",'id');
     $userInfo = $user ->getRecordByID($userId);
     $userInfo = $userInfo[0];
-    
+    $userInfo['mobile'] = substr($userInfo['mobile'], 2);
     if (isset($_SESSION['data'])) {
         $data = $_SESSION['data'];
         unset($_SESSION['data']);
     }
-?>
+?> 
 
 <section class="userSection">
     <div class="container py-4 border my-5 mx-auto">
@@ -20,20 +20,20 @@
             enctype="multipart/form-data">
             <div class=" mb-3">
                 <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" name="name" id="name" value="<?php echo $userInfo["username"];?>">
+                <input type="text" class="form-control" name="name" id="name" value="<?= htmlspecialchars($data['username'] ?? $userInfo["username"]) ?>">
                 <p class="col-12 text-danger" id="nameErr"></p>
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="email"
-                    value="<?php echo $userInfo["email"];?>">
+                    value="<?= htmlspecialchars($data['email'] ?? $userInfo["email"]) ?>">
                 <p class="col-12 text-danger" id="emailErr"></p>
             </div>
             <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile</label>
                 <input type="text" class="form-control" name="mobile" id="mobile"
-                    value="<?php echo $userInfo["mobile"];?>">
+                    value="<?= htmlspecialchars($data['mobile'] ?? $userInfo["mobile"]) ?>">
                 <p class="col-12 text-danger" id="mobileErr"></p>
             </div>
             <div class="mb-3">
@@ -53,3 +53,10 @@
         </form>
     </div>
 </section>
+<?php 
+    if (isset($_SESSION['errors'])) {
+        $errors = $_SESSION['errors'];
+        unset($_SESSION['errors']);
+        $user->showError($errors);
+    }
+?>

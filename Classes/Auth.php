@@ -84,7 +84,7 @@ class Auth{
 
       $client = new Client(_ACCOUNT_SID_, _AUTH_TOKEN_);
       $sentOTP = mt_rand(100000, 999999);
-      $message = "Hello " . $user["uname"] . " your Verification OTP code is: " . $sentOTP;
+      $message = "Hello " . $user["username"] . " your Verification OTP code is: " . $sentOTP;
       
       try {
         $message = $client->messages->create(
@@ -118,7 +118,7 @@ class Auth{
         $user = $users->search(array("column" => "email", "value" => $userEmail));
 
         $data = [
-          'uname' => $user[0]['uname'],
+          'username' => $user[0]['username'],
           'email' => $user[0]['email'],
           'gid' => $user[0]['gid'],
           'mobile' => $user[0]['mobile'],

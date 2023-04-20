@@ -3,6 +3,7 @@
 class Group extends CRUD {
     public function getGroups(){
         try {
+            
             $this->connect();
             $sql = "SELECT gname, gid FROM `$this->table`";
             $result = $this->_dbHandler->query($sql);
@@ -23,25 +24,28 @@ class Group extends CRUD {
     }
     public function create($data){
         try {    
-            $validator = new GroupValidator();
+            $groupValidation = new GroupValidator($data);
             $this->connect();
             $gname = $data['name'];
             $description = $data['description'];
             $avatar = $data['avatar'];
-            
-            $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
-            move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
-            $avatar = basename($_FILES["avatar"]["name"]);
-            $data['avatar'] = $avatar;
-            $isValid = $validator->validateGroup($data);
-            if(!$isValid) return false;
-            $data = [
-                'name' => $gname,
-                'description' => $description,
-                'avatar' => $avatar
+            if($groupValidation ->isValid()) {
+                $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);
+                move_uploaded_file($_FILES["avatar"]["tmp_name"], __DIR__ . '/' . $target_file);
+                $avatar = basename($_FILES["avatar"]["name"]);
+                $data['avatar'] = $avatar;
+
+                $data = [
+                    'name' => $gname,
+                    'description' => $description,
+                    'avatar' => $avatar
                 ];
-      
+
             $this->save($data);
+            }else{
+              $_SESSION['data'] = $data;
+              $this->showError($groupValidation->getError());
+            }
         }catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
             return false;
@@ -77,7 +81,7 @@ class Group extends CRUD {
 
     public function edit(){
         try{
-            $validator = new GroupValidator();
+          
             $this->connect();
             $avatar = $_FILES['avatar']['name'];
             $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
@@ -89,22 +93,15 @@ class Group extends CRUD {
                 'description' => $_POST['description'],
                 'avatar' => $avatar,
             );
-            $data = [
-                'name' => $_POST['name'],
-                'description' => $_POST['description'],
-                'avatar' => $avatar
-            ];
             
-            $isValid = $validator->validateGroup($data);
-         
-            // $isValid = $validator->validateGroup($data);
-
-            if (empty($isValid)) {
-                $update_group = $this->update($edited_values , $id);
-                header('location:/groups');
-            } else {
-         
-               header("location: /groups/edit/?id=$id");
+            $groupValidation = new GroupValidator($edited_values);
+           if($groupValidation->isValid()){
+            $update_group = $this->update($edited_values , $id);
+            header('location:/groups');
+           }else {
+                $_SESSION['data'] = $edited_values;
+                $_SESSION['errors'] = $groupValidation->getError();
+                header("location: /groups/edit/?id=$id");
             }
             
             
@@ -120,6 +117,16 @@ class Group extends CRUD {
         $_handler_results = mysqli_query($this->_dbHandler, $sql);
         $rowcount=mysqli_num_rows($_handler_results);
         return $rowcount;
+    }
+    public function showError($error) {
+        foreach ($error as $key => $value) {
+            $script = "<script>";
+            if (!empty($value)){
+                $script .= "document.getElementById('$key').innerHTML = '$value';";
+            }
+            $script .= "</script>";
+            echo $script;
+        }
     }
 }
 

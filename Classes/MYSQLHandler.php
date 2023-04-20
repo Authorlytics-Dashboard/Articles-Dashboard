@@ -29,6 +29,7 @@ class MYSQLHandler
 
     public function get_results($sql)
     {
+        try{
         $this->debug($sql);
         $_handler_results = mysqli_query($this->_dbHandler, $sql);
         $_arr_results = array();
@@ -41,6 +42,10 @@ class MYSQLHandler
         } else {
             return false;
         }
+    } catch (Exception $e) {
+        new Log('error.log', $e->getMessage());
+        return false;
+    }
     }
 
     protected function debug($sql){

@@ -6,7 +6,7 @@ class Auth{
   public $id;
   public $auth;
 
-  public $pdo ; 
+  private $pdo ; 
   private $log_file="loginError.log";
   public function __construct(){
     $this->authConnection();
@@ -14,11 +14,11 @@ class Auth{
   function authConnection() {
     $dsn = 'mysql:host=' . _HOST_ . ':'. _PORT_ . ';dbname=' . _DB_NAME_ .'';
     try{
-        $pdo = new PDO($dsn, _USER_, _PASSWORD_); 
+        $this->pdo = new PDO($dsn, _USER_, _PASSWORD_); 
     }catch(PDOException $e){
         die($e->getMessage());
     }
-    $this->auth = new \Delight\Auth\Auth($pdo);
+    $this->auth = new \Delight\Auth\Auth($this->pdo);
 }
   public function login(){
     try {
@@ -57,16 +57,17 @@ class Auth{
   }
 
   public function getLastVisit(){
-    $id = $this->auth->getUserId();
-    $stmt = $this->pdo->prepare('SELECT last_login FROM users WHERE id = ?' );
-    $stmt->bind_param('i' , $id);
-    $stmt->execute();
-    $result = $stmt->get_result()->fetch_assoc();
-    $last_login = $result['last_login'];
-    $last_login = date("Y-m-d H:i:s", $last_login);
     
-    if($last_login) {
-        new Message("Hello and welcome back! We hope you've been well since your last visit on $last_login");
+    $id = $this->auth->getUserId();
+    $stmt = $this->pdo->prepare('SELECT last_login FROM users WHERE id = ?');
+    $stmt->bindParam(1, $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $last_login_timestamp = $result['last_login'];
+    $last_login_formatted = date('Y-m-d H:i:s', $last_login_timestamp);
+    
+    if($last_login_formatted) {
+        new Message("Hello and welcome back! We hope you've been well since your last visit on $last_login_formatted");
     } else {
         new Message("Welcome! This is your first visit.");
     }
@@ -83,7 +84,7 @@ class Auth{
 
       $client = new Client(_ACCOUNT_SID_, _AUTH_TOKEN_);
       $sentOTP = mt_rand(100000, 999999);
-      $message = "Hello " . $user["uname"] . " your Verification OTP code is: " . $sentOTP;
+      $message = "Hello " . $user["username"] . " your Verification OTP code is: " . $sentOTP;
       
       try {
         $message = $client->messages->create(
@@ -117,7 +118,7 @@ class Auth{
         $user = $users->search(array("column" => "email", "value" => $userEmail));
 
         $data = [
-          'uname' => $user[0]['uname'],
+          'username' => $user[0]['username'],
           'email' => $user[0]['email'],
           'gid' => $user[0]['gid'],
           'mobile' => $user[0]['mobile'],

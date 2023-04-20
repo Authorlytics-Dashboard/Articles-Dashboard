@@ -55,7 +55,7 @@ section {
     background-blend-mode: screen;
     background-position: -100px;
     height: 100%;
-    padding: 2em;
+    padding: 4em;
     border-radius: 13px;
     overflow-y: auto;
 }

@@ -119,14 +119,21 @@ class Group extends CRUD {
         return $rowcount;
     }
     public function showError($error) {
-        foreach ($error as $key => $value) {
-            $script = "<script>";
-            if (!empty($value)){
-                $script .= "document.getElementById('$key').innerHTML = '$value';";
-            }
-            $script .= "</script>";
-            echo $script;
+    foreach ($error as $key => $value) {
+        $script = "<script>";
+        if (!empty($value)) {
+            $script .= "document.getElementById('$key').innerHTML = '$value';";
         }
+        $script .= "</script>";
+        echo $script;
+    }
+}
+    public function getUserInGroup($groupId){
+        $sql = "SELECT * FROM users INNER JOIN groups ON users.gid = groups.gid where groups.gid = $groupId";
+        // $img = "SELECT users.avatar FROM users INNER JOIN groups ON users.gid = groups.gid where groups.gid = users.gid;";
+        $results = $this->get_results($sql);
+
+        return  $results;
     }
 }
 

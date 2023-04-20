@@ -11,8 +11,9 @@
             <div class=" mb-3">
                 <label for="name" class="form-label">Group Name</label>
                 <input type="text" class="form-control" name="name" id="name"
-                    value="<?= htmlspecialchars($data['name'] ?? '') ?>">
+                    value="<?= htmlspecialchars($data['name'] ?? ''); ob_start();  ?>">
                 <label class="error-message text-danger mt-2" id="nameErr"></label>
+                <label class="error-message text-danger mt-2" id="name-error"></label>
             </div>
 
             <div class="mb-3">

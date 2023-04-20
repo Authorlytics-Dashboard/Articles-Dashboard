@@ -107,17 +107,12 @@ class User extends CRUD {
                 'gid' => $user[0]['gid'],
             );
             
-            if(! is_null($_FILES['avatar']['name'])){
+            if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK){
                 $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
                 move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
                 $avatar = basename($_FILES["avatar"]["name"]);
                 $edited_values['avatar'] = $avatar;
-            }else{
-                if(! is_null($user[0]['avatar'])){
-                    $edited_values['avatar'] = $user[0]['avatar'];
-                }
-            }
-            
+            }            
             $userValidation = new UserValidator($edited_values, "update");
 
             if( $userValidation->isValid()){
@@ -166,9 +161,13 @@ class User extends CRUD {
     }
 
     public function logout() {
-        $_SESSION = array(); // reset session array
-        session_destroy(); 
-        setcookie("remember_token", "", time() - 3600);  // destroy session     
+        $auth  = new Auth();
+        try {
+            $auth->auth->logout();
+        }
+        catch (\Delight\Auth\NotLoggedInException $e) {
+            die('Not logged in');
+        }
         header('Location: /login');
         exit;
     }

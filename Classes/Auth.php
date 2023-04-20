@@ -87,20 +87,22 @@ class Auth{
     
     if(!empty($user)){
       $user = $user[0];
+      setcookie('userID', $user['id']);
       $userMobile = $user["mobile"];
 
-      $client = new Client(_ACCOUNT_SID_, _AUTH_TOKEN_);
-      $sentOTP = mt_rand(100000, 999999);
+      // $client = new Client(_ACCOUNT_SID_, _AUTH_TOKEN_);
+      // $sentOTP = mt_rand(100000, 999999);
+      $sentOTP = 1234;
       $message = "Hello " . $user["username"] . " your Verification OTP code is: " . $sentOTP;
       
       try {
-        $message = $client->messages->create(
-        $userMobile,
-        array(
-            'body' => $message,
-            'from' => _SENDER_
-          )
-        );
+        // $message = $client->messages->create(
+        // $userMobile,
+        // array(
+            // 'body' => $message,
+            // 'from' => _SENDER_
+          // )
+        // );
         
         setcookie('otp', $sentOTP);
         return true;
@@ -119,23 +121,14 @@ class Auth{
     return false;
   }
 
-  public function changePassword($userEmail ,$password, $confirmedPass){
+  public function changePassword($password, $confirmedPass){
     if($password === $confirmedPass) {
+        $userId = $_COOKIE['userID'];
         $users = new User('users', "UsersErrors.log",'id');
-        $user = $users->search(array("column" => "email", "value" => $userEmail));
-
-        $data = [
-          'username' => $user[0]['username'],
-          'email' => $user[0]['email'],
-          'gid' => $user[0]['gid'],
-          'mobile' => $user[0]['mobile'],
-          'password' => password_hash($password, PASSWORD_DEFAULT),
-          'avatar' => $user[0]['avatar'],
-          'deleted_at' => $user[0]['deleted_at'],
-          'subscription_date' => $user[0]['subscription_date'],
-        ];
-
-        $users->update($data, $user[0]['id']);
+        $user = $users->search(array("column" => "id", "value" => $userId))[0];
+        $user['password'] = password_hash($password, PASSWORD_DEFAULT);
+        $users->update($user, $user['id']);
+        
         return true;
     }
     return false;

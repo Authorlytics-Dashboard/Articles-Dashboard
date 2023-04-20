@@ -138,6 +138,6 @@ class Auth{
         $users->update($data, $user[0]['id']);
         return true;
     }
-    return false;unset($_SESSION['data']);
+    return false;
   }
 }

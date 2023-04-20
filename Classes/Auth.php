@@ -8,9 +8,11 @@ class Auth{
 
   public $pdo ; 
   private $log_file="loginError.log";
+
   public function __construct(){
     $this->authConnection();
-}
+  }
+
   function authConnection() {
     $dsn = 'mysql:host=' . _HOST_ . ':'. _PORT_ . ';dbname=' . _DB_NAME_ .'';
     try{
@@ -19,7 +21,8 @@ class Auth{
         die($e->getMessage());
     }
     $this->auth = new \Delight\Auth\Auth($pdo);
-}
+  }
+
   public function login(){
     try {
       if ( isset($_POST['remember_me'])) {
@@ -33,23 +36,28 @@ class Auth{
         echo "<script>setTimeout(\"location.href = 'home';\",1500);</script>";
         return true ; 
     }
+
     catch (\Delight\Auth\InvalidEmailException $e) {
       new Message('Wrong email address');
       return false ; 
     }
+
     catch (\Delight\Auth\InvalidPasswordException $e) {
       new Message('Wrong password');
       return false ; 
     }
+
     catch (\Delight\Auth\EmailNotVerifiedException $e) {
       new Message('Email not verified');
       return false ; 
     }
+
     catch (\Delight\Auth\TooManyRequestsException $e) {
       new Message('Too many requests');
       return false ; 
     }
   }
+
   public function checkLoggedIn() {
     if($this->auth->isLoggedIn()){
       require_once("./views/dashboard.php");
@@ -83,7 +91,7 @@ class Auth{
 
       $client = new Client(_ACCOUNT_SID_, _AUTH_TOKEN_);
       $sentOTP = mt_rand(100000, 999999);
-      $message = "Hello " . $user["uname"] . " your Verification OTP code is: " . $sentOTP;
+      $message = "Hello " . $user["username"] . " your Verification OTP code is: " . $sentOTP;
       
       try {
         $message = $client->messages->create(
@@ -117,7 +125,7 @@ class Auth{
         $user = $users->search(array("column" => "email", "value" => $userEmail));
 
         $data = [
-          'uname' => $user[0]['uname'],
+          'username' => $user[0]['username'],
           'email' => $user[0]['email'],
           'gid' => $user[0]['gid'],
           'mobile' => $user[0]['mobile'],
@@ -130,6 +138,6 @@ class Auth{
         $users->update($data, $user[0]['id']);
         return true;
     }
-    return false;
+    return false;unset($_SESSION['data']);
   }
 }

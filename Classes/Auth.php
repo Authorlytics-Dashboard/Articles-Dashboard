@@ -20,7 +20,7 @@ class Auth{
     }catch(PDOException $e){
         die($e->getMessage());
     }
-    $this->auth = new \Delight\Auth\Auth($pdo);
+    $this->auth = new \Delight\Auth\Auth($this->pdo);
 }
   public function login(){
     try {
@@ -92,16 +92,16 @@ class Auth{
 
       $client = new Client(_ACCOUNT_SID_, _AUTH_TOKEN_);
       $sentOTP = mt_rand(100000, 999999);
-      $message = "Hello " . $user["uname"] . " your Verification OTP code is: " . $sentOTP;
+      $message = "Hello " . $user["username"] . " your Verification OTP code is: " . $sentOTP;
       
       try {
-        // $message = $client->messages->create(
-        // $userMobile,
-        // array(
-            // 'body' => $message,
-            // 'from' => _SENDER_
-          // )
-        // );
+        $message = $client->messages->create(
+        $userMobile,
+        array(
+            'body' => $message,
+            'from' => _SENDER_
+          )
+        );
         
         setcookie('otp', $sentOTP);
         return true;
@@ -124,20 +124,10 @@ class Auth{
     if($password === $confirmedPass) {
         $userId = $_COOKIE['userID'];
         $users = new User('users', "UsersErrors.log",'id');
-        $user = $users->search(array("column" => "email", "value" => $userEmail));
+        $user = $users->search(array("column" => "id", "value" => $userId))[0];
+        $user['password'] = password_hash($password, PASSWORD_DEFAULT);
 
-        $data = [
-          'uname' => $user[0]['uname'],
-          'email' => $user[0]['email'],
-          'gid' => $user[0]['gid'],
-          'mobile' => $user[0]['mobile'],
-          'password' => password_hash($password, PASSWORD_DEFAULT),
-          'avatar' => $user[0]['avatar'],
-          'deleted_at' => $user[0]['deleted_at'],
-          'subscription_date' => $user[0]['subscription_date'],
-        ];
-
-        $users->update($data, $user[0]['id']);
+        $users->update($user, $user['id']);
         return true;
     }
     return false;

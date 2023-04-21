@@ -1,4 +1,4 @@
-# Authorlytics Dashboard
+
 
 <div align="center" >
   <div style="display: flex; justify-content-center" >

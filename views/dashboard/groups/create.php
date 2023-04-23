@@ -1,8 +1,13 @@
 <?php
-    if (isset($_SESSION['data'])) {
-        $data = $_SESSION['data'];
-        unset($_SESSION['data']);
+
+    if (isset($_SESSION['GroupData'])) {
+        
+        $data = $_SESSION['GroupData'];
+   
+        unset($_SESSION['GroupData']);
+        
     }
+
     ob_start();
 ?>
 <section class="groupSection">
@@ -11,9 +16,8 @@
             <div class=" mb-3">
                 <label for="name" class="form-label">Group Name</label>
                 <input type="text" class="form-control" name="name" id="name"
-                    value="<?= htmlspecialchars($data['name'] ?? ''); ob_start();  ?>">
+                    value="<?= htmlspecialchars($data['gname'] ?? '');?>">
                 <label class="error-message text-danger mt-2" id="nameErr"></label>
-                <label class="error-message text-danger mt-2" id="name-error"></label>
             </div>
 
             <div class="mb-3">
@@ -39,12 +43,23 @@
 </section>
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'Create') {
-        $group = new Group('groups',"GroupsErrors.log",'gid');
+        
         $data = [
-            'name' => $_POST['name'],
+            'gname' => $_POST['name'],
             'description' => $_POST['description'],
             'avatar' => $_FILES['avatar']['name']
         ];
+
+        $group = new Group('groups',"GroupsErrors.log",'gid');
         $group->create($data);
+       
     }
+    
+    if (isset($_SESSION['GroupErrors'])) {
+        $errors = $_SESSION['GroupErrors'];
+        unset($_SESSION['GroupErrors']);
+        $group->showError($errors);
+    }
+
+
 ?>

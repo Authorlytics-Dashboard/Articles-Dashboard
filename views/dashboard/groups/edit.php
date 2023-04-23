@@ -1,12 +1,15 @@
 <?php  
 
+echo '<pre>';
+var_dump($_SESSION);
+echo '</pre>';
     $groupId = $_GET['id'];
     $group = new Group('groups',"GroupsErrors.log",'gid');
     $groupInfo = $group ->getRecordByID($groupId);
     $groupInfo = $groupInfo[0];
-    if (isset($_SESSION['data'])) {
-        $data = $_SESSION['data'];
-        unset($_SESSION['data']);
+    if (isset($_SESSION['GroupData'])) {
+        $data = $_SESSION['GroupData'];
+        unset($_SESSION['GroupData']);
     }
     ?>
 
@@ -21,14 +24,14 @@
             <div class=" mb-3">
                 <label for="name" class="form-label">Group Name</label>
                 <input type="text" class="form-control" name="name" id="name"
-                    value="<?= htmlspecialchars($data['name'] ?? '') ?>">
+                    value="<?= htmlspecialchars($data['gname'] ?? $groupInfo['gname']); ?>">
                 <label class="error-message text-danger mt-2" id="nameErr"></label>
             </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <input type="text" class="form-control" name="description" id="description"
-                    value="<?= htmlspecialchars($data['description'] ?? '') ?>">
+                    value="<?= htmlspecialchars($data['description'] ?? $groupInfo['description']); ?>">
                 <label class="error-message text-danger mt-2" id="descriptionErr"></label>
             </div>
             <div class="mb-3">
@@ -43,3 +46,10 @@
         </form>
     </div>
 </section>
+<?php 
+    if (isset($_SESSION['GroupErrors'])) {
+        $errors = $_SESSION['GroupErrors'];
+        unset($_SESSION['GroupErrors']);
+        $group->showError($errors);
+    }
+?>

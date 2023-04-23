@@ -24,26 +24,17 @@ class Group extends CRUD {
     }
     public function create($data){
         try {    
-            $groupValidation = new GroupValidator($data);
             $this->connect();
-            $gname = $data['name'];
-            $description = $data['description'];
-            $avatar = $data['avatar'];
+            $groupValidation = new GroupValidator($data);
             if($groupValidation ->isValid()) {
                 $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);
                 move_uploaded_file($_FILES["avatar"]["tmp_name"], __DIR__ . '/' . $target_file);
                 $avatar = basename($_FILES["avatar"]["name"]);
                 $data['avatar'] = $avatar;
-
-                $data = [
-                    'name' => $gname,
-                    'description' => $description,
-                    'avatar' => $avatar
-                ];
-
-            $this->save($data);
+                $this->save($data);
             }else{
-              $_SESSION['data'] = $data;
+               $_SESSION['GroupData'] = $data;
+               $_SESSION['GroupErrors'] = $groupValidation->getError();
               $this->showError($groupValidation->getError());
             }
         }catch(Exception $e) {
@@ -56,7 +47,7 @@ class Group extends CRUD {
     public function save($data){
         try{
             $this->connect();
-            $name = $data['name'];
+            $name = $data['gname'];
             $description = $data['description'];
             $avatar = $data['avatar'];
             $table = 'groups';
@@ -99,8 +90,8 @@ class Group extends CRUD {
             $update_group = $this->update($edited_values , $id);
             header('location:/groups');
            }else {
-                $_SESSION['data'] = $edited_values;
-                $_SESSION['errors'] = $groupValidation->getError();
+                $_SESSION['GroupData'] = $edited_values;
+                $_SESSION['GroupErrors'] = $groupValidation->getError();
                 header("location: /groups/edit/?id=$id");
             }
             

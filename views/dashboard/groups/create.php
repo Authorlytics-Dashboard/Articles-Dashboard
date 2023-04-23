@@ -1,4 +1,5 @@
 <?php
+        $group = new Group('groups',"GroupsErrors.log",'gid');
 
     if (isset($_SESSION['GroupData'])) {
         
@@ -50,7 +51,6 @@
             'avatar' => $_FILES['avatar']['name']
         ];
 
-        $group = new Group('groups',"GroupsErrors.log",'gid');
         $group->create($data);
        
     }

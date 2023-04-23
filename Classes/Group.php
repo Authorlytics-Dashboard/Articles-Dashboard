@@ -154,9 +154,9 @@ function buildInsertStatement($table, $data) {
     $values = "'" . implode("', '", array_values($data)) . "'";
     return "INSERT INTO $table ($columns) VALUES ($values)";
 }
-    private function showError($type, $message) {
-        echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
-    }
+    // private function showError($type, $message) {
+    //     echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
+    // }
     public function edit(){
         try{
           

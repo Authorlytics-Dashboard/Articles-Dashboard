@@ -1,39 +1,67 @@
 <?php
 class GroupValidator {
-    public function validateGroupName($name) {
-        if (empty($name)) {
-            return "Name is required";
-        } elseif (!preg_match('/^[a-zA-Z]+$/', $name)) {
-            return "Group name should only contain letters";
-        } elseif (strlen($name) < 3) {
-            return "Group name should be at least 3 characters long";
+
+    private $error;
+
+    public function __construct(private $data){
+        $this->validateGroupName();
+        $this->validateGroupAvatar();
+        $this->validateGroupDescription();
+    }
+
+    public function validateGroupName() {
+   
+            if (empty($this->data['gname'])) {
+                $this->error['nameErr'] =  "Group Name is required";
+            } elseif (strlen($this->data['gname']) < 3) {
+                $this->error['nameErr'] =  "Group Name should be at least 3 characters long";
+            } elseif (!preg_match('/^[a-zA-Z]+$/', $this->data['gname'])) {
+                $this->error['nameErr'] =  "Group name should only contain letters";
+            } else {
+                return null; 
+            }
+        return true;
+    }
+    public function validateGroupDescription() {
+        if (empty($this->data['description'])) {
+            $this->error['descriptionErr'] =  "Description is required";
+        } elseif (strlen($this->data['description']) < 3) {
+            $this->error['descriptionErr'] =  "Description should be at least 3 characters long";
+        } 
+        elseif (!preg_match('/^[a-zA-Z\s]+$/', $this->data['description'])) {
+            $this->error['descriptionErr'] =  "Group name should only contain letters";
         } else {
             return null; 
         }
+        return true;
     }
+
     
-    public function validateGroupDescription($description) {
-        if (empty($description)) {
-            return "Description is required";
-        } elseif (!preg_match('/^[a-zA-Z]+$/', $description)) {
-            return "Description should only contain letters";
-        } elseif (strlen($description) < 3) {
-            return "Description should be at least 3 characters long";
-        } else {
-            return null; 
-        }
-    }
-    
-    public function validateGroupAvatar($avatar) {
+    public function validateGroupAvatar() {
         $allowedExtensions = ['png', 'jpeg', 'jpg', 'gif'];
-        $extension = strtolower(pathinfo($avatar, PATHINFO_EXTENSION));
-        if (empty($avatar)) {
-            return "Avatar is required";
+        $extension = strtolower(pathinfo($this->data['avatar'], PATHINFO_EXTENSION));
+
+        if (empty($this->data['avatar'])) {
+            $this->error['avatarErr'] = "Avatar is required";
         } elseif (!in_array($extension, $allowedExtensions)) {
-            return "Avatar should be png, jpeg, jpg or gif";
+            $this->error['avatarErr']=  "Avatar should be png, jpeg, jpg or gif";
         } else {
             return null; 
         }
+        return true;
+    }
+
+    public function isValid(){
+        if( is_null($this->validateGroupName()) && is_null($this->validateGroupAvatar())
+         && is_null($this->validateGroupDescription())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getError(){
+        return $this->error;
     }
 }
 

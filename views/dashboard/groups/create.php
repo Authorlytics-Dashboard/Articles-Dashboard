@@ -1,6 +1,5 @@
 <?php
-        $group = new Group('groups',"GroupsErrors.log",'gid');
-
+    $group = new Group('groups',"GroupsErrors.log",'gid');
     if (isset($_SESSION['GroupData'])) {
         
         $data = $_SESSION['GroupData'];

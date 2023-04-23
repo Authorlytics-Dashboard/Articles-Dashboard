@@ -33,9 +33,11 @@ class Group extends CRUD {
                 $data['avatar'] = $avatar;
                 $this->save($data);
             }else{
-               $_SESSION['GroupData'] = $data;
-               $_SESSION['GroupErrors'] = $groupValidation->getError();
-              $this->showError($groupValidation->getError());
+                $_SESSION['GroupData'] = $data;
+                $_SESSION['GroupErrors'] = $groupValidation->getError();
+                session_write_close();
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                $this->showError($groupValidation->getError());
             }
         }catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
@@ -154,29 +156,33 @@ function buildInsertStatement($table, $data) {
     $values = "'" . implode("', '", array_values($data)) . "'";
     return "INSERT INTO $table ($columns) VALUES ($values)";
 }
-    // private function showError($type, $message) {
-    //     echo "<script>document.getElementById('$type').innerHTML = '$message';</script>";
-    // }
+
     public function edit(){
         try{
           
             $this->connect();
-            $avatar = $_FILES['avatar']['name'];
-            $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
-            move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
-            $avatar = basename($_FILES["avatar"]["name"]);
             $id = $_GET['id'];
+            $group = $this->getRecordByID($id);
             $edited_values = array(
                 'gname' => $_POST['name'],
                 'description' => $_POST['description'],
-                'avatar' => $avatar,
             );
-            
+
+            if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK){
+                $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
+                move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
+                $avatar = basename($_FILES["avatar"]["name"]);
+                $edited_values['avatar'] = $avatar;
+            }  
+            else{
+                $edited_values['avatar'] = $group[0]['avatar'];
+            }   
+
             $groupValidation = new GroupValidator($edited_values);
-           if($groupValidation->isValid()){
+            if($groupValidation->isValid()){
             $update_group = $this->update($edited_values , $id);
             header('location:/groups');
-           }else {
+            }else {
                 $_SESSION['GroupData'] = $edited_values;
                 $_SESSION['GroupErrors'] = $groupValidation->getError();
                 header("location: /groups/edit/?id=$id");

@@ -5,7 +5,7 @@
     $userInfo = $userInfo[0];
     $userInfo['mobile'] = substr($userInfo['mobile'], 2);
     if (isset($_SESSION['data'])) {
-        $data = $_SESSION['data'];
+        $userInfo = $_SESSION['data'];
         unset($_SESSION['data']);
     }
 ?> 
@@ -27,13 +27,13 @@
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="email"
-                    value="<?= htmlspecialchars($data['email'] ?? $userInfo["email"]) ?>">
+                    value="<?= htmlspecialchars($userInfo['email'] ?? $userInfo["email"]) ?>">
                 <p class="col-12 text-danger" id="emailErr"></p>
             </div>
             <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile</label>
                 <input type="text" class="form-control" name="mobile" id="mobile"
-                    value="<?= htmlspecialchars($data['mobile'] ?? $userInfo["mobile"]) ?>">
+                    value="<?= htmlspecialchars($userInfo['mobile'] ?? $userInfo["mobile"]) ?>">
                 <p class="col-12 text-danger" id="mobileErr"></p>
             </div>
             <div class="mb-3">

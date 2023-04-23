@@ -15,9 +15,8 @@ class ArticleValidator {
     public function validateArticleDescription($description) {
         if (empty($description)) {
             return "Description is required";
-        } elseif (!preg_match('/^[a-zA-Z]+$/', $description)) {
-            return "Description should only contain letters";
-        } elseif (strlen($description) < 3) {
+        }
+        elseif (strlen($description) < 3) {
             return "Description should be at least 3 characters long";
         } else {
             return null; 
@@ -28,9 +27,9 @@ class ArticleValidator {
         $allowedExtensions = ['png', 'jpeg', 'jpg', 'gif'];
         $extension = strtolower(pathinfo($avatar, PATHINFO_EXTENSION));
         if (empty($avatar)) {
-            return "Avatar is required";
+            return "Image is required";
         } elseif (!in_array($extension, $allowedExtensions)) {
-            return "Avatar should be png, jpeg, jpg or gif";
+            return "Image should be png, jpeg, jpg or gif";
         } else {
             return null; 
         }

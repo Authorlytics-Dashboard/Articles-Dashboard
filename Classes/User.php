@@ -1,29 +1,67 @@
 <?php
 
 class User extends CRUD {
-    public function create($data){
-        try {    
+    public function create($data) {
+        try {
             $this->connect();
-            $userValidation = new UserValidator($data, "create");
-            
-            if( $userValidation->isValid()){
-                $target_file = "../assets/Images/" . basename($_FILES["avatar"]["name"]);  
-                move_uploaded_file($_FILES["avatar"]["tmp_name"],__DIR__ . '/' . $target_file);
-                $data['avatar'] = basename($_FILES["avatar"]["name"]);
+            $userValidation = new UserValidator($data, "create");  
+            if ($userValidation->isValid()) {
+                $target_file = $this->uploadPhoto($_FILES["avatar"]);
+                $data['avatar'] = basename($target_file);
                 $data['mobile'] = "+2".$data['mobile'];
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+                $data['password'] = $this->hashPassword($data['password']);
                 $this->save($data);
-            }else{
+            } else {
                 $_SESSION['data'] = $data;
                 $this->showError($userValidation->getError());
             }
-        
-        }catch(Exception $e) {
+        } catch(Exception $e) {
             new Log($this->log_file, $e->getMessage());
             return false;
         }
     }
-
+    
+    private function uploadPhoto($file) {
+        try {
+            $target_file = "../assets/Images/" . basename($file["name"]);
+            if (!move_uploaded_file($file["tmp_name"], __DIR__ . '/' . $target_file)) {
+                throw new Exception('Error uploading file');
+            }
+            return basename($file["name"]);
+        } catch (Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+    }
+    
+    private function hashPassword($password) {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+    
+    public function save( $data) {
+        try {
+            $this->connect();
+            $this->insertData($this->table, $data);
+            $id = $this->_dbHandler->insert_id;
+            $this->assignRole($data['email'], $data['gid']);
+            $this->disconnect();
+            header("Location:/users");
+            return $id;
+        } catch(Exception $e) {
+            new Log($this->log_file, $e->getMessage());
+            return false;
+        }
+    }
+    
+    private function insertData($table, $data) {
+        $fields = array('email', 'password', 'username', 'registered', 'last_login', 'subscription_date', 'avatar', 'mobile', 'gid');
+        $values = array(
+            $data['email'], $data['password'], $data['username'],
+            date('Y-m-d H:i:s'), date('Y-m-d H:i:s'), date('Y-m-d H:i:s'),
+            $data['avatar'], $data['mobile'], $data['gid']
+        );
+        $sql = "INSERT INTO `$table` (" . implode(',', $fields) . ") VALUES ('" . implode("','", $values) . "')";        mysqli_query($this->_dbHandler, $sql);
+    }
     public function showError($error) {
         foreach ($error as $key => $value) {
             $script = "<script>";
@@ -60,38 +98,7 @@ class User extends CRUD {
         }
     }
 
-    public function save($data){
-        try{
-            $this->connect();
-            $username = $data['username'];
-            $email = $data['email'];
-            $avatar = $data['avatar'];
-            $groupID = $data['gid'];
-            $mobile = $data['mobile'];
-            $password = $data['password'];
-            $subscriptionDate = date('Y-m-d H:i:s'); 
-            $table = 'users';
 
-            $sql = "insert into `$table` (email, password,username,registered,last_login,subscription_date,avatar,mobile,gid) 
-            values ('$email', '$password', '$username',  '$subscriptionDate ', '$subscriptionDate ','$subscriptionDate ', '$avatar', '$mobile' , '$groupID');";
-            if (mysqli_query($this->_dbHandler, $sql)) {
-                $id = mysqli_insert_id($this->_dbHandler);
-                $this->assignRole($email,$groupID);
-                $this->disconnect();
-                header("Location:/users");
-                return $id;
-            } else {
-                $this->disconnect();
-                ob_end_flush();
-                header("Location: /users");
-    
-                return false;
-            }
-        }catch(Exception $e){
-            new Log($this->log_file, $e->getMessage());
-            return false;
-        }
-    }
 
     public function edit(){
         try{

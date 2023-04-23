@@ -1,7 +1,6 @@
 <?php
     require_once('../vendor/autoload.php');
     $auth = new Auth();
-    $userEmail = "";
     $error = "";
     $flag = 0;
 
@@ -35,9 +34,9 @@
         $password = $_POST["password"];
         $confirmPassword = $_POST["confirmPassword"];
         if(!empty($password) && !empty($confirmPassword)){
-            $confirmPass = $auth->changePassword($userEmail, $password, $confirmPassword);
+            $confirmPass = $auth->changePassword( $password, $confirmPassword);
             if(! $confirmPass){
-                $error = "Password doesnot match.";
+                $error = "Password does not match.";
                 $flag = 2;
             }else{
                 header("Location: /index.php");

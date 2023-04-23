@@ -2,8 +2,8 @@
     $users = new User('users', "UsersErrors.log",'id');
     $current_index = isset($_GET["page"]) && is_numeric($_GET["page"])? (int)$_GET["page"]: 0;
     $rowCount = $users->getCount('users');
-    $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
-    $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
+    $next_index = $current_index + _PAGE_RECORD_NUM_ <= $rowCount? $current_index + _PAGE_RECORD_NUM_: $current_index;
+    $previous_index = ($current_index - _PAGE_RECORD_NUM_ > 0)? $current_index - _PAGE_RECORD_NUM_ : 0;
     ob_start();
 ?>
 

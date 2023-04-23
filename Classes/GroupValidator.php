@@ -41,9 +41,7 @@ class GroupValidator {
         $allowedExtensions = ['png', 'jpeg', 'jpg', 'gif'];
         $extension = strtolower(pathinfo($this->data['avatar'], PATHINFO_EXTENSION));
 
-        if (empty($this->data['avatar'])) {
-            $this->error['avatarErr'] = "Avatar is required";
-        } elseif (!in_array($extension, $allowedExtensions)) {
+        if (!empty($this->data['avatar']) &&!in_array($extension, $allowedExtensions))  {
             $this->error['avatarErr']=  "Avatar should be png, jpeg, jpg or gif";
         } else {
             return null; 
@@ -53,7 +51,7 @@ class GroupValidator {
 
     public function isValid(){
         if( is_null($this->validateGroupName()) && is_null($this->validateGroupAvatar())
-         && is_null($this->validateGroupDescription())){
+        && is_null($this->validateGroupDescription())){
             return true;
         }else{
             return false;

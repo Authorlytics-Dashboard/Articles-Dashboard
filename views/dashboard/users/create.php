@@ -1,8 +1,9 @@
 <?php
+    $user = new User('users', "UsersErrors.log",'id');
     if (isset($_SESSION['data'])) {
         $data = $_SESSION['data'];
         unset($_SESSION['data']);
-
+        session_write_close();
     }
     ob_start();
 ?>
@@ -86,7 +87,13 @@
             'avatar' => $_FILES['avatar']['name']
         ];
 
-        $user = new User('users', "UsersErrors.log",'id');
+
         $user->create($data);
+    }
+
+    if (isset($_SESSION['UserErrors'])) {
+        $errors = $_SESSION['UserErrors'];
+        unset($_SESSION['UserErrors']);
+        $user->showError($errors);
     }
 ?>

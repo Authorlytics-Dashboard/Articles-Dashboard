@@ -1,8 +1,5 @@
 <?php  
 
-echo '<pre>';
-var_dump($_SESSION);
-echo '</pre>';
     $groupId = $_GET['id'];
     $group = new Group('groups',"GroupsErrors.log",'gid');
     $groupInfo = $group ->getRecordByID($groupId);

@@ -13,6 +13,9 @@ class User extends CRUD {
                 $this->save($data);
             } else {
                 $_SESSION['data'] = $data;
+                $_SESSION['UserErrors'] = $userValidation->getError();
+                session_write_close();
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
                 $this->showError($userValidation->getError());
             }
         } catch(Exception $e) {
@@ -119,7 +122,10 @@ class User extends CRUD {
                 move_uploaded_file($_FILES['avatar']['tmp_name'], __DIR__ . '/' . $target_file);
                 $avatar = basename($_FILES["avatar"]["name"]);
                 $edited_values['avatar'] = $avatar;
-            }            
+            }  
+            else{
+                $edited_values['avatar'] = $user[0]['avatar'];
+            }          
             $userValidation = new UserValidator($edited_values, "update");
 
             if( $userValidation->isValid()){

@@ -1,6 +1,5 @@
 <?php     
     $groupId = $_GET['id'];
-    // get data of group by its id and show it in fields 
     $group = new Group('groups',"GroupsErrors.log",'gid');
     $g = $group ->getRecordByID($groupId);
     $g = $g[0];

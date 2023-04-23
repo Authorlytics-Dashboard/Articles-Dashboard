@@ -78,7 +78,6 @@ class Auth{
     } else {
         new Message("Welcome! This is your first visit.");
     }
-    // new Message("Hello and welcome back! We hope you've been well since your last visit on $last_login");
   }
 
   public function resetPassword($userEmail){

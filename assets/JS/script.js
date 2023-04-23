@@ -4,6 +4,8 @@ let nav = document.querySelector("nav");
 let body = document.querySelector("body");
 let navUl = document.querySelector("nav ul");
 let navLinks = document.querySelectorAll("nav li a");
+let mennueBtn = document.querySelector(".menu-btn");
+let backBtn = document.querySelector(".back-btn");
 
 const savedMode = localStorage.getItem("Mode");
 if (savedMode !== undefined || savedMode !== null) {
@@ -34,4 +36,12 @@ darkModeBtn.addEventListener("change", function () {
   }
 
   localStorage.setItem("Mode", value);
+});
+
+mennueBtn.addEventListener("click", () => {
+    nav.style.transform = "translateX(0) ";
+});
+
+backBtn.addEventListener("click", () => {
+    nav.style.transform = "translateX(-100%) ";
 });

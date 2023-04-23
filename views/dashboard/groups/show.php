@@ -1,13 +1,9 @@
 <?php     
     $groupId = $_GET['id'];
-    // get data of group by its id and show it in fields 
     $group = new Group('groups',"GroupsErrors.log",'gid');
     $g = $group ->getRecordByID($groupId);
     $g = $g[0];
-    $handler = new MYSQLHandler();
-    $sql = "SELECT * FROM users INNER JOIN groups ON users.gid = groups.gid where groups.gid = $groupId";
-    $img = "SELECT users.avatar FROM users INNER JOIN groups ON users.gid = groups.gid where groups.gid = users.gid;";
-    $results = $handler->get_results($sql);
+    $results=$group->getUserInGroup($groupId);
 ?>
 
 

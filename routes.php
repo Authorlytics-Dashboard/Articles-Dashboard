@@ -108,6 +108,9 @@
                 include_once("./views/dashboard/users/index.php");
             }
             break;
+        case 'index.php':
+            include_once("./views/dashboard/home.php");
+            break;
         case 'logout':
             $user->logout();
             break;
@@ -120,5 +123,6 @@
             break;
         default:
             include_once("./views/error.php");
+
     }
 ?>

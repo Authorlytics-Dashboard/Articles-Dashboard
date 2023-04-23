@@ -51,7 +51,6 @@ class Article extends CRUD {
   
       return $validData;
   }
-  
   private function uploadPhoto($file) {
     try {
         $target_file = "../assets/Images/" . basename($file["name"]);

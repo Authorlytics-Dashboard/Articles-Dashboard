@@ -2,8 +2,8 @@
     $db = new Group('groups',"GroupsErrors.log",'gid');
     $current_index = isset($_GET["page"]) && is_numeric($_GET["page"])? (int)$_GET["page"]: 0;
     $rowCount = $db->getCount('groups');
-    $next_index = $current_index + 5 <= $rowCount? $current_index + 5: $current_index;
-    $previous_index = ($current_index - 5 > 0)? $current_index - 5 : 0;
+    $next_index = $current_index + _PAGE_RECORD_NUM_ <= $rowCount? $current_index + _PAGE_RECORD_NUM_: $current_index;
+    $previous_index = ($current_index - _PAGE_RECORD_NUM_ > 0)? $current_index - _PAGE_RECORD_NUM_ : 0;
 ?>  
 
 <section class="groupSection">

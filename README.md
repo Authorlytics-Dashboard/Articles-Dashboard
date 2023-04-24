@@ -12,7 +12,7 @@
 # Introduction
 This PHP-based articles website is designed to manage users and groups, and assign roles to each user based on their group. The website allows users to create, read, update and delete articles based on their assigned roles.
 
-## [Demo](https://youtu.be/4-UdTVfevS0)
+## Demo
 
 :tv: [Preview](https://www.youtube.com/watch?v=4-UdTVfevS0) 
 

@@ -14,7 +14,7 @@ This PHP-based articles website is designed to manage users and groups, and assi
 
 ## Demo
 
-[Preview](https://www.youtube.com/watch?v=q13ReHRv8VM) :tv:
+[Preview]() :tv:
 
 ## Features
 

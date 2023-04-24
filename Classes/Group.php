@@ -131,16 +131,17 @@ function buildInsertStatement($table, $data) {
         $rowcount=mysqli_num_rows($_handler_results);
         return $rowcount;
     }
+    
     public function showError($error) {
-    foreach ($error as $key => $value) {
-        $script = "<script>";
-        if (!empty($value)) {
-            $script .= "document.getElementById('$key').innerHTML = '$value';";
+        foreach ($error as $key => $value) {
+            $script = "<script>";
+            if (!empty($value)) {
+                $script .= "document.getElementById('$key').innerHTML = '$value';";
+            }
+            $script .= "</script>";
+            echo $script;
         }
-        $script .= "</script>";
-        echo $script;
     }
-}
     public function getUserInGroup($groupId){
         $sql = "SELECT * FROM users INNER JOIN groups ON users.gid = groups.gid where groups.gid = $groupId";
         $results = $this->get_results($sql);

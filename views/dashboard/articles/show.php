@@ -9,7 +9,6 @@
 ?>
 
 <section class="groupSection">
-
     <div class="container d-flex justify-content-center">
         <div class="row ">
             <div class="col-lg-12">
@@ -26,8 +25,9 @@
                                 <p>
                                     <?php echo "Creator Name: " ?>
                                     <?php $user = new User('users', "UsersErrors.log",'id');
-                            $createdBy = $user->getRecordByID($article['uid']);
-                            echo $createdBy[0]['username'];?>
+                                        $createdBy = $user->getRecordByID($article['uid']);
+                                        echo $createdBy[0]['username'];
+                                    ?>
                                 </p>
                                 <p><?php echo "Created at: " . $article["post_date"]; ?></p>
                                 <!-- Like Button -->
@@ -52,4 +52,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 </section>

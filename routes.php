@@ -108,14 +108,8 @@
                 include_once("./views/dashboard/users/index.php");
             }
             break;
-        case 'index.php':
-            include_once("./views/dashboard/home.php");
-            break;
         case 'logout':
             $user->logout();
-            break;
-        case 'login':
-            include_once("./views/login.php");
             break;
         case 'charts':
             if($permission->isViewer() && $permission->isEditor())
@@ -123,6 +117,5 @@
             break;
         default:
             include_once("./views/error.php");
-
     }
 ?>

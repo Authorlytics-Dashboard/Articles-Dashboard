@@ -12,7 +12,7 @@
 
             <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
-                <textarea name="body" id="body" cols="98" rows="5"></textarea>
+                <textarea name="body" id="body" cols="98" rows="5" style="max-width: 100%;"></textarea>
                 <label class="error-message text-danger mt-2" id="description-error"></label>
             </div>
 

@@ -24,10 +24,10 @@ navLinks.forEach((link) => {
     }
 });
 
-// if (clickedLink[3] == "error") {
-//     nav.style.display = "none";
-//     document.querySelector(".body").style.width = "100%"
-// }
+if (clickedLink[3] == "error") {
+    nav.style.display = "none";
+    document.querySelector(".body").style.width = "100%"
+}
 
 darkModeBtn.addEventListener("change", function () {
   let value = darkModeBtn.checked ? "light" : "dark";

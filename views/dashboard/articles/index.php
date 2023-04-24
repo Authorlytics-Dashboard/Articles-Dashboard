@@ -41,7 +41,6 @@
     </div>
 
     <?php 
- 
         if(isset($_GET['query'])) {
             $items = $articles->search(array("column" => "title", "value" => $_GET['query']));
         } else{

@@ -17,12 +17,17 @@ if (savedMode !== undefined || savedMode !== null) {
   }
 }
 
-const clickedLink = window.location.href.split("/")[3];
+const clickedLink = window.location.href.split("/");
 navLinks.forEach((link) => {
-  if (link.classList.contains(clickedLink)) {
-    link.classList.add("active");
-  }
+    if (link.classList.contains(clickedLink[3])) {
+        link.classList.add("active");
+    }
 });
+
+// if (clickedLink[3] == "error") {
+//     nav.style.display = "none";
+//     document.querySelector(".body").style.width = "100%"
+// }
 
 darkModeBtn.addEventListener("change", function () {
   let value = darkModeBtn.checked ? "light" : "dark";

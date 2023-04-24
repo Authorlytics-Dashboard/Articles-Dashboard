@@ -34,6 +34,9 @@
     color: white;
 }
 
+.light-mode nav div li i{
+    color: black;
+}
 /* ---------------------------------------------------------------------------------------------------------- */
 /* Home light mode */
 .light-mode .homeSection h1 {

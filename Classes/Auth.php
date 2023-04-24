@@ -32,7 +32,7 @@ class Auth{
       }
         $this->auth->login($_POST['email'], $_POST['password'],$rememberDuration);
         $this->getLastVisit();
-        echo "<script>setTimeout(\"location.href = 'home';\",1500);</script>";
+        echo "<script>setTimeout(\"location.href = '\\home';\",1500);</script>";
         return true ; 
     }
 
